@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\AttributelineController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +24,9 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin.dashboard-admin');
 });
+
+Route::resource('/admin/categories',CategoryController::class);
+Route::resource('/admin/attributes',AttributeController::class);
+Route::resource('/admin/attributelines',AttributelineController::class);
+Route::resource('/admin/products',ProductController::class);
+Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);

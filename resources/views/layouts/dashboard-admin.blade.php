@@ -11,8 +11,14 @@
     <link href="{{ asset('dashboard/vendor/jqvmap/css/jqvmap.min.css') }}" rel="stylesheet">
 	<link rel="stylesheet" href="{{ asset('dashboard/vendor/chartist/css/chartist.min.css') }}">
     <link href="{{ asset('dashboard/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+    <link href="{{ asset('dashboard/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('dashboard/css/style.css') }}" rel="stylesheet">
-	<link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{{asset('dashboard/uploader/pe-icon-7-stroke.css')}}">
+	<link rel="stylesheet" href="{{asset('dashboard/uploader/drop_uploader.css')}}">
+    <link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
+
 
 </head>
 
@@ -897,6 +903,7 @@
 	<script src="{{ asset('dashboard/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('dashboard/vendor/chart.js/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/custom.min.js') }}"></script>
+    <script src="{{ asset('dashboard/js/deznav-init.js') }}"></script>
 	<!-- Apex Chart -->
 	<script src="{{ asset('dashboard/vendor/apexchart/apexchart.js') }}"></script>
 
@@ -909,10 +916,18 @@
 
 	<!-- Dashboard 1 -->
 	<script src="{{ asset('dashboard/js/dashboard/dashboard-1.js') }}"></script>
+
+     <!-- Datatable -->
+	<script src="{{ asset('dashboard/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('dashboard/js/plugins-init/datatables.init.js') }}"></script>
 	<!-- Svganimation scripts -->
 	<script src="{{ asset('dashboard/vendor/svganimation/vivus.min.js') }}"></script>
     <script src="{{ asset('dashboard/vendor/svganimation/svg.animation.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
+    <script src="{{asset('dashboard/uploader/drop_uploader.js')}}"></script>
+    <script src="{{asset('dashboard/vendor/summernote/js/summernote.min.js')}}"></script>
+    <!-- Summernote init -->
+    <script src="{{asset('dashboard/js/plugins-init/summernote-init.js')}}"></script>
 	<script>
 	(function($) {
 		"use strict"
@@ -937,6 +952,42 @@
 
 	})(jQuery);
 	</script>
+    <script>
 
+        $(document).ready(function(){
+        $('input[type=file]').drop_uploader({
+            uploader_text: 'Drop files to upload, or',
+            browse_text: 'Browse',
+            only_one_error_text: 'Only one file allowed',
+            not_allowed_error_text: 'File type is not allowed',
+            big_file_before_error_text: 'Files, bigger than',
+            big_file_after_error_text: 'is not allowed',
+            allowed_before_error_text: 'Only',
+            allowed_after_error_text: 'files allowed',
+            browse_css_class: 'button button-primary',
+            browse_css_selector: 'file_browse',
+            uploader_icon: '',
+            file_icon: '',
+            progress_color: '#4a90e2',
+            time_show_errors: 5,
+            layout: 'thumbnails',
+            method: 'normal',
+            chunk_size: 1000000,
+            concurrent_uploads: 5,
+            show_percentage: true,
+            existing_files: false,
+            existing_files_removable: true,
+            send_existing_files: false,
+            url: 'ajax_upload.php',
+            delete_url: 'ajax_delete.php',
+        });
+    });
+    </script>
+@stack('add-attribute-scripts')
+@stack('add-image-scripts')
+@stack('generate-attribute-scripts')
+@stack('fixe-price-scripts')
+@stack('search-product-scripts')
+@stack('show-variation-scripts')
 </body>
 </html>
