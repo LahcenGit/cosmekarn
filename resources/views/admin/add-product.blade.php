@@ -2,33 +2,27 @@
 <style>
 
     .wrapper{
-       height: 200px;
-       width: 200px;
-       position: relative;
-       border: 2px solid #fff ;
-       background-size: 100% 100%;
-       background-repeat: no-repeat;
-       overflow: hidden;
-       margin: auto;
-
+       height: 100px;
+       width: 100px;
     }
 
     .my-file{
-        position: absolute;
-        bottom:0;
-        outline: none;
-        color: transparent;
+        height: 100px;
         width: 100%;
         box-sizing: border-box;
         cursor: pointer;
-        padding: 5px 80px;
         transition: 0.5s;
         background: rgb(0, 0, 0,0.5);
-
     }
+
     .my-file::-webkit-file-upload-button{
         visibility: hidden;
     }
+
+    .my-file::file-selector-button {    
+        visibility: hidden; 
+    }
+
     .my-file::before{
         content: '\f03e';
         font-family: fontAwesome;
