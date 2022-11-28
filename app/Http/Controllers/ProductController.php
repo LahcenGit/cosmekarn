@@ -126,11 +126,7 @@ class ProductController extends Controller
 
     }
 
-    public function search($value){
-        $products=Product::where('title','LIKE','%'.$value."%")->get();
-        return $products;
 
-    }
 
     public function destroy($id){
         $product = Product::find($id);
@@ -145,33 +141,4 @@ class ProductController extends Controller
 
 
 
-
-    public function getPrice($id,$attributeline_id){
-        $product = Productline::where('attributeline_id',$attributeline_id)->where('id',$id)->first();
-
-        $data = array(
-            "price" => number_format($product->price),
-            "promo" => number_format($product->promo_price)
-          );
-
-
-        return $data;
-    }
-
-
-    public function getProduct($id){
-        $product = Product::find($id);
-        $countproductlines = Productline::where('product_id',$product->id)->count();
-        if($countproductlines >1){
-            $productlines = null;
-        }
-        else{
-            $productlines = Productline::where('product_id',$product->id)->first();
-        }
-        $data = array(
-            "countproductlines" => $countproductlines,
-            "productlines" => $productlines
-          );
-        return $data;
-    }
 }
