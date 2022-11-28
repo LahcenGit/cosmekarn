@@ -126,7 +126,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-xl-3 col-lg-3">
                 <div class="card">
                     <div class="card-header">
@@ -160,7 +160,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-xl-3 col-lg-3">
                 <div class="card">
                     <div class="card-header">
@@ -177,7 +177,7 @@
                 </div>
             </div>
         </div>
-      
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -221,11 +221,12 @@
                             <div style="width: 50px; margin-right:50px;">
                                 <label>image:</label>
                                 <i class="fa-solid fa-image fa-2xl"></i>
+
                             </div>
                             <div style="width: 50px; margin-right:50px;">
                                 <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
