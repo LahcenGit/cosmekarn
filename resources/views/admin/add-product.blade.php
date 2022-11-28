@@ -225,7 +225,7 @@
                             <div style="width: 50px; margin-right:50px;">
                                 <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>
