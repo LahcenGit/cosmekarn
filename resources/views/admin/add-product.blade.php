@@ -1,4 +1,43 @@
 @extends('layouts.dashboard-admin')
+<style>
+
+    .wrapper{
+       height: 200px;
+       width: 200px;
+       position: relative;
+       border: 2px solid #fff ;
+       background-size: 100% 100%;
+       background-repeat: no-repeat;
+       overflow: hidden;
+       margin: auto;
+
+    }
+
+    .my-file{
+        position: absolute;
+        bottom:0;
+        outline: none;
+        color: transparent;
+        width: 100%;
+        box-sizing: border-box;
+        cursor: pointer;
+        padding: 5px 80px;
+        transition: 0.5s;
+        background: rgb(0, 0, 0,0.5);
+
+    }
+    .my-file::-webkit-file-upload-button{
+        visibility: hidden;
+    }
+    .my-file::before{
+        content: '\f03e';
+        font-family: fontAwesome;
+        font-size: 35px;
+        color: #fff;
+        display: inline-block;
+    }
+
+    </style>
 @section('content')
 
 <div class="content-body">
@@ -136,7 +175,7 @@
                     <label>L'image principale du produit :</label>
                         <div class="basic-form custom_file_input">
                                 <div class="input-group mb-3">
-                                        <input type="file"  name="photoPrincipale" accept="image/*"  >
+                                        <input type="file" class="file"  name="photoPrincipale" accept="image/*"  >
                                 </div>
                         </div>
                 </div>
@@ -170,7 +209,7 @@
                         <label>L'image principale du produit :</label>
                             <div class="basic-form custom_file_input">
                                     <div class="input-group mb-3">
-                                            <input type="file"  name="photos[]" accept="image/*" multiple >
+                                            <input type="file" class="file" name="photos[]" accept="image/*" multiple >
                                     </div>
                             </div>
                     </div>
@@ -218,10 +257,10 @@
                                 <label>Promo:</label>
                                 <input type="number" class="form-control" placeholder="0" name="promos[0]">
                             </div>
-                            <div style="width: 50px; margin-right:50px;">
-                                <label>image:</label>
-                                <i class="fa-solid fa-image fa-2xl"></i>
 
+                            <div class="wrapper user mb-4 mt-2">
+                                <label>image:</label>
+                                <input type="file" id="input-photo" name="image" class="my-file" >
                             </div>
                             <div style="width: 50px; margin-right:50px;">
                                 <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
@@ -368,4 +407,33 @@
 	</script>
 
 
+@endpush
+
+@push('add-image-icone-scripts')
+<script>
+    var image = $('#img-profile').attr('src');
+    $('.wrapper').css('background','url('+ image + ')');
+    $('.wrapper').css('background-size','100% 100%');
+
+    $(function(){
+    $('#input-photo').change(function(){
+        var input = this;
+        var url = $(this).val();
+        var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+        if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg"))
+        {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+            $('.wrapper').css('background','url('+ e.target.result + ')');
+            $('.wrapper').css('background-size','100% 100%');
+            }
+        reader.readAsDataURL(input.files[0]);
+        }
+
+    });
+
+    });
+
+</script>
 @endpush

@@ -865,7 +865,7 @@
     <script>
 
         $(document).ready(function(){
-        $('input[type=file]').drop_uploader({
+        $('.file').drop_uploader({
             uploader_text: 'Drop files to upload, or',
             browse_text: 'Browse',
             only_one_error_text: 'Only one file allowed',
@@ -899,5 +899,6 @@
 @stack('fixe-price-scripts')
 @stack('search-product-scripts')
 @stack('show-variation-scripts')
+@stack('add-image-icone-scripts')
 </body>
 </html>
