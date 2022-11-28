@@ -11,6 +11,8 @@
 
         <link href="{{asset('dashboard/vendor/jqvmap/css/jqvmap.min.css')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('dashboard/vendor/chartist/css/chartist.min.css')}}">
+            <!-- Toastr -->
+
         <link href="{{asset('dashboard/vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
         <link href="{{asset('dashboard/css/style.css')}}" rel="stylesheet">
         <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
@@ -18,6 +20,7 @@
         <link rel="stylesheet" href="{{asset('dashboard/uploader/drop_uploader.css')}}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" referrerpolicy="no-referrer" />
         <link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
+
     </head>
 
 <body>
@@ -837,6 +840,7 @@
     <!-- Summernote init -->
     <script src="{{asset('dashboard/js/plugins-init/summernote-init.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/fontawesome.min.js" referrerpolicy="no-referrer"></script>
+    <!-- Toastr -->
 
 	<script>
 	(function($) {
@@ -900,5 +904,7 @@
 @stack('search-product-scripts')
 @stack('show-variation-scripts')
 @stack('add-image-icone-scripts')
+@stack('show-modal-scripts')
+@stack('store-attribute-scripts')
 </body>
 </html>

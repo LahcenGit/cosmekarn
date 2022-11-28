@@ -143,5 +143,19 @@ class ProductController extends Controller
         return view('admin.modal-add-attribute',compact('attributes'));
     }
 
-
+    public function addAttribute(Request $request){
+        if($request->type == 0){
+            $attribute = new Attribute();
+            $attribute->value = $request->attr;
+            $attribute->save();
+        }
+        else{
+            $attributeline = new Attributeline();
+            $attributeline->attribute_id = $request->type;
+            $attributeline->value = $request->attr;
+            $attributeline->save();
+        }
+        $attributes = Attribute::all();
+        return $attributes;
+    }
 }

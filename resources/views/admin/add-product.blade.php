@@ -19,8 +19,8 @@
         visibility: hidden;
     }
 
-    .my-file::file-selector-button {    
-        visibility: hidden; 
+    .my-file::file-selector-button {
+        visibility: hidden;
     }
 
     .my-file::before{
@@ -220,9 +220,20 @@
                     </div>
                     <div class="card-body" id="variation" style="display: ;">
                         <div class="text-center">
-                            <button type="submit"  class="btn btn-success ">Gérer les attributs</button>
+                            <a href="#"  class="btn btn-success add-attribute ">Gérer les attributs</a>
                         </div>
-
+                        <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+                            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                <i class="fa-solid fa-check-to-slot mr-2" style="color: #4DAA7F"></i>
+                                <strong class="me-auto ml-2">Inscription réussite</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                Vous allez reçevoir toutes nos actualités
+                                </div>
+                            </div>
+                        </div>
                         <div id="dynamicAddRemove " class="row d-flex justify-content-center mt-3">
                             <div style="width: 200px; margin-right:50px;">
                                 <label >Attribut:</label>
@@ -279,7 +290,8 @@
         </form>
     </div>
 </div>
-
+<div id="modal-add-attribute">
+</div>
 
 @endsection
 
@@ -430,4 +442,69 @@
     });
 
 </script>
+@endpush
+@push('show-modal-scripts')
+<script>
+    $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $(".add-attribute").on('click',function() {
+
+    $.ajax({
+      url: '/show-modal',
+      type: "GET",
+      success: function (res) {
+
+        $('#modal-add-attribute').html(res);
+        $('#modal-add-attribute').find("#type").selectpicker();
+        $("#exampleModal").modal('show');
+      }
+    });
+
+  });
+  </script>
+@endpush
+@push('store-attribute-scripts')
+<script>
+    $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+
+    $("#modal-add-attribute").on('click','.storeAttribute',function(e){
+          e.preventDefault();
+          let attr = $('#attr').val();
+          let type = $('#type').val();
+
+          $.ajax({
+            type:"Post",
+            url: '/add-attribute',
+            data:{
+              "_token": "{{ csrf_token() }}",
+              attr:attr,
+              type:type,
+            },
+            success:function(res){
+
+              $('#exampleModal').modal('hide');
+              $("#liveToast").show();
+
+              $.each(res, function(i, res) {
+                     data = data + '<option value="'+ res.id+ '" >'+ res.value + '</option>';
+                        });
+
+              $('#select-content').selectpicker('refresh');
+              $('#select-content').html(data);
+              $('#select-content').selectpicker('refresh');
+			  $('#select-content').selectpicker('refresh');
+            },
+
+            });
+
+     });
+  </script>
 @endpush
