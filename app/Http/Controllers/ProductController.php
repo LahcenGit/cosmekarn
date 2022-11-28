@@ -138,7 +138,10 @@ class ProductController extends Controller
         return redirect('dashboard-admin/products');
     }
 
-
+    public function showModal(){
+        $attributes = Attribute::all();
+        return view('admin.modal-add-attribute',compact('attributes'));
+    }
 
 
 }
