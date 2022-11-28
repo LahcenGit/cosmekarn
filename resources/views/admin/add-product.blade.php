@@ -113,49 +113,20 @@
             <div class="col-xl-9 col-lg-9">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Variation ?</h4>
-                        <input type="checkbox" class="form-check-input" id="check" value="oui" name="check" >
+                        <h4 class="card-title">Description Courte: </h4>
                     </div>
-                    <div class="card-body" id="variation" style="display: none;">
+                    <div class="card-body">
                         <div class="basic-form">
-                          <div id="dynamicAddRemove" >
-                           <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                       <label class="form-label">Attribut:</label>
-                                            <select  id="select-content"  class="selectpicker" data-live-search="true" name="a[0]"  >
-                                                <option value="0">Nothing Selected</option>
-                                                @foreach($attributes as $a)
-                                                <option value="{{$a->id}}">{{$a->value}}</option>
-                                                @endforeach
-                                            </select>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label>Valeur:</label>
-                                        <select  id="select-value" class="selectpicker" data-live-search="true" name="values[0]"  >
-
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label>Qte:</label>
-                                        <input type="number" class="form-control" placeholder="0" name="qtes[0]">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label>Prix:</label>
-                                        <input type="number" class="form-control" placeholder="0" name="prices[0]">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label>Promo:</label>
-                                        <input type="number" class="form-control" placeholder="0" name="promos[0]">
-                                    </div>
-                                    <div class="form-group col-md-1">
-                                     <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
-                                    </div>
+                             <div class="row">
+                                    <div class="mb-3 col-md-12">
+                                    <textarea  class="form-control" name="short_description"></textarea>
+                                 </div>
                             </div>
-                          </div>
-                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            
             <div class="col-xl-3 col-lg-3">
                 <div class="card">
                     <div class="card-header">
@@ -176,19 +147,20 @@
             <div class="col-xl-9 col-lg-9">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Description Courte: </h4>
+                        <h4 class="card-title">Description Longue: </h4>
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
                              <div class="row">
                                     <div class="mb-3 col-md-12">
-                                    <textarea  class="form-control" name="short_description"></textarea>
+                                        <textarea class="summernote" class="form-control " name="long_description" >{{old('description')}}</textarea>
                                  </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
             <div class="col-xl-3 col-lg-3">
                 <div class="card">
                     <div class="card-header">
@@ -205,29 +177,66 @@
                 </div>
             </div>
         </div>
+      
         <div class="row">
-            <div class="col-xl-9 col-lg-9">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Description Longue: </h4>
+                        <input type="checkbox" class="form-check-input" id="check" value="oui" name="check" >
+                        <h4 class="card-title">Variants ?</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="basic-form">
-                             <div class="row">
-                                    <div class="mb-3 col-md-12">
-                                        <textarea class="summernote" class="form-control " name="long_description" >{{old('description')}}</textarea>
-                                 </div>
+                    <div class="card-body" id="variation" style="display: ;">
+                        <div class="text-center">
+                            <button type="submit"  class="btn btn-success ">Gérer les attributs</button>
+                        </div>
+
+                        <div id="dynamicAddRemove " class="row d-flex justify-content-center mt-3">
+                            <div style="width: 200px; margin-right:50px;">
+                                <label >Attribut:</label>
+                                <select  id="select-content"  class="selectpicker" data-live-search="true" name="a[0]"  >
+                                    <option value="0">Nothing Selected</option>
+                                    @foreach($attributes as $a)
+                                    <option value="{{$a->id}}">{{$a->value}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div style="width: 200px; margin-right:50px;">
+                                <label>Valeur:</label>
+                                <select  id="select-value" class="selectpicker" data-live-search="true" name="values[0]"  >
+
+                                </select>
+                            </div>
+                            <div style="width: 100px; margin-right:50px;">
+                                <label>Qte:</label>
+                                <input type="number" class="form-control" placeholder="0" name="qtes[0]">
+                            </div>
+                            <div style="width: 150px; margin-right:50px;">
+                                <label>Prix:</label>
+                                <input type="number" class="form-control" placeholder="0" name="prices[0]">
+                            </div>
+                            <div style="width: 150px; margin-right:50px;">
+                                <label>Promo:</label>
+                                <input type="number" class="form-control" placeholder="0" name="promos[0]">
+                            </div>
+                            <div style="width: 50px; margin-right:50px;">
+                                <label>image:</label>
+                                <i class="fa-solid fa-image fa-2xl"></i>
+                            </div>
+                            <div style="width: 50px; margin-right:50px;">
+                                <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
         <div class="row">
             <div class="col-xl-12 col-lg-12">
                 <div class="card">
                 <div class="card-body text-center">
-                    <button type="submit"  class="btn btn-primary mt-3">Ajouter</button>
+                    <button type="submit"  class="btn btn-primary mt-3">Ajouter le produit</button>
                     </form>
                 </div>
                </div>
