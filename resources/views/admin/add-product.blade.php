@@ -1,37 +1,5 @@
 @extends('layouts.dashboard-admin')
-<style>
 
-    .wrapper{
-       height: 100px;
-       width: 100px;
-    }
-
-    .my-file{
-        height: 100px;
-        width: 100%;
-        box-sizing: border-box;
-        cursor: pointer;
-        transition: 0.5s;
-        background: rgb(0, 0, 0,0.5);
-    }
-
-    .my-file::-webkit-file-upload-button{
-        visibility: hidden;
-    }
-
-    .my-file::file-selector-button {
-        visibility: hidden;
-    }
-
-    .my-file::before{
-        content: '\f03e';
-        font-family: fontAwesome;
-        font-size: 35px;
-        color: #fff;
-        display: inline-block;
-    }
-
-    </style>
 @section('content')
 
 <div class="content-body">
@@ -262,11 +230,21 @@
                                 <label>Promo:</label>
                                 <input type="number" class="form-control" placeholder="0" name="promos[0]">
                             </div>
-
-                            <div class="wrapper user mb-4 mt-2">
-                                <label>image:</label>
-                                <input type="file" id="input-photo" name="image" class="my-file" >
+                            <div style="width: 100px; ">
+                                <label >icon : </label> <br>
+                                <label for="icon" style="cursor: pointer;">
+                                    <img id="icon-show" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
+                                </label>
+                                <input type="file" class="input-image" id="icon" name="icon" accept="image/png, image/jpeg" style="display: none; visibility:none;">
                             </div>
+                            <div style="width: 100px; margin-right:50px;">
+                                <label >image : </label> <br>
+                                <label for="image" style="cursor: pointer;">
+                                    <img id="image-show" src="{{asset('image-upload.png')}}" width="100" height="100" alt="" >
+                                </label>
+                                <input type="file" class="input-image" id="image" name="image" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                            </div>
+                            
                             <div style="width: 50px; margin-right:50px;">
                                 <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                             </div>
@@ -349,6 +327,7 @@
 <script type="text/javascript">
 		var i = 0;
 		$("#add-attribute").click(function () {
+           
 			var options = $('#select-content').html();
 			++i;
 			$html = '<span><div class="row">'+
@@ -417,29 +396,29 @@
 
 @push('add-image-icone-scripts')
 <script>
-    var image = $('#img-profile').attr('src');
-    $('.wrapper').css('background','url('+ image + ')');
-    $('.wrapper').css('background-size','100% 100%');
+    
+    var storedFiles = [];
+    $(document).ready(function () {
+      $(".input-image").on("change", handleFileSelect);
+    
+    });
 
-    $(function(){
-    $('#input-photo').change(function(){
-        var input = this;
-        var url = $(this).val();
-        var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-        if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg"))
-        {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-            $('.wrapper').css('background','url('+ e.target.result + ')');
-            $('.wrapper').css('background-size','100% 100%');
-            }
-        reader.readAsDataURL(input.files[0]);
+    function handleFileSelect(e) {
+      id=  $(this).parent().find('img').attr("id");
+      var files = e.target.files;
+      var filesArr = Array.prototype.slice.call(files);
+      filesArr.forEach(function (f) {
+        if (!f.type.match("image.*")) {
+          return;
         }
-
-    });
-
-    });
+        storedFiles.push(f);
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#'+ id).attr('src', e.target.result);
+        };
+        reader.readAsDataURL(f);
+      });
+    }
 
 </script>
 @endpush
