@@ -116,7 +116,7 @@ class ProductController extends Controller
                 $product->images()->save($image);
             }
         }
-        return redirect('dashboard-admin/products');
+        return redirect('admin/products');
     }
 
 

@@ -186,7 +186,7 @@
                         <input type="checkbox" class="form-check-input" id="check" value="oui" name="check" >
                         <h4 class="card-title">Variants ?</h4>
                     </div>
-                    <div class="card-body" id="variation" style="display: ;">
+                    <div class="card-body" id="variation" style="display:none ;">
                         <div class="text-center">
                             <a href="#"  class="btn btn-success add-attribute ">Gérer les attributs</a>
                         </div>
@@ -202,7 +202,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="dynamicAddRemove " class="row d-flex justify-content-center mt-3">
+                        <div id="dynamicAddRemove">
+                        <div  class="row d-flex justify-content-center mt-3">
                             <div style="width: 200px; margin-right:50px;">
                                 <label >Attribut:</label>
                                 <select  id="select-content"  class="selectpicker" data-live-search="true" name="a[0]"  >
@@ -232,23 +233,24 @@
                             </div>
                             <div style="width: 100px; ">
                                 <label >icon : </label> <br>
-                                <label for="icon" style="cursor: pointer;">
-                                    <img id="icon-show" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
+                                <label for="icon0" style="cursor: pointer;">
+                                    <img id="icon-show0" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
                                 </label>
-                                <input type="file" class="input-image" id="icon" name="icon" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                <input type="file" class="input-image" id="icon0" name="icon" accept="image/png, image/jpeg" style="display: none; visibility:none;">
                             </div>
                             <div style="width: 100px; margin-right:50px;">
                                 <label >image : </label> <br>
-                                <label for="image" style="cursor: pointer;">
-                                    <img id="image-show" src="{{asset('image-upload.png')}}" width="100" height="100" alt="" >
+                                <label for="image0" style="cursor: pointer;">
+                                    <img id="image-show0" src="{{asset('image-upload.png')}}" width="100" height="100" alt="" >
                                 </label>
-                                <input type="file" class="input-image" id="image" name="image" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                <input type="file" class="input-image" id="image0" name="image" accept="image/png, image/jpeg" style="display: none; visibility:none;">
                             </div>
-                            
+
                             <div style="width: 50px; margin-right:50px;">
                                 <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -327,34 +329,52 @@
 <script type="text/javascript">
 		var i = 0;
 		$("#add-attribute").click(function () {
-           
+
 			var options = $('#select-content').html();
 			++i;
-			$html = '<span><div class="row">'+
-					'<div class="mb-3 col-md-3">'+
+			$html = '<span><div class="row d-flex justify-content-center mt-3">'+
+					'<div style="width: 200px; margin-right:50px;">'+
 					'<label for="" >Attribute:</label>'+
 					'<select  name="a['+i+']" id="select-attribute" class="selectpicker" data-live-search="true"  >'+
 					 options +
 					'</select>'+
 					'</div>'+
-                    '<div class="mb-2 col-md-2">'+
-					'<label for="">Valeur:</label>'+
-					'<select name="values['+i+']" id="select-attr'+i+'" class="selectpicker" data-live-search="true">'+
-					'</select>'+
-					'</div>'+
-                    '<div class="mb-2 col-md-2">'+
-						'<label>Qte:</label>'+
-						'<input type="number" class="form-control" placeholder="0" name="qtes['+i+']">'+
-				    '</div>'+
-                    '<div class="mb-2 col-md-2">'+
-						'<label>Prix:</label>'+
-						'<input type="number" class="form-control " placeholder="0" name="prices['+i+']">'+
-				    '</div>'+
-                    '<div class="mb-2 col-md-2">'+
-						'<label>Promo:</label>'+
-						'<input type="number" class="form-control " placeholder="0" name="promos['+i+']">'+
-				    '</div>'+
-                    '<div class="mb-1 col-md-1">'+
+
+                    '<div style="width: 200px; margin-right:50px;">'+
+                    '<label>Valeur:</label>'+
+                    '<select  id="select-value" class="selectpicker" data-live-search="true" name="values['+i+']"  >'+
+                    '</select>'+
+                    '</div>'+
+
+                    ' <div style="width: 100px; margin-right:50px;">'+
+                    '<label>Qte:</label>'+
+                    '<input type="number" class="form-control" placeholder="0" name="qtes['+i+']">'+
+                     '</div>'+
+
+                    '<div style="width: 150px; margin-right:50px;">'+
+                    '<label>Prix:</label>'+
+                    '<input type="number" class="form-control" placeholder="0" name="prices['+i+']">'+
+                    '</div>'+
+
+                    ' <div style="width: 150px; margin-right:50px;">'+
+                    '<label>Promo:</label>'+
+                    '<input type="number" class="form-control" placeholder="0" name="promos['+i+']">'+
+                    '</div>'+
+                    '<div style="width: 100px; ">'+
+                    '<label >icon : </label> <br>'+
+                    '<label for="icon'+i+'" style="cursor: pointer;">'+
+                    '<img id="icon-show'+i+'" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >'+
+                    '</label>'+
+                    '<input type="file" class="input-image" id="icon'+i+'" name="icon" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                    '</div>'+
+                    '<div style="width: 100px; margin-right:50px;">'+
+                    '<label >image : </label> <br>'+
+                    '<label for="image'+i+'" style="cursor: pointer;">'+
+                    '<img id="image-show'+i+'" src="{{asset('image-upload.png')}}" width="100" height="100" alt="" >'+
+                    '</label>'+
+                    '<input type="file" class="input-image" id="image'+i+'" name="image" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                    '</div>'+
+                    '<div style="width: 50px; margin-right:50px;">'+
                     ' <button type="button" id="delete-attribute" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>'+
                     '</div>	</div><span>';
 
@@ -396,11 +416,11 @@
 
 @push('add-image-icone-scripts')
 <script>
-    
+
     var storedFiles = [];
     $(document).ready(function () {
-      $(".input-image").on("change", handleFileSelect);
-    
+     $(".input-image").on("change", handleFileSelect);
+
     });
 
     function handleFileSelect(e) {
