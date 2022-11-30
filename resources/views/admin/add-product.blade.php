@@ -29,7 +29,7 @@
                         <h4 class="card-title">Ajouter produit</h4>
                     </div>
                     <div class="card-body">
-                           
+
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Désignation*:</label>
@@ -207,7 +207,7 @@
                         <div  class="row d-flex justify-content-center mt-3">
                             <div style="width: 200px; margin-right:50px;">
                                 <label >Attribut:</label>
-                                <select  id="select-attributes-0"  class="selectpicker select-attributes" data-live-search="true" name="a[0]"  >
+                                <select  id="select-attributes"  class="selectpicker select-attributes" data-live-search="true" name="a[0]"  >
                                     <option value="0">Nothing Selected</option>
                                     @foreach($attributes as $a)
                                     <option value="{{$a->id}}">{{$a->value}}</option>
@@ -216,7 +216,7 @@
                             </div>
                             <div style="width: 200px; margin-right:50px;">
                                 <label>Valeur:</label>
-                                <select  id="select-values-0" class="selectpicker select-values" data-live-search="true" name="values[]"  >
+                                <select id="select-value" class="selectpicker" data-live-search="true" name="values[]"  >
 
                                 </select>
                             </div>
@@ -234,17 +234,17 @@
                             </div>
                             <div style="width: 100px; ">
                                 <label >icon : </label> <br>
-                                <label for="icon0" style="cursor: pointer;">
-                                    <img id="icon-show0" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
+                                <label for="icon-0" style="cursor: pointer;">
+                                    <img id="icon-show-0" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
                                 </label>
-                                <input type="file" class="input-image" id="icon0" name="icon" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                <input type="file" class="input-image" id="icon-0" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
                             </div>
                             <div style="width: 100px; margin-right:50px;">
                                 <label >image : </label> <br>
-                                <label for="image0" style="cursor: pointer;">
-                                    <img id="image-show0" src="{{asset('image-upload.png')}}" width="100" height="100" alt="" >
+                                <label for="image-0" style="cursor: pointer;">
+                                    <img id="image-show-0" src="{{asset('image-upload.png')}}" width="100" height="100" alt="" >
                                 </label>
-                                <input type="file" class="input-image" id="image0" name="image" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                <input type="file" class="input-image" id="image-0" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
                             </div>
 
                             <div style="width: 50px; margin-right:50px;">
@@ -303,14 +303,9 @@
 
 	$("body").on('change','.select-attributes',function() {
 
-       
-
-		var id = $(this).val();
+        var id = $(this).val();
 		var data ="";
-
-        alert($(this).attr(id));
-
-		$.ajax({
+        $.ajax({
 			url: '/get-attribute/' + id,
 			type: "GET",
 
@@ -336,19 +331,19 @@
 		var i = 0;
 		$("#add-attribute").click(function () {
 
-			var options = $('#select-content').html();
+			var options = $('#select-attributes').html();
 			++i;
 			$html = '<span><div class="row d-flex justify-content-center mt-3">'+
 					'<div style="width: 200px; margin-right:50px;">'+
 					'<label for="" >Attribute:</label>'+
-					'<select  name="a['+i+']" id="select-attributes-'+i+'" class="selectpicker select-attributes" data-live-search="true"  >'+
+					'<select  name="a['+i+']" id="select-attribute" class="selectpicker" data-live-search="true"  >'+
 					 options +
 					'</select>'+
 					'</div>'+
 
                     '<div style="width: 200px; margin-right:50px;">'+
                     '<label>Valeur:</label>'+
-                    '<select  id="select-values-'+i+'" class="selectpicker select-values" data-live-search="true" name="values['+i+']"  >'+
+                    '<select  id="select-attr'+i+'" class="selectpicker" data-live-search="true" name="values['+i+']"  >'+
                     '</select>'+
                     '</div>'+
 
@@ -368,17 +363,17 @@
                     '</div>'+
                     '<div style="width: 100px; ">'+
                     '<label >icon : </label> <br>'+
-                    '<label for="icon'+i+'" style="cursor: pointer;">'+
-                    '<img id="icon-show'+i+'" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >'+
+                    '<label for="icon-'+i+'" style="cursor: pointer;">'+
+                    '<img id="icon-show-'+i+'" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >'+
                     '</label>'+
-                    '<input type="file" class="input-image" id="icon'+i+'" name="icon" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                    '<input type="file" class="input-image" id="icon-'+i+'" name="icons['+i+']" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
                     '</div>'+
                     '<div style="width: 100px; margin-right:50px;">'+
                     '<label >image : </label> <br>'+
-                    '<label for="image'+i+'" style="cursor: pointer;">'+
-                    '<img id="image-show'+i+'" src="{{asset('image-upload.png')}}" width="100" height="100" alt="" >'+
+                    '<label for="image-'+i+'" style="cursor: pointer;">'+
+                    '<img id="image-show-'+i+'" src="{{asset('image-upload.png')}}" width="100" height="100" alt="" >'+
                     '</label>'+
-                    '<input type="file" class="input-image" id="image'+i+'" name="image" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                    '<input type="file" class="input-image" id="image-'+i+'" name="images['+i+']" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
                     '</div>'+
                     '<div style="width: 50px; margin-right:50px;">'+
                     ' <button type="button" id="delete-attribute" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>'+
@@ -424,7 +419,7 @@
 <script>
 
     var storedFiles = [];
- 
+
     $(document).ready(function () {
         $("body").on('change','.input-image',handleFileSelect);
 

@@ -32,3 +32,4 @@ Route::resource('/admin/products',ProductController::class);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
 Route::post('/add-attribute', [App\Http\Controllers\ProductController::class, 'addAttribute']);
+Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -60,8 +61,8 @@ class ProductController extends Controller
         }
         //product has many attribute
         else{
-          dd($request->values[]);
-        for($i=0 ; $i<count($request->qtes) ; $i++){
+
+        for($i=0 ; $i<count($request->a) ; $i++){
             $productline = new Productline();
             $productline->product_id = $product->id;
             $productline->attributeline_id = $request->values[$i];
@@ -70,8 +71,22 @@ class ProductController extends Controller
             $productline->price = $request->prices[$i];
             $productline->promo_price = $request->promos[$i];
             $productline->status = $request->status;
-            $productline->save();
 
+            if($request->icons){
+                $destination = 'public/icones/productlines';
+                $path = $request->icons[$i]->store($destination);
+                $storageName = basename($path);
+                $productline->attribute_icone = $storageName;
+            }
+
+
+            if($request->images){
+                $destination = 'public/images/productlines';
+                $path = $request->images[$i]->store($destination);
+                $storageName = basename($path);
+                $productline->attribute_image = $storageName;
+             }
+            $productline->save();
         }
     }
        //product has related products
@@ -157,5 +172,56 @@ class ProductController extends Controller
         }
         $attributes = Attribute::all();
         return $attributes;
+    }
+
+
+    public function detailProduct($slug){
+        $product = Product::where('slug',$slug)->first();
+        $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
+        $countproductlines = Productline::where('product_id',$product->id)->count();
+
+        //product has many attribute
+        if($countproductlines > 1){
+           // recover the minimum price
+           $min_price = Productline::where('product_id',$product->id)->min('price');
+           //recover the minimum price_promo
+           $min_price_promo = Productline::where('product_id',$product->id)->min('promo_price');
+           //recover the productlines groupby attribute
+           $productlines = Productline::with('attributeLine')->where('product_id',$product->id)
+                                    ->orderBy('price','asc')
+                                    ->get();
+
+
+            //first productline
+            $product_line = Productline::where('product_id',$product->id)->first();
+            $attributes = null;
+
+            $images = $product->images;
+            $images_attributes = $product->productlines;
+
+            if($images){
+                $secondary_images = $images->where('type',2);
+            }
+
+
+           }
+          //product has no attribute
+        else{
+           $images = $product->images;
+           $secondary_images = $images->where('type',2);
+           $min_price = null;
+           $min_price_promo = null;
+           $product_line = Productline::where('product_id',$product->id)->first();
+           $productlines = null;
+           $attributes = null;
+           $images_attributes = null;
+        }
+        $categories = Category::where('parent_id',null)->limit('5')->get();
+        // 3 new products
+        $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
+        $category = Productcategory::where('product_id',$product->id)->first();
+        $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
+
+        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes'));
     }
 }
