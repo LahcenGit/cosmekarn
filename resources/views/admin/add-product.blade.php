@@ -18,6 +18,10 @@
                 </ol>
             </div>
         </div>
+
+        <form action="{{url('admin/products')}}" method="POST" enctype="multipart/form-data">
+        @csrf
+
         <div class="row ">
             <div class="col-xl-9 col-lg-9">
                 <div class="card">
@@ -25,9 +29,7 @@
                         <h4 class="card-title">Ajouter produit</h4>
                     </div>
                     <div class="card-body">
-                        <div class="basic-form">
-                            <form action="{{url('admin/products')}}" method="POST" enctype="multipart/form-data">
-                                @csrf
+                           
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Désignation*:</label>
@@ -89,7 +91,6 @@
                                             @enderror
                                     </div>
                                 </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -206,7 +207,7 @@
                         <div  class="row d-flex justify-content-center mt-3">
                             <div style="width: 200px; margin-right:50px;">
                                 <label >Attribut:</label>
-                                <select  id="select-content"  class="selectpicker" data-live-search="true" name="a[0]"  >
+                                <select  id="select-attributes-0"  class="selectpicker select-attributes" data-live-search="true" name="a[0]"  >
                                     <option value="0">Nothing Selected</option>
                                     @foreach($attributes as $a)
                                     <option value="{{$a->id}}">{{$a->value}}</option>
@@ -215,7 +216,7 @@
                             </div>
                             <div style="width: 200px; margin-right:50px;">
                                 <label>Valeur:</label>
-                                <select  id="select-value" class="selectpicker" data-live-search="true" name="values[0]"  >
+                                <select  id="select-values-0" class="selectpicker select-values" data-live-search="true" name="values[]"  >
 
                                 </select>
                             </div>
@@ -256,7 +257,6 @@
             </div>
         </div>
 
-
         <div class="row">
             <div class="col-xl-12 col-lg-12">
                 <div class="card">
@@ -270,6 +270,7 @@
         </form>
     </div>
 </div>
+
 <div id="modal-add-attribute">
 </div>
 
@@ -297,12 +298,17 @@
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
- });
+    });
 
-	$("#select-content").change(function() {
+
+	$("body").on('change','.select-attributes',function() {
+
+       
 
 		var id = $(this).val();
 		var data ="";
+
+        alert($(this).attr(id));
 
 		$.ajax({
 			url: '/get-attribute/' + id,
@@ -335,14 +341,14 @@
 			$html = '<span><div class="row d-flex justify-content-center mt-3">'+
 					'<div style="width: 200px; margin-right:50px;">'+
 					'<label for="" >Attribute:</label>'+
-					'<select  name="a['+i+']" id="select-attribute" class="selectpicker" data-live-search="true"  >'+
+					'<select  name="a['+i+']" id="select-attributes-'+i+'" class="selectpicker select-attributes" data-live-search="true"  >'+
 					 options +
 					'</select>'+
 					'</div>'+
 
                     '<div style="width: 200px; margin-right:50px;">'+
                     '<label>Valeur:</label>'+
-                    '<select  id="select-value" class="selectpicker" data-live-search="true" name="values['+i+']"  >'+
+                    '<select  id="select-values-'+i+'" class="selectpicker select-values" data-live-search="true" name="values['+i+']"  >'+
                     '</select>'+
                     '</div>'+
 
@@ -418,8 +424,9 @@
 <script>
 
     var storedFiles = [];
+ 
     $(document).ready(function () {
-     $(".input-image").on("change", handleFileSelect);
+        $("body").on('change','.input-image',handleFileSelect);
 
     });
 
