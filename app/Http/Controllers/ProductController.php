@@ -60,7 +60,7 @@ class ProductController extends Controller
         }
         //product has many attribute
         else{
-
+          dd($request->values);
         for($i=0 ; $i<count($request->qtes) ; $i++){
             $productline = new Productline();
             $productline->product_id = $product->id;
