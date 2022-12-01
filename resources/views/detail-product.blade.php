@@ -15,27 +15,27 @@
                                     <img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product-details" />
                                 </div>
                                 @if($images_attributes)
-                                   @foreach($images_attributes as $image_attribute)
+                                    @foreach($images_attributes as $image_attribute)
                                     <div class="pro-large-img img-zoom">
-                                        <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="product-details" />
+                                        <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="{{ $image_attribute->attributeLine->value }}" />
                                     </div>
                                     @endforeach
                                 @else
                                     @foreach($secondary_images as $secondary_image)
                                     <div class="pro-large-img img-zoom">
-                                        <img src="{{asset('storage/images/products/'.$secondary_image->lien)}}" alt="product-details" />
+                                        <img src="{{asset('storage/images/products/'.$secondary_image->lien)}}" alt="{{ $secondary_image->attributeLine->value }}" />
                                     </div>
                                     @endforeach
                                 @endif
                             </div>
                             <div class="pro-nav slick-row-10 slick-arrow-style">
                                 @if($images_attributes)
-                                    <div class="pro-nav-thumb">
-                                        <img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product-details" />
-                                    </div>
+                                <div class="pro-nav-thumb">
+                                    <img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product-details" />
+                                </div>
                                     @foreach($images_attributes as $image_attribute)
                                     <div class="pro-nav-thumb">
-                                        <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="product-details" />
+                                        <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="{{ $image_attribute->attributeLine->value }}" />
                                     </div>
                                     @endforeach
                                 @else
@@ -96,26 +96,41 @@
                                         <a class="btn btn-cart2" href="#">Add to cart</a>
                                     </div>
                                 </div>
-                                <div class="pro-size">
-                                    <h6 class="option-title">size :</h6>
-                                    <select class="nice-select">
-                                        <option>S</option>
-                                        <option>M</option>
-                                        <option>L</option>
-                                        <option>XL</option>
-                                    </select>
-                                </div>
-                                @if($productlines)
-                                    <div class="color-option">
-                                        <h6 class="option-title">Couleur :</h6>
-                                        <ul class="color-categories">
-                                            @foreach($productlines as $productline)
-                                            <li>
-                                                <a href="#" title="LightSteelblue"><img src="{{ asset('storage/icones/productlines/'.$productline->attribute_icone) }}" alt="product-details" /></a>
-                                            </li>
+                                @if($product_lines)
+                                    @foreach($product_lines as $product_line)
+                                        <div class="pro-size">
+                                          @foreach($product_line as $item)
+                                                @if($loop->iteration == 1 && $item->attribute->value != 'Couleur')
+                                                <h6 class="option-title">{{$item->attribute->value}}:</h6>
+                                                @endif
+                                                @if($item->attribute->value != 'Couleur')
+                                                <div class="action_link">
+                                                    <a class="btn btn-cart2 ml-2" href="#">{{$item->attributeLine->value}}</a>
+                                                </div>
+                                                @endif
+                                          @endforeach
+                                        </div>
+                                    @endforeach
+                                @endif
+
+                                @if($product_lines)
+                                    @foreach($product_lines as $product_line)
+                                        <div class="color-option">
+                                            @foreach($product_line as $item)
+                                                @if($loop->iteration == 1 && $item->attribute->value == 'Couleur')
+                                                <h6 class="option-title">Couleur : {{ $item->attributeLine->value }}</h6><br>
+                                                @endif
+                                                <ul class="color-categories">
+                                                    @if($item->attribute->value == 'Couleur')
+                                                    <li>
+                                                        <a href="#" title="{{ $item->attributeLine->value }}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="{{ $item->attributeLine->value }}" /></a>
+                                                    </li>
+                                                    @endif
+
+                                                </ul>
                                             @endforeach
-                                        </ul>
-                                    </div>
+                                        </div>
+                                    @endforeach
                                 @endif
                                 <div class="useful-links">
                                     <a href="#" data-bs-toggle="tooltip" title="Compare"><i

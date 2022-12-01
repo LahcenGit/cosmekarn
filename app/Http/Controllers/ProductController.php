@@ -187,11 +187,14 @@ class ProductController extends Controller
            //recover the minimum price_promo
            $min_price_promo = Productline::where('product_id',$product->id)->min('promo_price');
            //recover the productlines groupby attribute
-           $productlines = Productline::with('attributeLine')->where('product_id',$product->id)
-                                    ->orderBy('price','asc')
-                                    ->get();
+           $product_lines = Productline::with('attributeLine')->where('product_id',$product->id)
+                                        ->orderBy('price','asc')
+                                        ->get()
+                                        ->groupBy('attribute_id');
 
-
+            $productlines = Productline::with('attributeLine')->where('product_id',$product->id)
+                            ->orderBy('price','asc')
+                            ->get();
             //first productline
             $product_line = Productline::where('product_id',$product->id)->first();
             $attributes = null;
@@ -222,6 +225,6 @@ class ProductController extends Controller
         $category = Productcategory::where('product_id',$product->id)->first();
         $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
 
-        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes'));
+        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes'));
     }
 }
