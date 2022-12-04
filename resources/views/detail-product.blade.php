@@ -36,7 +36,7 @@
                                     <img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product-details" />
                                 </div>
                                     @foreach($images_attributes as $image_attribute)
-                                    <div class="pro-nav-thumb">
+                                    <div class="pro-nav-thumb" id="{{'related-img-'.$image_attribute->id}}">
                                         <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="{{ $image_attribute->attributeLine->value }}" />
                                     </div>
                                     @endforeach
@@ -90,12 +90,12 @@
                                 </div>
                                 <p class="pro-desc">{{$product->short_description}}</p>
                                 <div class="quantity-cart-box d-flex align-items-center">
-                                    <h6 class="option-title">qty:</h6>
+                                    <h6 class="option-title">Qte:</h6>
                                     <div class="quantity">
                                         <div class="pro-qty"><input type="text" value="1"></div>
                                     </div>
                                     <div class="action_link">
-                                        <a class="btn btn-cart2" href="#">Add to cart</a>
+                                        <a class="btn btn-cart2" href="#">Acheter</a>
                                     </div>
                                 </div>
                                 @if($product_lines)
@@ -118,19 +118,18 @@
                                 @if($product_lines)
                                     @foreach($product_lines as $product_line)
                                         <div class="color-option">
-                                            @foreach($product_line as $item)
-                                                @if($loop->iteration == 1 && $item->attribute->value == 'Couleur')
-                                                <h6 class="option-title">Couleur : {{ $item->attributeLine->value }}</h6><br>
-                                                @endif
-                                                <ul class="color-categories">
-                                                    @if($item->attribute->value == 'Couleur')
-                                                    <li>
-                                                        <a href="#" title="{{ $item->attributeLine->value }}" id="{{ $item->id }}" class="select-icon"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="{{ $item->attributeLine->value }}" /></a>
-                                                    </li>
+                                            <ul class="color-categories" >
+                                                @foreach($product_line as $item)
+                                                    @if($loop->iteration == 1 && $item->attribute->value == 'Couleur')
+                                                    <h6 class="option-title">Couleur : <span class="color-title"> <b>{{ $item->attributeLine->value }} </b> </span></h6><br>
                                                     @endif
-
-                                                </ul>
-                                            @endforeach
+                                                    @if($item->attribute->value == 'Couleur')
+                                                        <li id="{{'li-'.$item->id}}" >
+                                                            <a title="{{$item->attributeLine->value}}" id="{{$item->id}}" style="cursor: pointer"  class="select-icon"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone)}}" alt="{{ $item->attributeLine->value }}"/></a>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     @endforeach
                                 @endif
@@ -369,5 +368,18 @@
 
 
 @endsection
+
+@push('select-icon-indice')
+<script>
+    $(".select-icon").click(function() {
+        $('.color-categories li').removeAttr('class');
+        var title = $(this).attr('title');
+        $('.color-title b').html(title);
+        id = $(this).attr('id');
+        $("#li-"+id).addClass("selected-icon");
+        $('#related-img-'+id).trigger('click');
+    });
+</script> 
+@endpush
 
 

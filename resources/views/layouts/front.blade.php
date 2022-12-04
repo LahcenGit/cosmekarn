@@ -779,6 +779,7 @@
     <script src="{{ asset('front/assets/js/main.js') }}"></script>
 
 @stack('select-icon-script')
+@stack('select-icon-indice')
 </body>
 
 </html>

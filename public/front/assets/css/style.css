@@ -3203,27 +3203,36 @@ textarea:focus {
   color: #c29958;
 }
 
+
+
 .color-categories {
   line-height: 1;
 }
 .color-categories li {
   display: inline-block;
   padding: 1px;
-  border-radius: 50%;
-  border: 1px solid #efefef;
+  border-radius: 30%;
+  border: 2px solid #efefef;
   -webkit-transition: 0.4s;
   -o-transition: 0.4s;
   transition: 0.4s;
 }
 .color-categories li:hover {
-  border-color: #c29958;
+  border: 2px solid #c29958;
 }
+
+.selected-icon {
+  border: 2px solid #c29958!important;
+}
+
 .color-categories li a {
-  height: 12px;
-  width: 12px;
+  height: 40px;
+  width: 40px;
   display: block;
   border-radius: 50%;
 }
+
+
 
 .c-lightblue {
   background-color: #b0c4de;
