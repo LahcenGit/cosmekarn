@@ -32,5 +32,5 @@ Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
 Route::post('/add-attribute', [App\Http\Controllers\ProductController::class, 'addAttribute']);
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
-
+Route::get('/show-modal-detail-product/{id}', [App\Http\Controllers\ProductController::class, 'showModalDetailProduct']);
 Route::resource('/',HomeController::class);
