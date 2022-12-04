@@ -25,7 +25,7 @@
                                 @else
                                     @foreach($secondary_images as $secondary_image)
                                     <div class="pro-large-img img-zoom">
-                                        <img src="{{asset('storage/images/products/'.$secondary_image->lien)}}" alt="{{ $secondary_image->attributeLine->value }}" />
+                                        <img src="{{asset('storage/images/products/'.$secondary_image->lien)}}" alt="" />
                                     </div>
                                     @endforeach
                                 @endif
@@ -302,7 +302,7 @@
                     @foreach($related_products as $related_product)
                         <div class="product-item">
                             <figure class="product-thumb">
-                                <a href="product-details.html">
+                                <a href="{{ asset('product/'.$related_product->product->slug) }}">
                                     @if($first_image)
                                     <img class="pri-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="product">
                                     <img class="sec-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="product">

@@ -19,4 +19,20 @@ class Product extends Model
     {
         return $this->hasMany(Productline::class);
     }
+
+    public function getPrice(){
+        $price = Productline::where('product_id',$this->id)->min('price');
+        return $price;
+    }
+    public function getPricePromo(){
+
+        $price_promo = Productline::where('product_id',$this->id)->min('promo_price');
+        if($price_promo){
+            return $price_promo;
+        }
+        else{
+            return null;
+        }
+
+    }
 }

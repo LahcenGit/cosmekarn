@@ -229,6 +229,7 @@ class ProductController extends Controller
            $product_line = Productline::where('product_id',$product->id)->first();
            $productlines = null;
            $attributes = null;
+           $product_lines = null;
            $images_attributes = null;
         }
         $categories = Category::where('parent_id',null)->limit('5')->get();

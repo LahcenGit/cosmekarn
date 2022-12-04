@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AttributelineController;
 
 
@@ -18,9 +19,7 @@ use App\Http\Controllers\AttributelineController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 Route::get('/admin', function () {
     return view('admin.dashboard-admin');
 });
@@ -34,3 +33,4 @@ Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showM
 Route::post('/add-attribute', [App\Http\Controllers\ProductController::class, 'addAttribute']);
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
 
+Route::resource('/',HomeController::class);
