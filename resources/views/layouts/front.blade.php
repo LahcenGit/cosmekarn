@@ -777,6 +777,8 @@
     <script src="{{ asset('front/assets/js/plugins/google-map.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('front/assets/js/main.js') }}"></script>
+
+@stack('select-icon-script')
 </body>
 
 </html>

@@ -62,8 +62,8 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Promo:</label>
-                                        <input type="number"  class="form-control input-default @error('price_promo') is-invalid @enderror" value="{{old('price_promo')}}" name="price_promo" placeholder="0.00">
-                                            @error('price_promo')
+                                        <input type="number"  class="form-control input-default @error('promo') is-invalid @enderror" value="{{old('promo')}}" name="promo" placeholder="0.00">
+                                            @error('promo')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

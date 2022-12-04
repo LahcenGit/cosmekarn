@@ -68,8 +68,20 @@ class ProductController extends Controller
             $productline->attributeline_id = $request->values[$i];
             $productline->attribute_id = $request->a[$i];
             $productline->qte = $request->qtes[$i];
-            $productline->price = $request->prices[$i];
-            $productline->promo_price = $request->promos[$i];
+
+            if($request->price){
+                $productline->price = $request->price;
+            }
+            else{
+                $productline->price = $request->prices[$i];
+            }
+            if($request->promo){
+                $productline->promo_price = $request->promo;
+            }
+            else{
+                $productline->promo_price = $request->promos[$i];
+            }
+
             $productline->status = $request->status;
 
             if($request->icons){
@@ -227,4 +239,6 @@ class ProductController extends Controller
 
         return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes'));
     }
+
+
 }
