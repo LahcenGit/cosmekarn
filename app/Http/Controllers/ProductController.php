@@ -241,5 +241,8 @@ class ProductController extends Controller
         return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes'));
     }
 
-
+    public function showModalDetailProduct($id){
+      $product = Product::find($id);
+      return view('modal-detail-product',compact('product'));
+    }
 }
