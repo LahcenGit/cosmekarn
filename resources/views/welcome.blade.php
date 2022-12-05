@@ -241,12 +241,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
-                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+                                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
 
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <button class="btn btn-cart">Ajouter Au panier</button>
+                                                    <button class="btn btn-cart">Voir le produit</button>
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
@@ -300,12 +300,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
-                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+                                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
 
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <button class="btn btn-cart">Ajouter Au panier</button>
+                                                    <button class="btn btn-cart">Voir le produit</button>
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
@@ -358,12 +358,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
-                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+                                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
 
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <button class="btn btn-cart">Ajouter Au panier</button>
+                                                    <button class="btn btn-cart">Voir le produit</button>
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
@@ -416,12 +416,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
-                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+                                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
 
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <button class="btn btn-cart">Ajouter Au panier</button>
+                                                    <button class="btn btn-cart">Voir le produit</button>
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
@@ -472,11 +472,11 @@
                         <!-- banner single slide start -->
                         <div class="banner-slide-item">
                             <figure class="banner-statistics">
-                                <a href="#">
+                                <a style="cursor: pointer">
                                     <img src="{{ asset('images/img1.png') }}" alt="product banner">
                                 </a>
                                 <div class="banner-content banner-content_style2">
-                                    <h5 class="banner-text3"><a href="#">Maquillage</a></h5>
+                                    <h5 class="banner-text3"><a style="cursor: pointer">Maquillage</a></h5>
                                 </div>
                             </figure>
                         </div>
@@ -484,11 +484,11 @@
                         <!-- banner single slide start -->
                         <div class="banner-slide-item">
                             <figure class="banner-statistics">
-                                <a href="#">
+                                <a style="cursor: pointer">
                                     <img src="{{ asset('images/img2.png') }}" alt="product banner">
                                 </a>
                                 <div class="banner-content banner-content_style2">
-                                    <h5 class="banner-text3"><a href="#">Cheveux</a></h5>
+                                    <h5 class="banner-text3"><a style="cursor: pointer">Cheveux</a></h5>
                                 </div>
                             </figure>
                         </div>
@@ -496,11 +496,11 @@
                         <!-- banner single slide start -->
                         <div class="banner-slide-item">
                             <figure class="banner-statistics">
-                                <a href="#">
+                                <a style="cursor: pointer">
                                     <img src="{{ asset('images/img3.png') }}" alt="product banner">
                                 </a>
                                 <div class="banner-content banner-content_style2">
-                                    <h5 class="banner-text3"><a href="#">Parfums</a></h5>
+                                    <h5 class="banner-text3"><a style="cursor: pointer">Parfums</a></h5>
                                 </div>
                             </figure>
                         </div>
@@ -508,11 +508,11 @@
                         <!-- banner single slide start -->
                         <div class="banner-slide-item">
                             <figure class="banner-statistics">
-                                <a href="#">
+                                <a style="cursor: pointer">
                                     <img src="{{ asset('images/img4.png') }}" alt="product banner">
                                 </a>
                                 <div class="banner-content banner-content_style2">
-                                    <h5 class="banner-text3"><a href="#">Homme</a></h5>
+                                    <h5 class="banner-text3"><a style="cursor: pointer">Homme</a></h5>
                                 </div>
                             </figure>
                         </div>
@@ -561,12 +561,12 @@
                                     </div>
                                 </div>
                                 <div class="button-group">
-                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
 
                                 </div>
                                 <div class="cart-hover">
-                                    <button class="btn btn-cart">Ajouter Au panier</button>
+                                    <button class="btn btn-cart">Voir le produit</button>
                                 </div>
                             </figure>
                             <div class="product-caption text-center">

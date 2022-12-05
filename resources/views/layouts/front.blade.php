@@ -76,7 +76,7 @@
                         <!-- start logo area -->
                         <div class="col-lg-2">
                             <div class="logo">
-                                <a href="index.html">
+                                <a style="cursor: pointer">
                                     <img src="{{ asset('front/assets/img/logo/logo.png') }}" alt="Brand Logo">
                                 </a>
                             </div>
@@ -347,7 +347,7 @@
                         <div class="widget-item">
                             <div class="widget-title">
                                 <div class="widget-logo">
-                                    <a href="index.html">
+                                    <a style="cursor: pointer">
                                         <img src="{{ asset('front/assets/img/logo/logo.png') }}" alt="brand logo">
                                     </a>
                                 </div>
@@ -365,8 +365,8 @@
                                 <address class="contact-block">
                                     <ul>
                                         <li><i class="pe-7s-home"></i> Annexe Communal EL BADR, Oran Algérie</li>
-                                        <li><i class="pe-7s-mail"></i> <a href="mailto:demo@plazathemes.com">Service.client@cosmekarn.dz </a></li>
-                                        <li><i class="pe-7s-call"></i> <a href="tel:(012)800456789987">0561 934 266 / 0555 529 444</a></li>
+                                        <li><i class="pe-7s-mail"></i> <a style="cursor: pointer">Service.client@cosmekarn.dz </a></li>
+                                        <li><i class="pe-7s-call"></i> <a style="cursor: pointer">0561 934 266 / 0555 529 444</a></li>
                                     </ul>
                                 </address>
                             </div>
@@ -377,9 +377,9 @@
                             <h6 class="widget-title">Informations</h6>
                             <div class="widget-body">
                                 <ul class="info-list">
-                                    <li><a href="#">Livraison & Points Relais</a></li>
-                                    <li><a href="#">Espace Pro</a></li>
-                                    <li><a href="#">Conditions Générales de Ventes</a></li>
+                                    <li><a style="cursor: pointer">Livraison & Points Relais</a></li>
+                                    <li><a style="cursor: pointer">Espace Pro</a></li>
+                                    <li><a style="cursor: pointer">Conditions Générales de Ventes</a></li>
 
                                 </ul>
                             </div>
@@ -389,9 +389,9 @@
                         <div class="widget-item">
                             <h6 class="widget-title">Suivez-nous</h6>
                             <div class="widget-body social-link">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-youtube"></i></a>
+                                <a style="cursor: pointer"><i class="fa fa-facebook"></i></a>
+                                <a style="cursor: pointer"><i class="fa fa-instagram"></i></a>
+                                <a style="cursor: pointer"><i class="fa fa-youtube"></i></a>
                             </div>
                         </div>
                     </div>

@@ -82,8 +82,10 @@
                                         @endif
                                     @endif
                                 </div>
+                                @if($product->id != 59)
                                 <h5 class="offer-text"><strong>Dépêchez-vous</strong>! l'offre se termine dans:</h5>
                                 <div class="product-countdown" data-countdown="2022/12/30"></div>
+                                @endif
                                 <div class="availability">
                                     <i class="fa fa-check-circle"></i>
                                     <span>200 dans le stock</span>
@@ -207,13 +209,9 @@
                                                         <span><i class="fa fa-star"></i></span>
                                                     </div>
                                                     <div class="post-author">
-                                                        <p><span>admin -</span> 30 Mar, 2019</p>
+                                                        <p><span>Hind Benosman</span> 03 dec, 2022</p>
                                                     </div>
-                                                    <p>Aliquam fringilla euismod risus ac bibendum. Sed sit
-                                                        amet sem varius ante feugiat lacinia. Nunc ipsum nulla,
-                                                        vulputate ut venenatis vitae, malesuada ut mi. Quisque
-                                                        iaculis, dui congue placerat pretium, augue erat
-                                                        accumsan lacus</p>
+                                                    <p>J'aime beaucoup les produits, la description correspond totalement au produit. Concernant, le fond de teint, le choix des teintes est très variées, il y en a pour toutes les carnations. De plus la livraison est rapide.</p>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -281,7 +279,7 @@
                 <!-- section title start -->
                 <div class="section-title text-center">
                     <h2 class="title">Produits similaires</h2>
-                    <p class="sub-title">Add related products to weekly lineup</p>
+                    <p class="sub-title">Une variété de produits qui vous attend !</p>
                 </div>
                 <!-- section title start -->
             </div>
@@ -308,9 +306,8 @@
                                     </div>
                                 </div>
                                 <div class="button-group">
-                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
+                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+
                                 </div>
                                 <div class="cart-hover">
                                     <button class="btn btn-cart">Ajouter au panier</button>
@@ -324,7 +321,7 @@
                                     @foreach($related_product->product->productlines as $item)
                                       @if($item->attribute_id)
                                         <li>
-                                            <a  href="#" title="LightSteelblue"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                            <a style="cursor: pointer" title=" {{$item->attributeLine->value}} "><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                         </li>
                                       @endif
                                     @endforeach
