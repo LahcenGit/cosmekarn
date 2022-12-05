@@ -16,7 +16,7 @@
                                 <div class="hero-slider-content slide-3">
                                     <h2 class="slide-title">FOND DE TEINT <span>PERFECTION</span></h2>
                                     <h4 class="slide-desc">Une formule tout simplement prodigieuse qui illuminera votre visage instantanément !</h4>
-                                    <a href="shop.html" class="btn btn-hero">Découvrir</a>
+                                    <a style="cursor: pointer" class="btn btn-hero">Découvrir</a>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <div class="hero-slider-content slide-1">
                                     <h2 class="slide-title">CIRE FROIDE JAMBES <span></span></h2>
                                     <h4 class="slide-desc">Des bandes de cire froide prêtes à l'emploi</h4>
-                                    <a href="shop.html" class="btn btn-hero">Acheter</a>
+                                    <a style="cursor: pointer" class="btn btn-hero">Acheter</a>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                 <div class="hero-slider-content slide-2 float-md-end float-none pl-4">
                                     <h2 class="slide-title text-white" >Pack Relax Men <span></span></h2>
                                     <h4 class="slide-desc  text-white">Gel Douche Surgras, Shampooing L'original Vert, Lotion Verte Force,Whisky Men... </h4>
-                                    <a href="shop.html" class="btn btn-hero">Acheter</a>
+                                    <a style="cursor: pointer" class="btn btn-hero">Acheter</a>
                                 </div>
                             </div>
                         </div>
@@ -144,9 +144,9 @@
                             <img src="{{ asset('front/assets/img/banner/img1-top.jpg') }}" alt="product banner">
                         </a>
                         <div class="banner-content text-right">
-                            <h5 class="banner-text1">BEAUTIFUL</h5>
-                            <h2 class="banner-text2">Wedding<span>Rings</span></h2>
-                            <a href="shop.html" class="btn btn-text">Shop Now</a>
+                            <h5 class="banner-text1">Eclipse</h5>
+                            <h2 class="banner-text2">FOND <span>DE TEINT</span></h2>
+                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -156,9 +156,9 @@
                             <img src="{{ asset('front/assets/img/banner/img2-top.jpg') }}" alt="product banner">
                         </a>
                         <div class="banner-content text-center">
-                            <h5 class="banner-text1">EARRINGS</h5>
-                            <h2 class="banner-text2">Tangerine Floral <span>Earring</span></h2>
-                            <a href="shop.html" class="btn btn-text">Shop Now</a>
+                            <h5 class="banner-text1">SCHWARZKOPF</h5>
+                            <h2 class="banner-text2">Crème<span>à nuancer</span></h2>
+                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -168,9 +168,9 @@
                             <img src="{{ asset('front/assets/img/banner/img3-top.jpg') }}" alt="product banner">
                         </a>
                         <div class="banner-content text-center">
-                            <h5 class="banner-text1">NEW ARRIVALLS</h5>
-                            <h2 class="banner-text2">Pearl<span>Necklaces</span></h2>
-                            <a href="shop.html" class="btn btn-text">Shop Now</a>
+                            <h5 class="banner-text1">EVOLUDERM</h5>
+                            <h2 class="banner-text2">Gèl<span>Douche</span></h2>
+                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -180,9 +180,9 @@
                             <img src="{{ asset('front/assets/img/banner/img4-top.jpg') }}" alt="product banner">
                         </a>
                         <div class="banner-content text-right">
-                            <h5 class="banner-text1">NEW DESIGN</h5>
-                            <h2 class="banner-text2">Diamond<span>Jewelry</span></h2>
-                            <a href="shop.html" class="btn btn-text">Shop Now</a>
+                            <h5 class="banner-text1">UDV</h5>
+                            <h2 class="banner-text2">Coffret<span>UDV Star</span></h2>
+                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -257,7 +257,7 @@
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
                                                             <li>
-                                                                <a  href="#" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                                <a style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                             </li>
                                                         @endif
                                                     @endforeach
@@ -316,7 +316,7 @@
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
                                                             <li>
-                                                                <a  href="#" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                                <a  style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                             </li>
                                                         @endif
                                                     @endforeach
@@ -374,7 +374,7 @@
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
                                                             <li>
-                                                                <a  href="#" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                                <a style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                             </li>
                                                         @endif
                                                     @endforeach
@@ -432,7 +432,7 @@
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
                                                             <li>
-                                                                <a  href="#" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                                <a  style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                             </li>
                                                         @endif
                                                     @endforeach
@@ -577,7 +577,7 @@
                                     @foreach($product->productlines as $item)
                                         @if($item->attribute_id)
                                             <li>
-                                                <a  href="#" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                <a  style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                             </li>
                                         @endif
                                     @endforeach
