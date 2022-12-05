@@ -448,16 +448,16 @@
                             <li class="minicart-item">
                                 <div class="minicart-thumb">
                                     <a href="product-details.html">
-                                        <img src="{{ asset('front/assets/img/cart/cart-1.jpg') }}" alt="product">
+                                        <img src="{{ asset('images/img-cart.png') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="minicart-content">
                                     <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
+                                        <a href="product-details.html">FARD À JOUES RADIEUX</a>
                                     </h3>
                                     <p>
                                         <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">$100.00</span>
+                                        <span class="cart-price">{{number_format(470)}} Da</span>
                                     </p>
                                 </div>
                                 <button class="minicart-remove"><i class="pe-7s-close"></i></button>
@@ -465,16 +465,16 @@
                             <li class="minicart-item">
                                 <div class="minicart-thumb">
                                     <a href="product-details.html">
-                                        <img src="{{ asset('front/assets/img/cart/cart-2.jpg') }}" alt="product">
+                                        <img src="{{ asset('images/img2-cart.png') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="minicart-content">
                                     <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
+                                        <a href="product-details.html">ROUGE À LÈVRES THE ONLY</a>
                                     </h3>
                                     <p>
                                         <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">$80.00</span>
+                                        <span class="cart-price">{{number_format(540)}} Da</span>
                                     </p>
                                 </div>
                                 <button class="minicart-remove"><i class="pe-7s-close"></i></button>
@@ -484,28 +484,16 @@
 
                     <div class="minicart-pricing-box">
                         <ul>
-                            <li>
-                                <span>sub-total</span>
-                                <span><strong>$300.00</strong></span>
-                            </li>
-                            <li>
-                                <span>Eco Tax (-2.00)</span>
-                                <span><strong>$10.00</strong></span>
-                            </li>
-                            <li>
-                                <span>VAT (20%)</span>
-                                <span><strong>$60.00</strong></span>
-                            </li>
-                            <li class="total">
+                           <li class="total">
                                 <span>total</span>
-                                <span><strong>$370.00</strong></span>
+                                <span><strong>{{number_format(1010)}} Da</strong></span>
                             </li>
                         </ul>
                     </div>
 
                     <div class="minicart-button">
-                        <a href="cart.html"><i class="fa fa-shopping-cart"></i> View Cart</a>
-                        <a href="cart.html"><i class="fa fa-share"></i> Checkout</a>
+                        <a href="#"><i class="fa fa-shopping-cart"></i> Voir le panier</a>
+                        <a href="#"><i class="fa fa-share"></i> Validation</a>
                     </div>
                 </div>
             </div>

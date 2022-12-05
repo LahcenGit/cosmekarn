@@ -28,13 +28,13 @@ class AttributelineController extends Controller
             $attributeline->value = $request->attr;
             $attributeline->save();
         }
-        return redirect('dashboard-admin/attributes');
+        return redirect('admin/attributes');
     }
 
 
     public function destroy($id){
         $attributeline = Attributeline::find($id);
         $attributeline->delete();
-        return redirect('dashboard-admin/attributes');
+        return redirect('admin/attributes');
     }
 }

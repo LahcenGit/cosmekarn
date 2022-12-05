@@ -6,7 +6,7 @@
     <section class="slider-area">
         <div class="hero-slider-active slick-arrow-style slick-arrow-style_hero slick-dot-style">
 
-            
+
             <!-- single slider item start -->
             <div class="hero-single-slide hero-overlay">
                 <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide1.jpg') }}">
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <!-- single slider item end -->
-            
+
             <!-- single slider item start -->
             <div class="hero-single-slide hero-overlay">
                 <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide2.jpg') }}">
@@ -45,7 +45,7 @@
 
 
 
-            
+
             <!-- single slider item start -->
             <div class="hero-single-slide hero-overlay">
                 <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide3.jpg') }}">
@@ -199,7 +199,7 @@
                     <!-- section title start -->
                     <div class="section-title text-center">
                         <h2 class="title">Nos produits</h2>
-                        <p class="sub-title">Add our products to weekly lineup</p>
+                        <p class="sub-title">Une variété de produits qui vous attend !</p>
                     </div>
                     <!-- section title start -->
                 </div>
@@ -535,7 +535,7 @@
                     <!-- section title start -->
                     <div class="section-title text-center">
                         <h2 class="title">produits populaires</h2>
-                        <p class="sub-title">Add featured products to weekly lineup</p>
+                        <p class="sub-title">Une variété de produits qui vous attend !</p>
                     </div>
                     <!-- section title start -->
                 </div>
