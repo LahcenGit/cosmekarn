@@ -140,7 +140,7 @@
             <div class="row row-20 mtn-20">
                 <div class="col-sm-6">
                     <figure class="banner-statistics mt-20">
-                        <a href="#">
+                        <a style="cursor: pointer">
                             <img src="{{ asset('front/assets/img/banner/img1-top.jpg') }}" alt="product banner">
                         </a>
                         <div class="banner-content text-right">
@@ -152,7 +152,7 @@
                 </div>
                 <div class="col-sm-6">
                     <figure class="banner-statistics mt-20">
-                        <a href="#">
+                        <a style="cursor: pointer">
                             <img src="{{ asset('front/assets/img/banner/img2-top.jpg') }}" alt="product banner">
                         </a>
                         <div class="banner-content text-center">
@@ -164,7 +164,7 @@
                 </div>
                 <div class="col-sm-6">
                     <figure class="banner-statistics mt-20">
-                        <a href="#">
+                        <a style="cursor: pointer">
                             <img src="{{ asset('front/assets/img/banner/img3-top.jpg') }}" alt="product banner">
                         </a>
                         <div class="banner-content text-center">
@@ -176,7 +176,7 @@
                 </div>
                 <div class="col-sm-6">
                     <figure class="banner-statistics mt-20">
-                        <a href="#">
+                        <a style="cursor: pointer">
                             <img src="{{ asset('front/assets/img/banner/img4-top.jpg') }}" alt="product banner">
                         </a>
                         <div class="banner-content text-right">
@@ -241,8 +241,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
-                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+
 
                                                 </div>
                                                 <div class="cart-hover">
@@ -300,8 +300,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
-                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+
 
                                                 </div>
                                                 <div class="cart-hover">
@@ -358,8 +358,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
-                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+
 
                                                 </div>
                                                 <div class="cart-hover">
@@ -416,8 +416,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
-                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+
 
                                                 </div>
                                                 <div class="cart-hover">
@@ -561,8 +561,8 @@
                                     </div>
                                 </div>
                                 <div class="button-group">
-                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+
 
                                 </div>
                                 <div class="cart-hover">
@@ -696,13 +696,13 @@
                 <div class="col-lg-6">
                     <div class="group-product-banner">
                         <figure class="banner-statistics">
-                            <a href="#">
+                            <a style="cursor: pointer">
                                 <img src="{{ asset('front/assets/img/banner/img-bottom-banner.jpg') }}" alt="product banner">
                             </a>
                             <div class="banner-content banner-content_style3 text-center">
-                                <h6 class="banner-text1">BEAUTIFUL</h6>
-                                <h2 class="banner-text2">Wedding Rings</h2>
-                                <a href="shop.html" class="btn btn-text">Shop Now</a>
+                                <h6 class="banner-text1">BOURJOIS</h6>
+                                <h2 class="banner-text2">ROUGE À LÈVRES</h2>
+                                <a style="cursor: pointer" class="btn btn-text">Acheter</a>
                             </div>
                         </figure>
                     </div>
