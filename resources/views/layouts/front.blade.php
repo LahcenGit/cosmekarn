@@ -43,26 +43,12 @@
             <div class="header-top bdr-bottom">
                 <div class="container">
                     <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <div class="welcome-message">
-                                <p>Bienvenue dans la boutique en ligne Cosmekarn</p>
+                        <div class="col-lg-12">
+                            <div class="welcome-message text-center">
+                                <p><b style="color: #E41F85">Black Friday 2022</b> : promos de folie jusqu'à <b style="color: #E41F85">-60%</b> - Cosmekarn</p>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-right">
-                            <div class="header-top-settings">
-                                <ul class="nav align-items-center justify-content-end">
 
-                                    <li class="language">
-                                        <img src="{{ asset('front/assets/img/icon/en.png') }}" alt="flag"> English
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list">
-                                            <li><a href="#"><img src="{{ asset('front/assets/img/icon/en.png') }}" alt="flag"> english</a></li>
-                                            <li><a href="#"><img src="{{ asset('front/assets/img/icon/fr.png') }}" alt="flag"> french</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
