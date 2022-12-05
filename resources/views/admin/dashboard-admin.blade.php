@@ -1,5 +1,7 @@
 @extends('layouts.dashboard-admin')
 @section('content')
+
+<div class="temp-body">
  <!--**********************************
             Content body start
         ***********************************-->
@@ -417,5 +419,5 @@
         <!--**********************************
             Content body end
         ***********************************-->
-
+</div>
 @endsection

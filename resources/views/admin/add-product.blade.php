@@ -261,7 +261,7 @@
             <div class="col-xl-12 col-lg-12">
                 <div class="card">
                 <div class="card-body text-center">
-                    <button type="submit"  class="btn btn-primary mt-3">Ajouter le produit</button>
+                    <button   onclick="showAlert()" class="btn btn-primary mt-3">Ajouter le produit</button>
                     </form>
                 </div>
                </div>
@@ -508,4 +508,12 @@
 
      });
   </script>
+
+<script>
+    function showAlert() {
+        event.preventDefault()
+      var myText = "Vous ne pouvez pas ajouter un produit en mode test ! InnoDev";
+      alert (myText);
+    }
+    </script>
 @endpush

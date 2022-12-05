@@ -1,6 +1,16 @@
 @extends('layouts.front')
 @section('content')
 
+<style>
+    .banner-text3 a {
+        background-color: #60348B;
+        color: white!important;
+        padding: 10px;
+        font-weight: 200;
+    }
+
+</style>
+
 <main>
     <!-- hero slider area start -->
     <section class="slider-area">
