@@ -98,11 +98,11 @@
                 <div class="col-sm-6 col-lg-3">
                     <div class="policy-item">
                         <div class="policy-icon">
-                            <i class="pe-7s-back"></i>
+                            <i class="pe-7s-star"></i>
                         </div>
                         <div class="policy-content">
-                            <h6>Retour d'argent</h6>
-                            <p>30 jours pour un retour gratuit</p>
+                            <h6>Produits certifiés</h6>
+                            <p>100% originaux</p>
                         </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="policy-content">
                             <h6>100% Paiement sécurisé</h6>
-                            <p>Main à main</p>
+                            <p>CIB & Edahabia</p>
                         </div>
                     </div>
                 </div>
@@ -234,7 +234,7 @@
 
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <button class="btn btn-cart">Voir le produit</button>
+                                                    <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
@@ -293,7 +293,7 @@
 
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <button class="btn btn-cart">Voir le produit</button>
+                                                    <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
@@ -351,7 +351,7 @@
 
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <button class="btn btn-cart">Voir le produit</button>
+                                                    <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
@@ -409,7 +409,7 @@
 
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <button class="btn btn-cart">Voir le produit</button>
+                                                    <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
@@ -554,7 +554,7 @@
 
                                 </div>
                                 <div class="cart-hover">
-                                    <button class="btn btn-cart">Voir le produit</button>
+                                    <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                 </div>
                             </figure>
                             <div class="product-caption text-center">
