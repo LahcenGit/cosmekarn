@@ -164,13 +164,13 @@
                                         <a data-bs-toggle="tab" href="#tab_two">information</a>
                                     </li>
                                     <li>
-                                        <a data-bs-toggle="tab" href="#tab_three">reviews (1)</a>
+                                        <a data-bs-toggle="tab" href="#tab_three">Commentaire(s) (1)</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content reviews-tab">
                                     <div class="tab-pane fade show active" id="tab_one">
                                         <div class="tab-one">
-                                            <p>{!! $product->description !!}</p>
+                                            <p>{!! $product->long_description !!}</p>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="tab_two">
@@ -178,22 +178,22 @@
                                             <tbody>
                                                 @foreach($product_lines as $product_line)
                                                    <tr>
-
-                                                            <td> @foreach($product_line as $item)
-                                                                @if($loop->iteration == 1 && $item->attribute->value == 'Couleur')Couleur
-
-                                                            </td>
-                                                            @endif
-                                                            <td>{{$item->attributeLine->value}}</td>
-                                                        @endforeach
-                                                    </tr>
+                                                        <td>
+                                                            {{ $product_line[$loop->iteration]->attribute->value }}
+                                                        </td>
+                                                        <td>
+                                                            @foreach($product_line as $item)
+                                                                {{$item->attributeLine->value}},
+                                                            @endforeach
+                                                        </td>
+                                                   </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="tab-pane fade" id="tab_three">
                                         <form action="#" class="review-form">
-                                            <h5>1 review for <span>Chaz Kangeroo</span></h5>
+                                            <h5>1  avis pou <span>{{ $product->designation }}</span></h5>
                                             <div class="total-reviews">
                                                 <div class="rev-avatar">
                                                     <img src="assets/img/about/avatar.jpg" alt="">
@@ -219,33 +219,30 @@
                                             <div class="form-group row">
                                                 <div class="col">
                                                     <label class="col-form-label"><span class="text-danger">*</span>
-                                                        Your Name</label>
+                                                        Nom</label>
                                                     <input type="text" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col">
                                                     <label class="col-form-label"><span class="text-danger">*</span>
-                                                        Your Email</label>
+                                                         Email</label>
                                                     <input type="email" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col">
                                                     <label class="col-form-label"><span class="text-danger">*</span>
-                                                        Your Review</label>
+                                                        Commentaire</label>
                                                     <textarea class="form-control" required></textarea>
-                                                    <div class="help-block pt-10"><span
-                                                            class="text-danger">Note:</span>
-                                                        HTML is not translated!
-                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col">
                                                     <label class="col-form-label"><span class="text-danger">*</span>
-                                                        Rating</label>
-                                                    &nbsp;&nbsp;&nbsp; Bad&nbsp;
+                                                        Évaluation</label>
+                                                    &nbsp;&nbsp;&nbsp; Mauvais &nbsp;
                                                     <input type="radio" value="1" name="rating">
                                                     &nbsp;
                                                     <input type="radio" value="2" name="rating">
@@ -255,11 +252,11 @@
                                                     <input type="radio" value="4" name="rating">
                                                     &nbsp;
                                                     <input type="radio" value="5" name="rating" checked>
-                                                    &nbsp;Good
+                                                    &nbsp;Excellent
                                                 </div>
                                             </div>
                                             <div class="buttons">
-                                                <button class="btn btn-sqr" type="submit">Continue</button>
+                                                <button class="btn btn-sqr" type="submit">Envoyer</button>
                                             </div>
                                         </form> <!-- end of review-form -->
                                     </div>
