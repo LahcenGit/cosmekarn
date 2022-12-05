@@ -52,7 +52,7 @@
                         <div class="col-lg-7">
                             <div class="product-details-des">
                                 <div class="manufacturer-name">
-                                    <a href="product-details.html">HasTech</a>
+                                    <a href="product-details.html">Eclipse</a>
                                 </div>
                                 <h3 class="product-name">{{ $product->designation }}</h3>
                                 <div class="ratings d-flex">
@@ -62,7 +62,7 @@
                                     <span><i class="fa fa-star-o"></i></span>
                                     <span><i class="fa fa-star-o"></i></span>
                                     <div class="pro-review">
-                                        <span>1 Reviews</span>
+                                        <span>1 Commentaire(s)</span>
                                     </div>
                                 </div>
                                 <div class="price-box">
@@ -82,22 +82,14 @@
                                         @endif
                                     @endif
                                 </div>
-                                <h5 class="offer-text"><strong>Hurry up</strong>! offer ends in:</h5>
+                                <h5 class="offer-text"><strong>Dépêchez-vous</strong>! l'offre se termine dans:</h5>
                                 <div class="product-countdown" data-countdown="2022/12/30"></div>
                                 <div class="availability">
                                     <i class="fa fa-check-circle"></i>
-                                    <span>200 in stock</span>
+                                    <span>200 dans le stock</span>
                                 </div>
                                 <p class="pro-desc">{{$product->short_description}}</p>
-                                <div class="quantity-cart-box d-flex align-items-center">
-                                    <h6 class="option-title">Qte:</h6>
-                                    <div class="quantity">
-                                        <div class="pro-qty"><input type="text" value="1"></div>
-                                    </div>
-                                    <div class="action_link">
-                                        <a class="btn btn-cart2" href="#">Acheter</a>
-                                    </div>
-                                </div>
+
                                 @if($product_lines)
                                     @foreach($product_lines as $product_line)
                                         <div class="pro-size">
@@ -133,11 +125,19 @@
                                         </div>
                                     @endforeach
                                 @endif
+                                <div class="quantity-cart-box d-flex align-items-center">
+                                    <h6 class="option-title">Qte:</h6>
+                                    <div class="quantity">
+                                        <div class="pro-qty"><input type="text" value="1"></div>
+                                    </div>
+                                    <div class="action_link">
+                                        <a class="btn btn-cart2" style="cursor: pointer">Acheter</a>
+                                    </div>
+                                </div>
                                 <div class="useful-links">
-                                    <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                            class="pe-7s-refresh-2"></i>compare</a>
-                                    <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                            class="pe-7s-like"></i>wishlist</a>
+
+                                    <a style="cursor: pointer" data-bs-toggle="tooltip" title="Wishlist"><i
+                                            class="pe-7s-like"></i>Favoris</a>
                                 </div>
                                 <div class="like-icon">
                                     <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
@@ -170,29 +170,24 @@
                                 <div class="tab-content reviews-tab">
                                     <div class="tab-pane fade show active" id="tab_one">
                                         <div class="tab-one">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-                                                fringilla augue nec est tristique auctor. Ipsum metus feugiat
-                                                sem, quis fermentum turpis eros eget velit. Donec ac tempus
-                                                ante. Fusce ultricies massa massa. Fusce aliquam, purus eget
-                                                sagittis vulputate, sapien libero hendrerit est, sed commodo
-                                                augue nisi non neque.Cras neque metus, consequat et blandit et,
-                                                luctus a nunc. Etiam gravida vehicula tellus, in imperdiet
-                                                ligula euismod eget. Pellentesque habitant morbi tristique
-                                                senectus et netus et malesuada fames ac turpis egestas. Nam
-                                                erat mi, rutrum at sollicitudin rhoncus</p>
+                                            <p>{!! $product->description !!}</p>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="tab_two">
                                         <table class="table table-bordered">
                                             <tbody>
-                                                <tr>
-                                                    <td>color</td>
-                                                    <td>black, blue, red</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>size</td>
-                                                    <td>L, M, S</td>
-                                                </tr>
+                                                @foreach($product_lines as $product_line)
+                                                   <tr>
+
+                                                            <td> @foreach($product_line as $item)
+                                                                @if($loop->iteration == 1 && $item->attribute->value == 'Couleur')Couleur
+
+                                                            </td>
+                                                            @endif
+                                                            <td>{{$item->attributeLine->value}}</td>
+                                                        @endforeach
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -379,7 +374,7 @@
         $("#li-"+id).addClass("selected-icon");
         $('#related-img-'+id).trigger('click');
     });
-</script> 
+</script>
 @endpush
 
 

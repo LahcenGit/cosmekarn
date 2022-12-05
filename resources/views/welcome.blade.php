@@ -246,19 +246,19 @@
                                             </figure>
                                             <div class="product-caption text-center">
                                                 <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="product-details.html">Eclipse</a></p>
+                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">Eclipse</a></p>
                                                 </div>
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
                                                             <li>
-                                                                <a  href="#" title="LightSteelblue"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                                <a  href="#" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                             </li>
                                                         @endif
                                                     @endforeach
                                                 </ul>
                                                 <h6 class="product-name">
-                                                    <a href="product-details.html">{{ $product->designation }}</a>
+                                                    <a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     @if($product->getPricePromo())
@@ -305,19 +305,19 @@
                                             </figure>
                                             <div class="product-caption text-center">
                                                 <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="product-details.html">Eclipse</a></p>
+                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">Eclipse</a></p>
                                                 </div>
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
                                                             <li>
-                                                                <a  href="#" title="LightSteelblue"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                                <a  href="#" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                             </li>
                                                         @endif
                                                     @endforeach
                                                 </ul>
                                                 <h6 class="product-name">
-                                                    <a href="product-details.html">{{ $product->designation }}</a>
+                                                    <a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     @if($product->getPricePromo())
@@ -363,19 +363,19 @@
                                             </figure>
                                             <div class="product-caption text-center">
                                                 <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="product-details.html">Eclipse</a></p>
+                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">Eclipse</a></p>
                                                 </div>
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
                                                             <li>
-                                                                <a  href="#" title="LightSteelblue"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                                <a  href="#" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                             </li>
                                                         @endif
                                                     @endforeach
                                                 </ul>
                                                 <h6 class="product-name">
-                                                    <a href="product-details.html">{{ $product->designation }}</a>
+                                                    <a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     @if($product->getPricePromo())
@@ -421,19 +421,19 @@
                                             </figure>
                                             <div class="product-caption text-center">
                                                 <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="product-details.html">Eclipse</a></p>
+                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">Eclipse</a></p>
                                                 </div>
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
                                                             <li>
-                                                                <a  href="#" title="LightSteelblue"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                                <a  href="#" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                             </li>
                                                         @endif
                                                     @endforeach
                                                 </ul>
                                                 <h6 class="product-name">
-                                                    <a href="product-details.html">{{ $product->designation }}</a>
+                                                    <a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     @if($product->getPricePromo())
@@ -566,19 +566,19 @@
                             </figure>
                             <div class="product-caption text-center">
                                 <div class="product-identity">
-                                    <p class="manufacturer-name"><a href="product-details.html">Eclipse</a></p>
+                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">Eclipse</a></p>
                                 </div>
                                 <ul class="color-categories">
                                     @foreach($product->productlines as $item)
                                         @if($item->attribute_id)
                                             <li>
-                                                <a  href="#" title="LightSteelblue"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                <a  href="#" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                             </li>
                                         @endif
                                     @endforeach
                                 </ul>
                                 <h6 class="product-name">
-                                    <a href="product-details.html">{{ $product->designation }}</a>
+                                    <a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a>
                                 </h6>
                                 <div class="price-box">
                                     @if($product->getPricePromo())
@@ -719,14 +719,14 @@
                                 <div class="group-slide-item">
                                     <div class="group-item">
                                         <div class="group-item-thumb">
-                                            <a href="product-details.html">
+                                            <a href="{{ asset('product/'.$product->slug) }}">
                                                 @if($product->images[0])
                                                 <img src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="">
                                                 @endif
                                             </a>
                                         </div>
                                         <div class="group-item-desc">
-                                            <h5 class="group-product-name"><a href="product-details.html">
+                                            <h5 class="group-product-name"><a href="{{ asset('product/'.$product->slug) }}">
                                                     {{ $product->designation }}</a></h5>
                                             <div class="price-box">
                                                 @if($product->getPricePromo())
@@ -764,14 +764,14 @@
                                     <div class="group-slide-item">
                                         <div class="group-item">
                                             <div class="group-item-thumb">
-                                                <a href="product-details.html">
+                                                <a href="{{ asset('product/'.$product->slug) }}">
                                                     @if($product->images[0])
                                                     <img src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="">
                                                     @endif
                                                 </a>
                                             </div>
                                             <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
+                                                <h5 class="group-product-name"><a href="{{ asset('product/'.$product->slug) }}">
                                                         {{ $product->designation }}</a></h5>
                                                 <div class="price-box">
                                                     @if($product->getPricePromo())
