@@ -97,32 +97,23 @@
                                     <!-- main menu navbar start -->
                                     <nav class="desktop-menu">
                                         <ul>
-                                            <li class="active"><a href="index.html">Home <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                    <li><a href="index.html">Home version 01</a></li>
-                                                    <li><a href="index-2.html">Home version 02</a></li>
-                                                    <li><a href="index-3.html">Home version 03</a></li>
-                                                    <li><a href="index-4.html">Home version 04</a></li>
-                                                    <li><a href="index-5.html">Home version 05</a></li>
-                                                    <li><a href="index-6.html">Home version 06</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
+                                            <li><a href="{{ asset('/') }}">Accueil <i class="fa fa-angle-down"></i></a></li>
+                                            <li class="position-static"><a href="#">Catégories <i class="fa fa-angle-down"></i></a>
                                                 <ul class="megamenu dropdown">
-                                                    <li class="mega-title"><span>column 01</span>
+                                                    <li class="mega-title"><span>Maquillage</span>
                                                         <ul>
-                                                            <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                            <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                            <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a></li>
-                                                            <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a></li>
+                                                            <li><a href="shop.html">Teint</a></li>
+                                                            <li><a href="shop-grid-right-sidebar.html">Yeux</a></li>
+                                                            <li><a href="shop-list-left-sidebar.html">Lèvres</a></li>
+                                                            <li><a href="shop-list-right-sidebar.html">Ongles</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li class="mega-title"><span>column 02</span>
+                                                    <li class="mega-title"><span>Corps & Bain</span>
                                                         <ul>
-                                                            <li><a href="product-details.html">product details</a></li>
-                                                            <li><a href="product-details-affiliate.html">product details affiliate</a></li>
-                                                            <li><a href="product-details-variable.html">product details variable</a></li>
-                                                            <li><a href="privacy-policy.html">privacy policy</a></li>
+                                                            <li><a href="product-details.html">Gel douche</a></li>
+                                                            <li><a href="product-details-affiliate.html">Soin du corps</a></li>
+                                                            <li><a href="product-details-variable.html">Soin du visage</a></li>
+                                                            <li><a href="privacy-policy.html">Hygiène intime</a></li>
                                                         </ul>
                                                     </li>
                                                     <li class="mega-title"><span>column 03</span>
