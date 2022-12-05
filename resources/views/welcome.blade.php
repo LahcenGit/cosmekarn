@@ -5,42 +5,8 @@
     <!-- hero slider area start -->
     <section class="slider-area">
         <div class="hero-slider-active slick-arrow-style slick-arrow-style_hero slick-dot-style">
-            <!-- single slider item start -->
-            <div class="hero-single-slide hero-overlay">
-                <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide2.jpg') }}">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="hero-slider-content slide-1">
-                                    <h2 class="slide-title">Family Jewelry <span>Collection</span></h2>
-                                    <h4 class="slide-desc">Designer Jewelry Necklaces-Bracelets-Earings</h4>
-                                    <a href="shop.html" class="btn btn-hero">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single slider item start -->
 
-            <!-- single slider item start -->
-            <div class="hero-single-slide hero-overlay">
-                <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide3.jpg') }}">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="hero-slider-content slide-2 float-md-end float-none">
-                                    <h2 class="slide-title">Diamonds Jewelry<span>Collection</span></h2>
-                                    <h4 class="slide-desc">Shukra Yogam & Silver Power Silver Saving Schemes.</h4>
-                                    <a href="shop.html" class="btn btn-hero">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single slider item start -->
-
+            
             <!-- single slider item start -->
             <div class="hero-single-slide hero-overlay">
                 <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide1.jpg') }}">
@@ -48,9 +14,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="hero-slider-content slide-3">
-                                    <h2 class="slide-title">Grace Designer<span>Jewelry</span></h2>
-                                    <h4 class="slide-desc">Rings, Occasion Pieces, Pandora & More.</h4>
-                                    <a href="shop.html" class="btn btn-hero">Read More</a>
+                                    <h2 class="slide-title">FOND DE TEINT <span>PERFECTION</span></h2>
+                                    <h4 class="slide-desc">Une formule tout simplement prodigieuse qui illuminera votre visage instantanément !</h4>
+                                    <a href="shop.html" class="btn btn-hero">Découvrir</a>
                                 </div>
                             </div>
                         </div>
@@ -58,6 +24,45 @@
                 </div>
             </div>
             <!-- single slider item end -->
+            
+            <!-- single slider item start -->
+            <div class="hero-single-slide hero-overlay">
+                <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide2.jpg') }}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="hero-slider-content slide-1">
+                                    <h2 class="slide-title">CIRE FROIDE JAMBES <span></span></h2>
+                                    <h4 class="slide-desc">Des bandes de cire froide prêtes à l'emploi</h4>
+                                    <a href="shop.html" class="btn btn-hero">Acheter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single slider item start -->
+
+
+
+            
+            <!-- single slider item start -->
+            <div class="hero-single-slide hero-overlay">
+                <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide3.jpg') }}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="hero-slider-content slide-2 float-md-end float-none pl-4">
+                                    <h2 class="slide-title text-white" >Pack Relax Men <span></span></h2>
+                                    <h4 class="slide-desc  text-white">Gel Douche Surgras, Shampooing L'original Vert, Lotion Verte Force,Whisky Men... </h4>
+                                    <a href="shop.html" class="btn btn-hero">Acheter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- single slider item start -->
         </div>
     </section>
     <!-- hero slider area end -->
