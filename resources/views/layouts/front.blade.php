@@ -364,9 +364,9 @@
                             <div class="widget-body">
                                 <address class="contact-block">
                                     <ul>
-                                        <li><i class="pe-7s-home"></i> 4710-4890 Breckinridge USA</li>
+                                        <li><i class="pe-7s-home"></i> Annexe Communal EL BADR, Oran Algérie</li>
                                         <li><i class="pe-7s-mail"></i> <a href="mailto:demo@plazathemes.com">Service.client@cosmekarn.dz </a></li>
-                                        <li><i class="pe-7s-call"></i> <a href="tel:(012)800456789987">05 61 93 42 66 / 05 55 52 94 44</a></li>
+                                        <li><i class="pe-7s-call"></i> <a href="tel:(012)800456789987">0561 934 266 / 0555 529 444</a></li>
                                     </ul>
                                 </address>
                             </div>
@@ -387,7 +387,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="widget-item">
-                            <h6 class="widget-title">Follow Us</h6>
+                            <h6 class="widget-title">Suivez-nous</h6>
                             <div class="widget-body social-link">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
@@ -422,7 +422,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="copyright-text text-center">
-                            <p>&copy; 2022 <b>Cosmekarn</b> </p>
+                            <p>&copy; 2022 <b style="color: #E41F85">Cosmekarn</b> </p>
                         </div>
                     </div>
                 </div>

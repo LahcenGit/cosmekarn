@@ -257,7 +257,7 @@
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
                                                             <li>
-                                                                <a style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                                <a width="30px" height="30px"  style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                             </li>
                                                         @endif
                                                     @endforeach
@@ -611,8 +611,8 @@
                 <div class="col-12">
                     <!-- section title start -->
                     <div class="section-title text-center">
-                        <h2 class="title">testimonials</h2>
-                        <p class="sub-title">What they say</p>
+                        <h2 class="title">Témoignages</h2>
+                        <p class="sub-title">Ce qu'ils disent de nous !</p>
                     </div>
                     <!-- section title start -->
                 </div>
@@ -638,7 +638,7 @@
                     <div class="testimonial-content-wrapper">
                         <div class="testimonial-content-carousel">
                             <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
+                                <p>J'aime beaucoup les produits, la description correspond totalement au produit. Concernant, le fond de teint, le choix des teintes est très variées, il y en a pour toutes les carnations. De plus la livraison est rapide.</p>
                                 <div class="ratings">
                                     <span><i class="fa fa-star-o"></i></span>
                                     <span><i class="fa fa-star-o"></i></span>
@@ -646,40 +646,7 @@
                                     <span><i class="fa fa-star-o"></i></span>
                                     <span><i class="fa fa-star-o"></i></span>
                                 </div>
-                                <h5 class="testimonial-author">lindsy niloms</h5>
-                            </div>
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">Daisy Millan</h5>
-                            </div>
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">Anamika lusy</h5>
-                            </div>
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">Maria Mora</h5>
+                                <h5 class="testimonial-author">Hind Benosman</h5>
                             </div>
                         </div>
                     </div>
