@@ -85,6 +85,7 @@
                                 @if($product->id != 59)
                                 <h5 class="offer-text"><strong>Dépêchez-vous</strong>! l'offre se termine dans:</h5>
                                 <div class="product-countdown" data-countdown="2022/12/30"></div>
+
                                 @endif
                                 <div class="availability">
                                     <i class="fa fa-check-circle"></i>
