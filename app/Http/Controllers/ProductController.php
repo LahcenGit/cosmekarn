@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Attribute;
 use App\Models\Attributeline;
+use App\Models\Cart;
+use App\Models\Cartitem;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
@@ -243,8 +245,44 @@ class ProductController extends Controller
         $category = Productcategory::where('product_id',$product->id)->first();
         $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
 
-        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes'));
+        if(Auth::user()){
+            $cart = Cart::where('user_id',Auth::user()->id)->first();
+            if($cart){
+            $cartitems = $cart->cartitems;
+            $nbr_cartitem = $cart->cartitems->count();
+            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+            }
+            else{
+                $cartitems = null;
+                $nbr_cartitem = 0;
+                $total = 0;
+            }
+        }
+        else{
+        $cart= session('cart_id');
+        $cartitems = Cartitem::where('cart_id',$cart)->get();
+        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+        }
+
+        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes','cartitems','nbr_cartitem','total'));
     }
 
+
+    public function getProduct($id){
+        $product = Product::find($id);
+        $countproductlines = Productline::where('product_id',$product->id)->count();
+        if($countproductlines >1){
+            $productlines = null;
+        }
+        else{
+            $productlines = Productline::where('product_id',$product->id)->first();
+        }
+        $data = array(
+            "countproductlines" => $countproductlines,
+            "productlines" => $productlines
+          );
+        return $data;
+    }
 
 }

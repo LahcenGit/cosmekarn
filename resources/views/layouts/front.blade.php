@@ -8,6 +8,7 @@
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('front/assets/img/favicon.png') }}">
 
@@ -156,7 +157,7 @@
                                         <li>
                                             <a href="#" class="minicart-btn">
                                                 <i class="pe-7s-shopbag"></i>
-                                                <div class="notification">2</div>
+                                                <div class="notification nbr_product">{{$nbr_cartitem}}</div>
                                             </a>
                                         </li>
                                     </ul>
@@ -416,10 +417,6 @@
         </div>
     </footer>
     <!-- footer area end -->
-
-
-
-
     <!-- offcanvas mini cart start -->
     <div class="offcanvas-minicart-wrapper">
         <div class="minicart-inner">
@@ -428,60 +425,47 @@
                 <div class="minicart-close">
                     <i class="pe-7s-close"></i>
                 </div>
+                @if($nbr_cartitem > 0)
                 <div class="minicart-content-box">
                     <div class="minicart-item-wrapper">
-                        <ul>
-                            <li class="minicart-item">
+                        <ul class="cart-list">
+                            @foreach($cartitems as $cartitem)
+                            <li class="minicart-item" id="list-{{$cartitem->id}}">
                                 <div class="minicart-thumb">
                                     <a href="product-details.html">
-                                        <img src="{{ asset('images/img-cart.png') }}" alt="product">
+                                        <img src="{{asset('storage/images/products/'.$cartitem->productline->product->images[0]->lien)}}" alt="product">
                                     </a>
                                 </div>
                                 <div class="minicart-content">
                                     <h3 class="product-name">
-                                        <a href="product-details.html">FARD À JOUES RADIEUX</a>
+                                        <a href="product-details.html">{{ $cartitem->productline->product->designation }}</a>
                                     </h3>
                                     <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">{{number_format(470)}} Da</span>
+                                        <span class="cart-quantity">{{ $cartitem->qte }} <strong>&times;</strong></span>
+                                        <span class="cart-price">{{ number_format($cartitem->price) }} Da</span>
                                     </p>
                                 </div>
                                 <button class="minicart-remove"><i class="pe-7s-close"></i></button>
                             </li>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="{{ asset('images/img2-cart.png') }}" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">ROUGE À LÈVRES THE ONLY</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">{{number_format(540)}} Da</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
 
                     <div class="minicart-pricing-box">
                         <ul>
-                           <li class="total">
+                            <li >
                                 <span>total</span>
-                                <span><strong>{{number_format(1010)}} Da</strong></span>
+                                <span class="total"><strong>{{ number_format($total->sum) }} Da</strong></span>
                             </li>
                         </ul>
                     </div>
 
                     <div class="minicart-button">
-                        <a href="#"><i class="fa fa-shopping-cart"></i> Voir le panier</a>
-                        <a href="#"><i class="fa fa-share"></i> Validation</a>
+                        <a href="{{ asset('/carts') }}"><i class="fa fa-shopping-cart"></i> Voir le panier</a>
+                        <a href="cart.html"><i class="fa fa-share"></i> Validation</a>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -522,8 +506,9 @@
 
 @stack('select-icon-script')
 @stack('select-icon-indice')
-
+@stack('add-cart-scripts')
 @stack('modal-detail-product-show')
+@stack('delete-item')
 </body>
 
 </html>

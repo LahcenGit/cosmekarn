@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\AttributelineController;
 
 
@@ -33,4 +34,6 @@ Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showM
 Route::post('/add-attribute', [App\Http\Controllers\ProductController::class, 'addAttribute']);
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
 Route::get('/show-modal-detail-product/{id}', [App\Http\Controllers\ProductController::class, 'showModalDetailProduct']);
+Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
+Route::resource('/carts',CartController::class);
 Route::resource('/',HomeController::class);

@@ -8,7 +8,7 @@
             <div class="col-lg-12 order-1 order-lg-2">
                 <!-- product details inner end -->
                 <div class="product-details-inner">
-                    <div class="row">
+                    <div class="row product-data">
                         <div class="col-lg-5">
                             <div class="product-large-slider">
                                 @if($first_image)
@@ -113,13 +113,13 @@
                                 @if($product_lines)
                                     @foreach($product_lines as $product_line)
                                         <div class="color-option">
-                                            <ul class="color-categories" >
+                                            <ul class="color-categories" id="list-line" >
                                                 @foreach($product_line as $item)
                                                     @if($loop->iteration == 1 && $item->attribute->value == 'Couleur')
                                                     <h6 class="option-title">Couleur : <span class="color-title"> <b>{{ $item->attributeLine->value }} </b> </span></h6><br>
                                                     @endif
                                                     @if($item->attribute->value == 'Couleur')
-                                                        <li id="{{'li-'.$item->id}}" >
+                                                        <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}" >
                                                             <a title="{{$item->attributeLine->value}}" id="{{$item->id}}" style="cursor: pointer"  class="select-icon"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone)}}" alt="{{ $item->attributeLine->value }}"/></a>
                                                         </li>
                                                     @endif
@@ -129,12 +129,14 @@
                                     @endforeach
                                 @endif
                                 <div class="quantity-cart-box d-flex align-items-center">
+                                    <input type="hidden" value="{{$product->id}}" class="product_id">
+
                                     <h6 class="option-title">Qte:</h6>
                                     <div class="quantity">
-                                        <div class="pro-qty"><input type="text" value="1"></div>
+                                        <div class="pro-qty"><input type="text" class="qty-val" value="1"></div>
                                     </div>
                                     <div class="action_link">
-                                        <a class="btn btn-cart2" style="cursor: pointer">Acheter</a>
+                                        <a class="btn btn-cart2 addToCartBtn" style="cursor: pointer">Ajouter au panier</a>
                                     </div>
                                 </div>
                                 <div class="useful-links">
@@ -372,4 +374,109 @@
 </script>
 @endpush
 
+@push('add-cart-scripts')
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+    $( ".addToCartBtn" ).click(function(e) {
+        e.preventDefault();
+        var product_id = $(this).closest('.product-data').find('.product_id').val();
+        var qte = $(this).closest('.product-data').find('.qty-val').val();
+
+        $.ajax({
+                url: '/get-product/' + product_id ,
+                type: "GET",
+                success: function (res) {
+
+                if(res.countproductlines > 1){
+                    var id = $('#list-line li.selected-icon').attr('value-id');
+                    $.ajax({
+                            url: '/carts',
+                            type: "POST",
+                            data:{
+                                'id' : id,
+                                'qte' :qte,
+                            },
+                            success: function (res) {
+                                $("#liveToast").show();
+                                $(".nbr_product").text(res.nbr_cart);
+
+                                if(res.qtes == 0){
+                                    $data = '<li class="minicart-item">'+
+                                            '<div class="minicart-thumb">'+
+                                                '<a href="product-details.html">'+
+                                                    '<img src="{{asset('storage/images/products/res.image')}}" alt="product">'+
+                                                '</a>'+
+                                            '</div>'+
+                                            '<div class="minicart-content">'+
+                                               '<h3 class="product-name">'+
+                                                    '<a href="product-details.html">'+res.name+'</a>'+
+                                                '</h3>'+
+                                                '<p>'+
+                                                    '<span class="cart-quantity">'+res.qte+' <strong>&times;</strong></span>'+
+                                                    '<span class="cart-price">'+res.price+' Da</span>'+
+                                                '</p>'+
+                                            '</div>'+
+                                            '<button class="minicart-remove"><i class="pe-7s-close"></i></button>'+
+                                        '</li>';
+                                $('.cart-list').append($data);
+                                }
+                                else{
+                                    alert("Le produit existe déja dans votre panier");
+                                }
+                                $(".total").text(res.total +' Da');
+                               }
+
+                            });
+                         }
+                         else{
+                            var id = res.productlines.id;
+
+                            $.ajax({
+                            url: '/carts',
+                            type: "POST",
+                            data:{
+                                'id' : id,
+                                'qte' :qte,
+                            },
+                            success: function (res) {
+
+                                $("#liveToast").show();
+                                $(".nbr_product").text(res.nbr_cart);
+                                if(res.qtes == 0){
+                                    $data =  '<li>'+
+                                                '<div class="shopping-cart-img">'+
+                                                    '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image')}}" /></a>'+
+                                                '</div>'+
+                                                '<div class="shopping-cart-title">'+
+                                                    '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+
+                                                    '<h4><span>'+res.qte+' × </span>'+res.price+' Da</h4>'+
+                                                '</div>'+
+                                                '<div class="shopping-cart-delete">'+
+                                                    '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
+                                                '</div>'+
+                                        '</li>';
+
+                                    $('.cart-list').append($data);
+                                }
+                                else{
+                                    alert("Le produit existe déja dans votre panier");
+                                }
+                                $(".total").text(res.total +' Da');
+
+                            }
+                            });
+                         }
+
+
+                }
+            });
+
+});
+</script>
+@endpush
 
