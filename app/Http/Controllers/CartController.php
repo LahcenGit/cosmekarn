@@ -14,20 +14,21 @@ class CartController extends Controller
     public function index(){
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
+            $cart_id = $cart->id;
             if($cart){
             $cartitems = $cart->cartitems;
             $nbr_cartitem = $cart->cartitems->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
 
-            return view('carts',compact('cartitems','nbr_cartitem','total','cart'));
+            return view('carts',compact('cartitems','nbr_cartitem','total','cart_id'));
             }
         }
         else{
-            $cart= session('cart_id');
-            $cartitems = Cartitem::where('cart_id',$cart)->get();
-            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-            return view('carts',compact('cartitems','nbr_cartitem','total','cart'));
+            $cart_id= session('cart_id');
+            $cartitems = Cartitem::where('cart_id',$cart_id)->get();
+            $nbr_cartitem = Cartitem::where('cart_id',$cart_id)->count();
+            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart_id)->first();
+            return view('carts',compact('cartitems','nbr_cartitem','total','cart_id'));
         }
     }
 
@@ -166,39 +167,95 @@ class CartController extends Controller
         }
   }
 
+  public function update(Request $request , $id){
+
+    for($i=0 ; $i < count($request->qtes); $i++){
+        $cartitem = Cartitem::find($request->cartitem[$i]);
+        if(Auth::user()){
+                $cart = Cart::where('user_id',Auth::user()->id)->first();
+                if($cartitem){
+                    if($cartitem->cart_id == $cart->id){
+                        $cartitem->qte = $request->qtes[$i];
+                        $cartitem->total = $cartitem->price * $request->qtes[$i];
+                        $cartitem->save();
+
+                    }
+                    else{
+                        abort(404, 'Page not found');
+                    }
+
+                }
+                else{
+                    abort(404, 'Page not found');
+                }
+            }
+        else{
+            $cart= session('cart_id');
+            if($cartitem){
+                if($cartitem->cart_id == $cart){
+                    $cartitem->qte = $request->qtes[$i];
+                    $cartitem->total = $cartitem->price * $request->qtes[$i];
+                    $cartitem->save();
+
+                }
+                else{
+                    abort(404, 'Page not found');
+                }
+            }
+            else{
+                abort(404, 'Page not found');
+            }
+        }
+
+
+    }
+    return redirect('/carts');
+  }
+
   public function destroy($id){
     $cartitem = Cartitem::find($id);
     if(Auth::user()){
         $cart = Cart::where('user_id',Auth::user()->id)->first();
-        if($cartitem->cart_id == $cart->id){
-            $cartitem->delete();
-            $nbr_cartitem = $cart->cartitems->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-            $data = array(
-                'nbr_cartitem' => $nbr_cartitem,
-                'total' => number_format($total->sum),
-            );
-            return $data;
-        }
-        else{
+          if($cartitem) {
+                if($cartitem->cart_id == $cart->id){
+                    $cartitem->delete();
+                    $nbr_cartitem = $cart->cartitems->count();
+                    $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+                    $data = array(
+                        'nbr_cartitem' => $nbr_cartitem,
+                        'total' => number_format($total->sum),
+                    );
+                    return $data;
+                }
+                else{
+
+                }
+           }
+           else{
             abort(404, 'Page not found');
-        }
+           }
     }
     else{
         $cart= session('cart_id');
-        if($cartitem->cart_id == $cart){
-            $cartitem->delete();
-            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-            $data = array(
-                'nbr_cartitem' => $nbr_cartitem,
-                'total' => number_format($total->sum),
-            );
-            return $data;
-        }
-        else{
-            abort(404, 'Page not found');
-        }
+        if($cartitem){
+            if($cartitem->cart_id == $cart){
+                $cartitem->delete();
+                $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+                $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+                $data = array(
+                    'nbr_cartitem' => $nbr_cartitem,
+                    'total' => number_format($total->sum),
+                );
+                return $data;
+            }
+            else{
+                abort(404, 'Page not found');
+            }
+      }
+
+      else{
+        abort(404, 'Page not found');
+    }
 
     }
   }
