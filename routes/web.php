@@ -35,5 +35,6 @@ Route::post('/add-attribute', [App\Http\Controllers\ProductController::class, 'a
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
 Route::get('/show-modal-detail-product/{id}', [App\Http\Controllers\ProductController::class, 'showModalDetailProduct']);
 Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
+Route::get('/checkout/{id}', [App\Http\Controllers\CartController::class, 'checkout']);
 Route::resource('/carts',CartController::class);
 Route::resource('/',HomeController::class);

@@ -80,25 +80,18 @@
                         <!-- Cart Calculation Area -->
                         <div class="cart-calculator-wrapper">
                             <div class="cart-calculate-items">
-                                <h6>Cart Totals</h6>
+                                <h6>Total panier</h6>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <tr>
-                                            <td>Sub Total</td>
-                                            <td>$230</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shipping</td>
-                                            <td>$70</td>
-                                        </tr>
-                                        <tr class="total">
                                             <td>Total</td>
-                                            <td class="total-amount">$300</td>
+                                            <td>{{ number_format($cartitem->total) }} Da</td>
                                         </tr>
+
                                     </table>
                                 </div>
                             </div>
-                            <a href="checkout.html" class="btn btn-sqr d-block">Proceed Checkout</a>
+                            <a href="{{ asset('checkout/'.$cart_id) }}" class="btn btn-sqr d-block">Procéder au paiement</a>
                         </div>
                     </div>
                 </div>
