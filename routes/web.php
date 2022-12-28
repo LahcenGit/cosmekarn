@@ -25,6 +25,10 @@ Route::get('/admin', function () {
     return view('admin.dashboard-admin');
 });
 
+Route::get('/success-payment', function () {
+    return view('success');
+});
+
 Route::resource('/admin/categories',CategoryController::class);
 Route::resource('/admin/attributes',AttributeController::class);
 Route::resource('/admin/attributelines',AttributelineController::class);
@@ -38,3 +42,11 @@ Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 
 Route::get('/checkout/{id}', [App\Http\Controllers\CartController::class, 'checkout']);
 Route::resource('/carts',CartController::class);
 Route::resource('/',HomeController::class);
+
+//payment
+Route::get('/redirection', [App\Http\Controllers\PaymentController::class, 'redirectionPayment']);
+Route::post('/webhook', [App\Http\Controllers\PaymentController::class, 'webhook']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
