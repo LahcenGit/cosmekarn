@@ -260,11 +260,5 @@ class CartController extends Controller
     }
   }
 
-  public function checkout($id){
-    $cart = Cart::find($id);
-    $cartitems = Cartitem::where('cart_id',$id)->get();
-    $nbr_cartitem = $cartitems->count();
-    $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$id)->first();
-    return view('checkout',compact('cartitems','nbr_cartitem','total'));
-  }
+
 }

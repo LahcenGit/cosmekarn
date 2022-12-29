@@ -9,14 +9,14 @@ use TheHocineSaad\LaravelChargilyEPay\Epay_Webhook;
 
 class PaymentController extends Controller
 {
-    public function redirectionPayment(){
+    public function redirectionPayment(Request $request){
 
 
     $configurations = [
         'user_id' => 1, // (optional) This is the user ID to be added as a foreign key, it's optional, if it's not provided its value will be NULL
         'mode' => 'CIB', // Payment method must be 'CIB' or 'EDAHABIA'
         'payment' => [
-         'client_name' => 'client name here', // Client name
+         'client_name' => $request->first_name , // Client name
          'client_email' => 'hello@email.com', // This is where client receives payment receipt after confirmation
             'amount' => 2500, // Must be = or > than 75
             'discount' => 0, // This is discount percentage, between 0 and 99

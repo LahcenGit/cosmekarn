@@ -509,6 +509,7 @@
 @stack('add-cart-scripts')
 @stack('modal-detail-product-show')
 @stack('delete-item')
+@stack('shipping-script')
 </body>
 
 </html>

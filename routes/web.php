@@ -7,7 +7,7 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AttributelineController;
-
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,12 +39,12 @@ Route::post('/add-attribute', [App\Http\Controllers\ProductController::class, 'a
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
 Route::get('/show-modal-detail-product/{id}', [App\Http\Controllers\ProductController::class, 'showModalDetailProduct']);
 Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
-Route::get('/checkout/{id}', [App\Http\Controllers\CartController::class, 'checkout']);
+Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
 Route::resource('/carts',CartController::class);
 Route::resource('/',HomeController::class);
 
 //payment
-Route::get('/redirection', [App\Http\Controllers\PaymentController::class, 'redirectionPayment']);
+Route::post('/redirection', [App\Http\Controllers\PaymentController::class, 'redirectionPayment']);
 Route::post('/webhook', [App\Http\Controllers\PaymentController::class, 'webhook']);
 
 Auth::routes();
