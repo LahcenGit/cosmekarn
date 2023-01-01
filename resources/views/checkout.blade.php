@@ -24,7 +24,7 @@
     <!-- breadcrumb area end -->
 
     <!-- checkout main wrapper start -->
-    
+
 
     <div class="checkout-page-wrapper section-padding">
         <div class="container">
@@ -58,11 +58,11 @@
             <div class="row">
                 <!-- Checkout Billing Details -->
                 <div class="col-lg-6">
-                    
+
                     <div class="checkout-billing-details-wrap">
                         <h5 class="checkout-title">Détails de la facturation</h5>
                         <div class="billing-form-wrap">
-                           
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="single-input-item">
@@ -88,9 +88,9 @@
                                     <select name="country nice-select" id="country">
                                         @foreach ($wilayas as $wilaya)
                                         <option value="{{$wilaya->name}}">{{$wilaya->name}}</option>
-                                            
+
                                         @endforeach
-                                        
+
                                     </select>
                                 </div>
 
@@ -108,7 +108,7 @@
                                     <label for="ordernote">Ajouter une remarque</label>
                                     <textarea name="ordernote" id="ordernote" cols="30" rows="3" placeholder="une note a propos votre commande !"></textarea>
                                 </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                                 <div class="single-payment-method">
                                     <div class="payment-method-name">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="directbank" name="paymentmethod" value="bank" class="custom-control-input" />
+                                            <input type="radio" id="directbank" name="paymentmethod" value="EDAHABIA" class="custom-control-input" />
                                             <label class="custom-control-label" for="directbank">EDAHABIA</label>
                                         </div>
                                     </div>
@@ -194,7 +194,7 @@
                                 <div class="single-payment-method">
                                     <div class="payment-method-name">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="checkpayment" name="paymentmethod" value="check" class="custom-control-input" />
+                                            <input type="radio" id="checkpayment" name="paymentmethod" value="CIB" class="custom-control-input" />
                                             <label class="custom-control-label" for="checkpayment">CIB</label>
                                         </div>
                                     </div>
@@ -202,19 +202,19 @@
                                         <p>Effectuez un paiement en ligne avec votre carte bancaire CIB</p>
                                     </div>
                                 </div>
-                               
+
                                 <div class="summary-footer-area">
                                     <div class="custom-control custom-checkbox mb-20">
                                         <input type="checkbox" class="custom-control-input" id="terms" required />
                                         <label class="custom-control-label" for="terms">j'ai lu et j'accepte  <a href="#">les conditions générales d'utilisation.</a></label>
                                     </div>
                                     <button type="submit" class="btn btn-sqr">Commander</button>
-                                    
+
                                 </div>
 
 
                             </div>
-                    
+
                         </div>
                     </div>
                 </div>
@@ -250,7 +250,7 @@
         else{
             alert('coupon incorrect');
         }
-        
+
     });
 
 </script>
