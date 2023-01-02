@@ -2,6 +2,7 @@
 
 namespace TheHocineSaad\LaravelChargilyEPay\Models;
 
+use App\Models\Order;
 use Chargily\ePay\Chargily;
 use Illuminate\Database\Eloquent\Model;
 
@@ -51,6 +52,10 @@ class Epay_Invoice extends Model
         } else {
             return env('APP_URL');
         }
+    }
+
+    public function order(){
+        return $this->hasOne(Order::class);
     }
 
     public function user()

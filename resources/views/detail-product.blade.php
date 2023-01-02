@@ -459,7 +459,7 @@
                                                 '<div class="shopping-cart-delete">'+
                                                     '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
                                                 '</div>'+
-                                        '</li>';
+                                             '</li>';
 
                                     $('.cart-list').append($data);
                                 }

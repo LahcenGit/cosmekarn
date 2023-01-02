@@ -10,7 +10,7 @@
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">my-account</li>
+                                <li class="breadcrumb-item active" aria-current="page">Mon compte</li>
                             </ul>
                         </nav>
                     </div>
@@ -57,7 +57,7 @@
                                             <div class="myaccount-content">
                                                 <h5>Dashboard</h5>
                                                 <div class="welcome">
-                                                    <p>Bonjour, <strong>{{Auth::user()->name}}</strong> 
+                                                    <p>Bonjour, <strong>{{Auth::user()->name}}</strong>
                                                 </div>
                                                 <p class="mb-0">
                                                     Depuis le tableau de bord de votre compte. vous pouvez facilement vérifier et afficher vos commandes récentes, gérer vos adresses de livraison et de facturation et modifier votre mot de passe et les détails de votre compte.</p>
@@ -75,8 +75,8 @@
                                                             <tr>
                                                                 <th>Commande</th>
                                                                 <th>Date</th>
-                                                                <th>statut</th>
-                                                                <th>Paiement</th>
+                                                                <th>Statut paiement</th>
+                                                                <th>Statut commande</th>
                                                                 <th>Total</th>
                                                                 <th>Action</th>
                                                             </tr>
@@ -85,79 +85,77 @@
                                                             @foreach ($orders as $order)
                                                                 <tr>
                                                                     <td>{{$loop->iteration}}</td>
-                                                                    <td>{{$order->created_at}}</td>
-                                                                    <td>{{$order->status}}</td>
-                                                                    <td>{{$order->payment_method}}</td>
+                                                                    <td>{{$order->created_at->format('Y-m-d H:i')}}</td>
+                                                                    @if($order->payment_method == 'CASH')
+                                                                    <td>Paiement à la livraison</td>
+                                                                    @elseif($order->epayInvoice->paid == 1)
+                                                                    <td>Payé</td>
+                                                                    @else
+                                                                    <td>Echec de paiement</td>
+                                                                    @endif
+                                                                    @if($order->status == 0)
+                                                                    <td>En attente</td>
+                                                                    @elseif($order->status == 1)
+                                                                    <td>En cours de livraison</td>
+                                                                    @elseif($order->status == 2)
+                                                                    <td>Livré</td>
+                                                                    @elseif($order->status == 3)
+                                                                    <td>Annulé</td>
+                                                                    @else
+                                                                    <td>En attente de paiement</td>
+                                                                    @endif
                                                                     <td> <b>{{number_format($order->total)}}</b>  Da</td>
                                                                     <td><a href="cart.html" class="btn btn-sqr">View</a>
                                                                     </td>
                                                                 </tr>
-                                                                
+
                                                             @endforeach
-                                                          
+
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- Single Tab Content End -->
-                                     
+
                                          <!-- Single Tab Content Start -->
                                         <div class="tab-pane fade" id="account-info" role="tabpanel">
                                             <div class="myaccount-content">
                                                 <h5>Détails compte</h5>
                                                 <div class="account-details-form">
                                                     <form action="#">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="single-input-item">
-                                                                    <label for="first-name" class="required">First
-                                                                        Name</label>
-                                                                    <input type="text" id="first-name" placeholder="First Name" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="single-input-item">
-                                                                    <label for="last-name" class="required">Last
-                                                                        Name</label>
-                                                                    <input type="text" id="last-name" placeholder="Last Name" />
-                                                                </div>
-                                                            </div>
+
+                                                        <div class="single-input-item">
+                                                            <label for="display-name" class="required">Nom Complet</label>
+                                                            <input type="text" id="display-name" placeholder="{{ Auth::user()->name }}" />
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="display-name" class="required">Display Name</label>
-                                                            <input type="text" id="display-name" placeholder="Display Name" />
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="email" class="required">Email Addres</label>
-                                                            <input type="email" id="email" placeholder="Email Address" />
+                                                            <label for="email" class="required">Email</label>
+                                                            <input type="email" id="email" placeholder="{{ Auth::user()->email }}" />
                                                         </div>
                                                         <fieldset>
-                                                            <legend>Password change</legend>
+                                                            <legend>Changement de mot de passe</legend>
                                                             <div class="single-input-item">
-                                                                <label for="current-pwd" class="required">Current
-                                                                    Password</label>
-                                                                <input type="password" id="current-pwd" placeholder="Current Password" />
+                                                                <label for="current-pwd" class="required">Mot de passe actuel</label>
+                                                                <input type="password" id="current-pwd" placeholder="taper le mot de passe actuel" />
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <div class="single-input-item">
-                                                                        <label for="new-pwd" class="required">New
-                                                                            Password</label>
-                                                                        <input type="password" id="new-pwd" placeholder="New Password" />
+                                                                        <label for="new-pwd" class="required">Nouveau mot de passe</label>
+                                                                        <input type="password" id="new-pwd" placeholder="taper le nouveau mot de passe" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="single-input-item">
-                                                                        <label for="confirm-pwd" class="required">Confirm
-                                                                            Password</label>
-                                                                        <input type="password" id="confirm-pwd" placeholder="Confirm Password" />
+                                                                        <label for="confirm-pwd" class="required">Confirmez le mot de passe</label>
+                                                                        <input type="password" id="confirm-pwd" placeholder="retaper le nouveau mot de passe" />
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </fieldset>
                                                         <div class="single-input-item">
-                                                            <button class="btn btn-sqr">Save Changes</button>
+                                                            <button class="btn btn-sqr">Enregistrer</button>
                                                         </div>
                                                     </form>
                                                 </div>

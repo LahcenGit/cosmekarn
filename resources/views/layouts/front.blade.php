@@ -154,7 +154,7 @@
                                                 <ul class="dropdown-list">
                                                     <li style="color: #E41F85; margin-bottom:10px;" >Hi ! {{strtok(Auth::user()->name, " ")}}</li>
                                                     <li><a href="{{asset('/customer')}}" style="cursor: pointer">Dashboard</a></li>
-                                                    <li> 
+                                                    <li>
                                                         <a style="cursor: pointer" href="{{route('logout')}}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
                                                             <span class="ml-2">Déconnexion </span>
@@ -173,7 +173,7 @@
                                                 <ul class="dropdown-list">
                                                     <li><a href="{{asset('/login-register')}}" style="cursor: pointer">Connexion</a></li>
                                                 </ul>
-                                            
+
                                             @endauth
 
                                         </li>
@@ -454,7 +454,7 @@
                 <div class="minicart-close">
                     <i class="pe-7s-close"></i>
                 </div>
-                @if($nbr_cartitem > 0)
+
                 <div class="minicart-content-box">
                     <div class="minicart-item-wrapper">
                         <ul class="cart-list">
@@ -479,22 +479,23 @@
                             @endforeach
                         </ul>
                     </div>
+                    @if($nbr_cartitem >0)
+                        <div class="minicart-pricing-box">
+                            <ul>
+                                <li >
+                                    <span>total</span>
+                                    <span class="total"><strong>{{ number_format($total->sum) }} Da</strong></span>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <div class="minicart-pricing-box">
-                        <ul>
-                            <li >
-                                <span>total</span>
-                                <span class="total"><strong>{{ number_format($total->sum) }} Da</strong></span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="minicart-button">
-                        <a href="{{ asset('/carts') }}"><i class="fa fa-shopping-cart"></i> Voir le panier</a>
-                        <a href="cart.html"><i class="fa fa-share"></i> Validation</a>
-                    </div>
+                        <div class="minicart-button">
+                            <a href="{{ asset('/carts') }}"><i class="fa fa-shopping-cart"></i> Voir le panier</a>
+                            <a href="cart.html"><i class="fa fa-share"></i> Validation</a>
+                        </div>
+                    @endif
                 </div>
-                @endif
+
             </div>
         </div>
     </div>

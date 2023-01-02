@@ -25,7 +25,8 @@
 
     <!-- checkout main wrapper start -->
 
-
+    <form action="{{'/redirection'}}" method="POST" enctype="multipart/form-data">
+        @csrf
     <div class="checkout-page-wrapper section-padding">
         <div class="container">
             <div class="row">
@@ -40,7 +41,7 @@
                                 <div class="card-body">
                                     <div class="cart-update-option">
                                         <div class="apply-coupon-wrapper">
-                                            <input type="text" name="coupon" placeholder="Entrer votre code" required />
+                                            <input type="text" name="coupon" placeholder="Entrer votre code" />
                                             <button type="button" id="coupon-btn" class="btn btn-sqr">Valider</button>
                                         </div>
                                     </div>
@@ -52,8 +53,7 @@
                 </div>
             </div>
 
-            <form action="{{'/redirection'}}" method="POST" enctype="multipart/form-data">
-                @csrf
+
 
             <div class="row">
                 <!-- Checkout Billing Details -->
@@ -205,10 +205,13 @@
 
                                 <div class="summary-footer-area">
                                     <div class="custom-control custom-checkbox mb-20">
-                                        <input type="checkbox" class="custom-control-input" id="terms" required />
+                                        <input type="checkbox" class="custom-control-input" id="terms" />
                                         <label class="custom-control-label" for="terms">j'ai lu et j'accepte  <a href="#">les conditions générales d'utilisation.</a></label>
                                     </div>
-                                    <button type="submit" class="btn btn-sqr">Commander</button>
+                                    <div class="alert alert-danger mt-3 alert-condition" role="alert" style="display: none;">
+                                        <span style="font-size: 15px;">Veuillez confirmer votre acceptation des conditions générales d'utilisation.  </span>
+                                    </div>
+                                    <button  class="btn btn-sqr btn-submit">Commander</button>
 
                                 </div>
 
@@ -219,10 +222,10 @@
                     </div>
                 </div>
             </div>
-        </form>
+
         </div>
     </div>
-
+</form>
 
     <!-- checkout main wrapper end -->
 </main>
@@ -252,6 +255,14 @@
         }
 
     });
-
+    $( ".btn-submit" ).click(function(e) {
+    if(terms.checked) {
+     $(this).parents("form:first").submit();
+    }
+    else{
+        e.preventDefault();
+        $(".alert-condition").css("display", "block");
+    }
+});
 </script>
 @endpush
