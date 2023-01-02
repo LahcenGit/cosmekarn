@@ -475,7 +475,7 @@
                                         <span class="cart-price">{{ number_format($cartitem->price) }} Da</span>
                                     </p>
                                 </div>
-                                <button class="delete-item" data-id="{{$cartitem->id}}"><i class="pe-7s-close"></i></button>
+                                <button class="delete-item-list" data-id="{{$cartitem->id}}"><i class="pe-7s-close"></i></button>
                             </li>
                             @endforeach
                         </ul>
@@ -536,8 +536,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
-        $( ".delete-item" ).click(function() {
+        $( ".delete-item-list" ).click(function() {
             var id = $(this).attr("data-id");
+
             var item = $('#list-'+id).val();
             var token = $("meta[name='csrf-token']").attr("content");
             $.ajax({

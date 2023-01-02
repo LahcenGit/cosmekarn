@@ -423,7 +423,7 @@
 
                                     var $path = '{{asset("storage/images/products/")}}';
 
-                                    $data = '<li class="minicart-item">'+
+                                    $data = '<li class="minicart-item" id="list-'+id+'">'+
                                             '<div class="minicart-thumb">'+
                                                 '<a style="cursor: pointer">'+
                                                     '<img src="'+ $path + '/'+res.image + '" alt="product">' +
@@ -438,7 +438,7 @@
                                                     '<span class="cart-price">'+res.price+' Da</span>'+
                                                 '</p>'+
                                             '</div>'+
-                                            '<button class="minicart-remove"><i class="pe-7s-close"></i></button>'+
+                                            '<button class="delete-item-list" data-id="'+id+'"><i class="pe-7s-close"></i></button>'+
                                         '</li>';
                                 $('.cart-list').append($data);
                                 }
