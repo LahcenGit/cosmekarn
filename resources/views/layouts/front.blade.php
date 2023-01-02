@@ -35,6 +35,14 @@
 
 </head>
 
+
+<style>
+    .alert-success-cosmekarn{
+        color: #E41F85;
+        background-color: #FFEEFA;
+        border-color: #E85BAC;
+    }
+</style>
 <body>
     <!-- Start Header Area -->
     <header class="header-area header-wide">
@@ -64,7 +72,7 @@
                         <div class="col-lg-2">
                             <div class="logo">
                                 <a style="cursor: pointer">
-                                    <img src="{{ asset('front/assets/img/logo/logo.png') }}" alt="Brand Logo">
+                                   <a href="{{asset('/')}}"> <img src="{{ asset('front/assets/img/logo/logo.png') }}" alt="Brand Logo"></a>
                                 </a>
                             </div>
                         </div>
@@ -139,14 +147,35 @@
                                 <div class="header-configure-area">
                                     <ul class="nav justify-content-end">
                                         <li class="user-hover">
-                                            <a href="#">
-                                                <i class="pe-7s-user"></i>
-                                            </a>
-                                            <ul class="dropdown-list">
-                                                <li><a style="cursor: pointer">Connexion</a></li>
-                                                <li><a style="cursor: pointer">Inscription</a></li>
+                                            @auth
+                                                <a href="#">
+                                                    <i style="color: #E41F85" class="pe-7s-user"></i>
+                                                </a>
+                                                <ul class="dropdown-list">
+                                                    <li style="color: #E41F85; margin-bottom:10px;" >Hi ! {{strtok(Auth::user()->name, " ")}}</li>
+                                                    <li><a href="{{asset('/customer')}}" style="cursor: pointer">Dashboard</a></li>
+                                                    <li> 
+                                                        <a style="cursor: pointer" href="{{route('logout')}}" onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                                            <span class="ml-2">Déconnexion </span>
+                                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                            @csrf
+                                                        </form>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            @endauth
 
-                                            </ul>
+                                            @guest
+                                                <a href="#">
+                                                    <i class="pe-7s-user"></i>
+                                                </a>
+                                                <ul class="dropdown-list">
+                                                    <li><a href="{{asset('/login-register')}}" style="cursor: pointer">Connexion</a></li>
+                                                </ul>
+                                            
+                                            @endauth
+
                                         </li>
                                         <li>
                                             <a href="wishlist.html">

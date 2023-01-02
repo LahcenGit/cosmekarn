@@ -247,10 +247,11 @@ class ProductController extends Controller
 
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
-            if($cart){
             $cartitems = $cart->cartitems;
-            $nbr_cartitem = $cart->cartitems->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+
+            if($cartitems ){
+                $nbr_cartitem = $cart->cartitems->count();
+                $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
             }
             else{
                 $cartitems = null;
@@ -259,10 +260,10 @@ class ProductController extends Controller
             }
         }
         else{
-        $cart= session('cart_id');
-        $cartitems = Cartitem::where('cart_id',$cart)->get();
-        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+            $cart= session('cart_id');
+            $cartitems = Cartitem::where('cart_id',$cart)->get();
+            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
 
         return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes','cartitems','nbr_cartitem','total'));

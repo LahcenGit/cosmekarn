@@ -29,6 +29,15 @@ Route::get('/success-payment', function () {
     return view('success');
 });
 
+Route::get('/success-order', function () {
+    $cartitems = null;
+    $nbr_cartitem = 0;
+    $total = 0;
+    return view('success-order',compact('cartitems','nbr_cartitem','total'));
+
+});
+
+
 Route::resource('/admin/categories',CategoryController::class);
 Route::resource('/admin/attributes',AttributeController::class);
 Route::resource('/admin/attributelines',AttributelineController::class);
@@ -40,6 +49,7 @@ Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'd
 Route::get('/show-modal-detail-product/{id}', [App\Http\Controllers\ProductController::class, 'showModalDetailProduct']);
 Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
+Route::get('/login-register', [App\Http\Controllers\Auth\LoginController::class, 'loginRegister'])->name('login-register');
 Route::resource('/carts',CartController::class);
 Route::resource('/',HomeController::class);
 
@@ -48,5 +58,8 @@ Route::post('/redirection', [App\Http\Controllers\PaymentController::class, 'red
 Route::post('/webhook', [App\Http\Controllers\PaymentController::class, 'webhook']);
 
 Auth::routes();
+
+//customer
+Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

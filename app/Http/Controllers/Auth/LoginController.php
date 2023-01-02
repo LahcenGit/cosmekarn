@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\Cartitem;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -36,5 +39,32 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+
+    public function loginRegister(){
+
+        if(Auth::user()){
+            $cart = Cart::where('user_id',Auth::user()->id)->first();
+            if($cart){
+            $cartitems = $cart->cartitems;
+            $nbr_cartitem = $cart->cartitems->count();
+            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+            }
+            else{
+                $cartitems = null;
+                $nbr_cartitem = 0;
+                $total = 0;
+            }
+        }
+        else{
+        $cart= session('cart_id');
+        $cartitems = Cartitem::where('cart_id',$cart)->get();
+        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+        }
+
+        return view('login-register',compact('cart','cartitems','nbr_cartitem','total'));
+
     }
 }

@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="single-input-item">
                                     <label for="country" class="required">Wilayas</label>
-                                    <select name="country nice-select" id="country">
+                                    <select name="country" class="nice-select" id="country">
                                         @foreach ($wilayas as $wilaya)
                                         <option value="{{$wilaya->name}}">{{$wilaya->name}}</option>
 
@@ -100,8 +100,8 @@
                                 </div>
 
                                 <div class="single-input-item">
-                                    <label for="phone">Téléphone</label>
-                                    <input type="text" id="phone" placeholder="Phone" />
+                                    <label for="phone" class="required">Téléphone </label>
+                                    <input type="text" name="phone" id="phone" placeholder="Phone" />
                                 </div>
 
                                 <div class="single-input-item">

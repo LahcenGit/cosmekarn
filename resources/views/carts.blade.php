@@ -84,7 +84,7 @@
                                         <table class="table">
                                             <tr>
                                                 <td>Total</td>
-                                                <td>{{ number_format($cartitem->total) }} Da</td>
+                                                <td>{{ number_format($total->sum) }} Da</td>
                                             </tr>
 
                                         </table>

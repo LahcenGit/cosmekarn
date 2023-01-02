@@ -15,23 +15,24 @@ class HomeController extends Controller
         $products = Product::all();
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
-            if($cart){
             $cartitems = $cart->cartitems;
-            $nbr_cartitem = $cart->cartitems->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
 
+            if($cartitems ){
+                $nbr_cartitem = $cart->cartitems->count();
+                $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
             }
             else{
                 $cartitems = null;
                 $nbr_cartitem = 0;
                 $total = 0;
             }
+
         }
         else{
-        $cart= session('cart_id');
-        $cartitems = Cartitem::where('cart_id',$cart)->get();
-        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+            $cart= session('cart_id');
+            $cartitems = Cartitem::where('cart_id',$cart)->get();
+            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
         return view('welcome',compact('products','cartitems','nbr_cartitem','total'));
 
