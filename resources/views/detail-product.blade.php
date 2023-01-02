@@ -325,7 +325,7 @@
                             </figure>
                             <div class="product-caption text-center">
                                 <div class="product-identity">
-                                    <p class="manufacturer-name"><a href="product-details.html">Eclipse</a></p>
+                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$related_product->product->slug) }}">Eclipse</a></p>
                                 </div>
                                 <ul class="color-categories">
                                     @foreach($related_product->product->productlines as $item)
@@ -337,7 +337,7 @@
                                     @endforeach
                                 </ul>
                                 <h6 class="product-name">
-                                    <a href="product-details.html">{{ $related_product->product->designation }}</a>
+                                    <a href="{{ asset('product/'.$related_product->product->slug) }}">{{ $related_product->product->designation }}</a>
                                 </h6>
                                 <div class="price-box">
                                     @if($related_product->getPricePromo())
@@ -425,13 +425,13 @@
 
                                     $data = '<li class="minicart-item">'+
                                             '<div class="minicart-thumb">'+
-                                                '<a href="product-details.html">'+
+                                                '<a style="cursor: pointer">'+
                                                     '<img src="'+ $path + '/'+res.image + '" alt="product">' +
                                                 '</a>'+
                                             '</div>'+
                                             '<div class="minicart-content">'+
                                                '<h3 class="product-name">'+
-                                                    '<a href="product-details.html">'+res.name+'</a>'+
+                                                    '<a style="cursor: pointer">'+res.name+'</a>'+
                                                 '</h3>'+
                                                 '<p>'+
                                                     '<span class="cart-quantity">'+res.qte+' <strong>&times;</strong></span>'+

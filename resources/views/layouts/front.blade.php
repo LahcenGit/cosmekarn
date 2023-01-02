@@ -185,7 +185,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" class="minicart-btn">
+                                            <a style="cursor: pointer" class="minicart-btn">
                                                 <i class="pe-7s-shopbag"></i>
                                                 <div class="notification nbr_product">{{$nbr_cartitem}}</div>
                                             </a>
@@ -462,13 +462,13 @@
                             @foreach($cartitems as $cartitem)
                             <li class="minicart-item" id="list-{{$cartitem->id}}">
                                 <div class="minicart-thumb">
-                                    <a href="product-details.html">
+                                    <a href="{{ asset('product/'.$cartitem->productline->product->slug) }}">
                                         <img src="{{asset('storage/images/products/'.$cartitem->productline->product->images[0]->lien)}}" alt="product">
                                     </a>
                                 </div>
                                 <div class="minicart-content">
                                     <h3 class="product-name">
-                                        <a href="product-details.html">{{ $cartitem->productline->product->designation }}</a>
+                                        <a href="{{ asset('product/'.$cartitem->productline->product->slug) }}">{{ $cartitem->productline->product->designation }}</a>
                                     </h3>
                                     <p>
                                         <span class="cart-quantity">{{ $cartitem->qte }} <strong>&times;</strong></span>
@@ -480,7 +480,7 @@
                             @endforeach
                         </ul>
                     </div>
-                   
+
                         <div class="minicart-pricing-box">
                             <ul>
                                 <li >
@@ -494,7 +494,7 @@
                             <a href="{{ asset('/carts') }}"><i class="fa fa-shopping-cart"></i> Voir le panier</a>
                             <a href="cart.html"><i class="fa fa-share"></i> Validation</a>
                         </div>
-                    
+
                 </div>
 
             </div>
