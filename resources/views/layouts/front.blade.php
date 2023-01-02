@@ -475,7 +475,7 @@
                                         <span class="cart-price">{{ number_format($cartitem->price) }} Da</span>
                                     </p>
                                 </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
+                                <button class="delete-item" data-id="{{$cartitem->id}}"><i class="pe-7s-close"></i></button>
                             </li>
                             @endforeach
                         </ul>
@@ -534,6 +534,30 @@
     <!-- Main JS -->
     <script src="{{ asset('front/assets/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        $( ".delete-item" ).click(function() {
+            var id = $(this).attr("data-id");
+            var item = $('#list-'+id).val();
+            var token = $("meta[name='csrf-token']").attr("content");
+            $.ajax({
+                url: '/carts/'+id ,
+                type: 'DELETE',
+                data: {
+                "id": id,
+                "_token": token,
+            },
+                success: function (res) {
+                    $("#list-"+id).css("display", "none");
+                    $(".nbr_product").text(res.nbr_cartitem);
+                    $(".total").text(res.total +' Da');
+
+
+                 }
+            });
+    });
+    </script>
+
 
 
 @stack('select-icon-script')
