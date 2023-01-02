@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('front/assets/css/plugins/jqueryui.min.css') }}">
     <!-- main style css -->
     <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 
 </head>
 
@@ -479,7 +480,7 @@
                             @endforeach
                         </ul>
                     </div>
-                    @if($nbr_cartitem >0)
+                   
                         <div class="minicart-pricing-box">
                             <ul>
                                 <li >
@@ -493,7 +494,7 @@
                             <a href="{{ asset('/carts') }}"><i class="fa fa-shopping-cart"></i> Voir le panier</a>
                             <a href="cart.html"><i class="fa fa-share"></i> Validation</a>
                         </div>
-                    @endif
+                    
                 </div>
 
             </div>
@@ -532,6 +533,7 @@
     <script src="{{ asset('front/assets/js/plugins/google-map.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('front/assets/js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
 @stack('select-icon-script')

@@ -119,14 +119,21 @@
                                                     <h6 class="option-title">Couleur : <span class="color-title"> <b>{{ $item->attributeLine->value }} </b> </span></h6><br>
                                                     @endif
                                                     @if($item->attribute->value == 'Couleur')
-                                                        <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}" >
-                                                            <a title="{{$item->attributeLine->value}}" id="{{$item->id}}" style="cursor: pointer"  class="select-icon"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone)}}" alt="{{ $item->attributeLine->value }}"/></a>
-                                                        </li>
+                                                        @if($loop->iteration == 1)
+                                                            <li value-id="{{$item->id}}" class="selected-icon" id="{{'li-'.$item->id}}" >
+                                                                <a title="{{$item->attributeLine->value}}" id="{{$item->id}}" style="cursor: pointer"  class="select-icon"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone)}}" alt="{{ $item->attributeLine->value }}"/></a>
+                                                            </li>
+                                                        @else
+                                                            <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}" >
+                                                                <a title="{{$item->attributeLine->value}}" id="{{$item->id}}" style="cursor: pointer"  class="select-icon"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone)}}" alt="{{ $item->attributeLine->value }}"/></a>
+                                                            </li>
+                                                        @endif
                                                     @endif
                                                 @endforeach
                                             </ul>
                                         </div>
                                     @endforeach
+
                                 @endif
                                 <div class="quantity-cart-box d-flex align-items-center">
                                     <input type="hidden" value="{{$product->id}}" class="product_id">
@@ -136,7 +143,7 @@
                                         <div class="pro-qty"><input type="text" class="qty-val" value="1"></div>
                                     </div>
                                     <div class="action_link">
-                                        <a class="btn btn-cart2 addToCartBtn" style="cursor: pointer">Ajouter au panier</a>
+                                        <a class="btn btn-cart2 addToCartBtn" href="JavaScript:void(0);">Ajouter au panier</a>
                                     </div>
                                 </div>
                                 <div class="useful-links">
@@ -351,6 +358,10 @@
     </div>
 </section>
 <!-- related products area end -->
+
+
+
+
 </main>
 
 <!-- Scroll to top start -->
@@ -359,9 +370,12 @@
 </div>
 
 
+
 @endsection
 
 @push('select-icon-indice')
+
+
 <script>
     $(".select-icon").click(function() {
         $('.color-categories li').removeAttr('class');
@@ -402,14 +416,17 @@
                                 'qte' :qte,
                             },
                             success: function (res) {
-                                $("#liveToast").show();
+                                toastr.success('Produit ajouté avec success');
                                 $(".nbr_product").text(res.nbr_cart);
 
                                 if(res.qtes == 0){
+
+                                    var $path = '{{asset("storage/images/products/")}}';
+
                                     $data = '<li class="minicart-item">'+
                                             '<div class="minicart-thumb">'+
                                                 '<a href="product-details.html">'+
-                                                    '<img src="{{asset('storage/images/products/res.image')}}" alt="product">'+
+                                                    '<img src="'+ $path + '/'+res.image + '" alt="product">' +
                                                 '</a>'+
                                             '</div>'+
                                             '<div class="minicart-content">'+
