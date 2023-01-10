@@ -105,7 +105,7 @@
                                                                     <td>En attente de paiement</td>
                                                                     @endif
                                                                     <td> <b>{{number_format($order->total)}}</b>  Da</td>
-                                                                    <td><a href="cart.html" class="btn btn-sqr">View</a>
+                                                                    <td><a href="#" class="btn btn-sqr">Détails</a>
                                                                     </td>
                                                                 </tr>
 

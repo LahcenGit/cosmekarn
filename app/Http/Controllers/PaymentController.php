@@ -32,8 +32,7 @@ class PaymentController extends Controller
     $order->phone = $request->phone;
     $order->note = $request->ordernote;
     $order->payment_method = $request->paymentmethod;
-    $order->total = $total;
-
+   
     if($request->coupon){
         $amount = 100;
     }
@@ -44,8 +43,10 @@ class PaymentController extends Controller
         else{
             $amount = $total + 700;
         }
-
     }
+
+    $order->total = $amount;
+
     if($request->paymentmethod == 'EDAHABIA' || $request->paymentmethod == 'CIB'){
 
         $configurations = [
@@ -93,10 +94,14 @@ class PaymentController extends Controller
    }
 
     public function webhook(){
+
         $webhookHandler = new Epay_Webhook;
-        $invoice = Epay_Invoice::where('user_id',Auth::user()->id)->latest()->first();
-        $order = Order::where('user_id',Auth::user()->id)->latest()->first();
-        if($webhookHandler -> invoiceIsPaied) {
+
+        $email = $webhookHandler->invoice['client_email'];
+        $invoice = Epay_Invoice::where('client_email', $email)->latest()->first();
+        $order = Order::where('user_id',$invoice->user_id)->latest()->first();
+
+        if($webhookHandler->invoiceIsPaied) {
             $invoice->paid = 1;
             $invoice->fee = $webhookHandler->invoice['fee'];
             $invoice->due_amount = $webhookHandler->invoice['due_amount'];

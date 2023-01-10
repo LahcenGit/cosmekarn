@@ -7,11 +7,13 @@ use App\Models\Cartitem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use TheHocineSaad\LaravelChargilyEPay\Models\Epay_Invoice;
 
 class HomeController extends Controller
 {
     //
     public function index(){
+      
         $products = Product::all();
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();

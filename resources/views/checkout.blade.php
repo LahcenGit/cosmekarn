@@ -25,7 +25,7 @@
 
     <!-- checkout main wrapper start -->
 
-    <form action="{{'/redirection'}}" method="POST" enctype="multipart/form-data">
+    <form action="{{asset('/redirection')}}" method="POST" enctype="multipart/form-data">
         @csrf
     <div class="checkout-page-wrapper section-padding">
         <div class="container">
