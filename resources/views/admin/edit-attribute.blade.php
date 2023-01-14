@@ -20,7 +20,7 @@
             <div class="col-xl-8 col-lg-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Ajouter attribut</h4>
+                        <h4 class="card-title">Modifier attribut</h4>
                     </div>
                     <div class="card-body">
                         <div class="basic-form">

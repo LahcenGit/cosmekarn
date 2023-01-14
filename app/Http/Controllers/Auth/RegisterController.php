@@ -68,7 +68,9 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
+            'type' => 'customer',
         ]);
 
         $cart_id = session('cart_id');

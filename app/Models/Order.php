@@ -17,4 +17,7 @@ class Order extends Model
     public function epayInvoice(){
         return $this->belongsTo(Epay_Invoice::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

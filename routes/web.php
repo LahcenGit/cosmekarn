@@ -7,6 +7,8 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AttributelineController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -21,9 +23,6 @@ use Illuminate\Support\Facades\Auth;
 */
 
 
-Route::get('/admin', function () {
-    return view('admin.dashboard-admin');
-});
 
 Route::get('/success-payment', function () {
     return view('success');
@@ -41,7 +40,9 @@ Route::get('/success-order', function () {
 Route::resource('/admin/categories',CategoryController::class);
 Route::resource('/admin/attributes',AttributeController::class);
 Route::resource('/admin/attributelines',AttributelineController::class);
+Route::resource('/admin/orders',OrderController::class);
 Route::resource('/admin/products',ProductController::class);
+Route::get('order-details/{id}', [OrderController::class, 'orderDetails']);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
 Route::post('/add-attribute', [App\Http\Controllers\ProductController::class, 'addAttribute']);
@@ -52,7 +53,7 @@ Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index
 Route::get('/login-register', [App\Http\Controllers\Auth\LoginController::class, 'loginRegister'])->name('login-register');
 Route::resource('/carts',CartController::class);
 Route::resource('/',HomeController::class);
-
+Route::resource('/admin',AdminController::class);
 //payment
 Route::post('/redirection', [App\Http\Controllers\PaymentController::class, 'redirectionPayment']);
 Route::post('/webhook', [App\Http\Controllers\PaymentController::class, 'webhook']);

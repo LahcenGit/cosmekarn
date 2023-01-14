@@ -461,31 +461,37 @@
                                 'qte' :qte,
                             },
                             success: function (res) {
-
-                                $("#liveToast").show();
+                                toastr.success('Produit ajouté avec success');
                                 $(".nbr_product").text(res.nbr_cart);
-                                if(res.qtes == 0){
-                                    $data =  '<li>'+
-                                                '<div class="shopping-cart-img">'+
-                                                    '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image')}}" /></a>'+
-                                                '</div>'+
-                                                '<div class="shopping-cart-title">'+
-                                                    '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+
-                                                    '<h4><span>'+res.qte+' × </span>'+res.price+' Da</h4>'+
-                                                '</div>'+
-                                                '<div class="shopping-cart-delete">'+
-                                                    '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
-                                                '</div>'+
-                                             '</li>';
 
-                                    $('.cart-list').append($data);
+                                if(res.qtes == 0){
+
+                                    var $path = '{{asset("storage/images/products/")}}';
+
+                                    $data = '<li class="minicart-item" id="list-'+id+'">'+
+                                            '<div class="minicart-thumb">'+
+                                                '<a style="cursor: pointer">'+
+                                                    '<img src="'+ $path + '/'+res.image + '" alt="product">' +
+                                                '</a>'+
+                                            '</div>'+
+                                            '<div class="minicart-content">'+
+                                               '<h3 class="product-name">'+
+                                                    '<a style="cursor: pointer">'+res.name+'</a>'+
+                                                '</h3>'+
+                                                '<p>'+
+                                                    '<span class="cart-quantity">'+res.qte+' <strong>&times;</strong></span>'+
+                                                    '<span class="cart-price">'+res.price+' Da</span>'+
+                                                '</p>'+
+                                            '</div>'+
+                                            '<button class="delete-item-list" data-id="'+id+'"><i class="pe-7s-close"></i></button>'+
+                                        '</li>';
+                                $('.cart-list').append($data);
                                 }
                                 else{
                                     alert("Le produit existe déja dans votre panier");
                                 }
                                 $(".total").text(res.total +' Da');
-
-                            }
+                               }
                             });
                          }
                }

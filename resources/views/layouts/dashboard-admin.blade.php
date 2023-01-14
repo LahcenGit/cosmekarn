@@ -24,23 +24,7 @@
 
     </head>
 
-	<style>
-		.temp-body {
-		filter: blur(3px);
-		}
-		.temp-body:before {
-		content: "";
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(22, 180, 183, 0.2);
-		z-index: 999;
-		pointer-events: none;/* This will do all the magic !*/
-		}
 
-	</style>
 
 <body>
 
@@ -99,7 +83,7 @@
 						<a class="nav-link active" data-toggle="tab" href="#chat">Chat</a>
 					</li>
 				</ul>
-				
+
 			</div>
 		</div>
 		<!--**********************************
@@ -144,7 +128,7 @@
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3" style="height:380px;">
 										<ul class="timeline">
-											
+
 										</ul>
 									</div>
                                     <a class="all-notification" href="#">Voir les notifications <i
@@ -164,7 +148,7 @@
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <span class="ml-2">Profile </span>
                                     </a>
-                                 
+
                                     <a href="#" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                                         <span class="ml-2">Déconnexion </span>
@@ -238,11 +222,10 @@
                     <li class="nav-label">Commandes</li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><path d="M3,4 L20,4 C20.5522847,4 21,4.44771525 21,5 L21,7 C21,7.55228475 20.5522847,8 20,8 L3,8 C2.44771525,8 2,7.55228475 2,7 L2,5 C2,4.44771525 2.44771525,4 3,4 Z M3,10 L13,10 C13.5522847,10 14,10.4477153 14,11 L14,13 C14,13.5522847 13.5522847,14 13,14 L3,14 C2.44771525,14 2,13.5522847 2,13 L2,11 C2,10.4477153 2.44771525,10 3,10 Z M3,16 L13,16 C13.5522847,16 14,16.4477153 14,17 L14,19 C14,19.5522847 13.5522847,20 13,20 L3,20 C2.44771525,20 2,19.5522847 2,19 L2,17 C2,16.4477153 2.44771525,16 3,16 Z" fill="#000000"/><rect fill="#000000" opacity="0.3" x="16" y="10" width="5" height="10" rx="1"/></g></svg>
-							<span class="nav-text">Commande</span>
+							<span class="nav-text">Commandes</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Ajouter</a></li>
-                            <li><a href="#">Tous</a></li>
+                            <li><a href="{{ url('admin/orders') }}">Tous</a></li>
                         </ul>
                     </li>
 
@@ -377,5 +360,6 @@
 @stack('add-image-icone-scripts')
 @stack('show-modal-scripts')
 @stack('store-attribute-scripts')
+@stack('modal-order-details-scripts')
 </body>
 </html>
