@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <form action="{{url('admin/products')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{url('admin/products')}}" method="POST" id="regForm" enctype="multipart/form-data">
         @csrf
 
         <div class="row ">
@@ -33,16 +33,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Désignation*:</label>
-                                        <input type="text"  class="form-control input-default @error('designation') is-invalid @enderror" value="{{old('designation')}}" name="designation" placeholder="designation">
-                                            @error('designation')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <input type="text"  class="form-control input-default " 
+                                          value="{{old('designation')}}" name="designation" id="designation" placeholder="designation" >
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Qte*:</label>
-                                        <input type="number"  class="form-control input-default @error('qte') is-invalid @enderror" value="{{old('qte')}}" name="qte" placeholder="0">
+                                        <label>Qte:</label>
+                                        <input type="number"  class="form-control input-default control-number @error('qte') is-invalid @enderror" value="{{old('qte')}}" min="0" name="qte" placeholder="0">
                                             @error('qte')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -52,8 +48,8 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label>Prix*:</label>
-                                        <input type="number"  class="form-control input-default @error('price') is-invalid @enderror" value="{{old('price')}}" name="price" placeholder="0.00">
+                                        <label>Prix:</label>
+                                        <input type="text" class="form-control input-default control-number @error('price') is-invalid @enderror" value="{{old('price')}}" name="price" placeholder="0.00">
                                             @error('price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -62,7 +58,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Promo:</label>
-                                        <input type="number"  class="form-control input-default @error('promo') is-invalid @enderror" value="{{old('promo')}}" name="promo" placeholder="0.00">
+                                        <input type="text"  class="form-control input-default control-number @error('promo') is-invalid @enderror" value="{{old('promo')}}" name="promo" placeholder="0.00">
                                             @error('promo')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -76,9 +72,10 @@
                                     <div class="form-group col-md-6">
                                         <label>Statut:</label>
                                         <select id="inputState" class="default-select form-control wide" name="status">
-                                            <option>Nothing selected</option>
-                                            <option>Nouveau</option>
-                                            <option>Non</option>
+                                            <option value="1">Nouveau</option>
+                                            <option value="2">Ancien stock</option>
+                                            <option value="3">rupture</option>
+                                            <option value="4">Prochainement</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -97,7 +94,7 @@
             <div class="col-xl-3 col-lg-3">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Les Catégories</h4>
+                            <h4 class="card-title">Catégories</h4>
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
@@ -132,14 +129,14 @@
             <div class="col-xl-3 col-lg-3">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Photos</h4>
+                        <h4 class="card-title">Photo * (obligatoire)</h4>
                     </div>
                     <div class="card-body">
                     <label>L'image principale du produit :</label>
                         <div class="basic-form custom_file_input">
-                                <div class="input-group mb-3">
-                                        <input type="file" class="file"  name="photoPrincipale" accept="image/*"  >
-                                </div>
+                            <div class="input-group mb-3">
+                                <input type="file" class="file" id="photoPrincipale" name="photoPrincipale" accept="image/*" >
+                            </div>
                         </div>
                 </div>
                 </div>
@@ -261,7 +258,7 @@
             <div class="col-xl-12 col-lg-12">
                 <div class="card">
                 <div class="card-body text-center">
-                    <button   onclick="showAlert()" class="btn btn-primary mt-3">Ajouter le produit</button>
+                    <button type="submit" class="btn btn-primary mt-3">Ajouter le produit</button>
                     </form>
                 </div>
                </div>
@@ -277,6 +274,18 @@
 @endsection
 
 @push('show-variation-scripts')
+
+<script>
+    $(document).ready(function() {
+     $("#regForm").validate({
+         rules: {
+             designation: "required",
+             photoPrincipale: "required"
+         }
+     });
+     });
+ </script>
+ 
 <script>
 
    $("#check").on('change',function(){

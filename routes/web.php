@@ -53,7 +53,7 @@ Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index
 Route::get('/login-register', [App\Http\Controllers\Auth\LoginController::class, 'loginRegister'])->name('login-register');
 Route::resource('/carts',CartController::class);
 Route::resource('/',HomeController::class);
-Route::resource('/admin',AdminController::class);
+Route::resource('/admin',AdminController::class)->middleware('can:admin');
 //payment
 Route::post('/redirection', [App\Http\Controllers\PaymentController::class, 'redirectionPayment']);
 Route::post('/webhook', [App\Http\Controllers\PaymentController::class, 'webhook']);

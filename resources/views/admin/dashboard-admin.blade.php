@@ -11,97 +11,69 @@
 			<div class="container-fluid">
                 <div class="row">
 					<div class="col-xl-12 col-xxl-12">
+						<div class="row mb-3">
+							<span class="col"><b style="color: #6c2d6e">Statistiques mensuelles</b>  pour le mois : <b> {{$month}} </b></span>
+						</div>
 						<div class="row">
+							<div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
+								<div class="card overflow-hidden">
+									<div class="card-body pt-4">
+										<div class="row">
+											<div class="col">
+												<h3 class="mb-1">{{number_format($revenu->s)}} Da</h3>
+												<span class="text-cosmekarn">Total ventes</span>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						
+							<div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
+								<div class="card overflow-hidden">
+									<div class="card-body pt-4">
+										<div class="row">
+											<div class="col">
+												<h3 class="mb-1">{{$nbr_orders}}</h3>
+												<span class="text-cosmekarn">Commande(s)</span>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						
+							<div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
+								<div class="card overflow-hidden">
+									<div class="card-body pt-4">
+										<div class="row">
+											<div class="col">
+												<h3 class="mb-1"></h3>
+												<span class="text-cosmekarn">Total livraisons</span>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
 							<div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6 ">
 								<div class="card overflow-hidden ">
 									<div class="card-body  pt-4">
 										<div class="row">
 											<div class="col">
-												<h5 class="mb-1">{{$nbr_customers}}</h5>
-												<span class="text-success">Client(s)</span>
+												<h3 class="mb-1">{{$nbr_customers}}</h3>
+												<span class="text-cosmekarn">Client(s)</span>
 											</div>
 										</div>
 									</div>
-
 								</div>
 							</div>
-							<div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="card overflow-hidden">
-									<div class="card-body pt-4">
-										<div class="row">
-											<div class="col">
-												<h5 class="mb-1">{{$nbr_orders}}</h5>
-												<span class="text-success">Commande(s)</span>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-							<div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="card overflow-hidden">
-									<div class="card-body pt-4">
-										<div class="row">
-											<div class="col">
-												<h5 class="mb-1">{{number_format($revenu->s)}} Da</h5>
-												<span class="text-success">Revenu</span>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-							<div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="card overflow-hidden">
-									<div class="card-body pt-4">
-										<div class="row">
-											<div class="col">
-												<h5 class="mb-1"></h5>
-												<span class="text-success">Total</span>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-
 
 							<div class="col-xl-6 col-xxl-6 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header border-0 pb-0">
-										<h4 class="card-title">Les dernières inscriptions</h4>
-									</div>
-									<div class="card-body">
-										<div class="table-responsive">
-											<table class="table table-responsive-sm mb-0">
-												<thead>
-													<tr>
-														<th>#</th>
-														<th>Nom</th>
-                                                        <th>Email</th>
-														<th>Téléphone</th>
-                                                    </tr>
-												</thead>
-												<tbody>
-
-													@foreach($users as $user)
-													 <tr >
-                                                        <td>{{$loop->iteration}}</td>
-                                                        <td>{{$user->name}}</td>
-                                                        <td>{{$user->email}}</td>
-                                                        <td>{{$user->phone}}</td>
-													 </tr>
-													@endforeach
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-6 col-xxl-6 col-lg-12 col-md-12">
-								<div class="card">
-									<div class="card-header border-0 pb-0">
-										<h4 class="card-title">Les dernières commandes</h4>
+										<h4 class="card-title">Dernières commandes</h4>
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
@@ -133,6 +105,40 @@
 									</div>
 								</div>
 							</div>
+
+							<div class="col-xl-6 col-xxl-6 col-lg-12 col-md-12">
+								<div class="card">
+									<div class="card-header border-0 pb-0">
+										<h4 class="card-title">Dernières inscriptions</h4>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-responsive-sm mb-0">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Nom</th>
+                                                        <th>Email</th>
+														<th>Téléphone</th>
+                                                    </tr>
+												</thead>
+												<tbody>
+
+													@foreach($users as $user)
+													 <tr >
+                                                        <td>{{$loop->iteration}}</td>
+                                                        <td>{{$user->name}}</td>
+                                                        <td>{{$user->email}}</td>
+                                                        <td>{{$user->phone}}</td>
+													 </tr>
+													@endforeach
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							
 							<div class="col-xl-3 col-xxl-4 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header border-0 pb-0">

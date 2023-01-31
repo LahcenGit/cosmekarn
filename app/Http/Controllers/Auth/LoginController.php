@@ -36,6 +36,16 @@ class LoginController extends Controller
      *
      * @return void
      */
+
+     public function redirectTo(){
+        if(Auth::user()->type == 'customer'){
+            return redirect('/');
+        }
+        else if(Auth::user()->type == 'admin'){
+            return redirect('/admin');
+        }
+     }
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');

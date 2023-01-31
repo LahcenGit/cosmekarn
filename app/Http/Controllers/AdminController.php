@@ -5,12 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Orderline;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    //
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index(){
+       
+        $month = Carbon::now()->translatedFormat('F');
+
         $nbr_customers = User::where('type','customer')->count();
         $nbr_orders = Order::count();
         $revenu = Orderline::selectRaw('sum(total) as s')->first();
@@ -30,6 +39,6 @@ class AdminController extends Controller
 
 
         return view('admin.dashboard-admin',compact('nbr_customers','nbr_orders','revenu','users','orders','order_waiting','order_in_delivering',
-                                            'order_delivered','order_canceled','order_waiting_payment','top_customers'));
+                                            'order_delivered','order_canceled','order_waiting_payment','top_customers','month'));
     }
 }
