@@ -9,7 +9,7 @@
                     <div class="breadcrumb-wrap">
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="{{ asset('/') }}"><i class="fa fa-home"></i></a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Mon compte</li>
                             </ul>
                         </nav>
@@ -70,7 +70,7 @@
                                             <div class="myaccount-content">
                                                 <h5>Commandes</h5>
                                                 <div class="myaccount-table table-responsive text-center">
-                                                    <table class="table table-bordered">
+                                                    <table class="table table-bordered"id="myTable">
                                                         <thead class="thead-light">
                                                             <tr>
                                                                 <th>Commande</th>
@@ -86,7 +86,7 @@
                                                                 <tr>
                                                                     <td>{{$loop->iteration}}</td>
                                                                     <td>{{$order->created_at->format('Y-m-d H:i')}}</td>
-                                                                    @if($order->payment_method == 'CASH')
+                                                                    @if($order->payment_method == 'cash')
                                                                     <td>Paiement à la livraison</td>
                                                                     @elseif($order->epayInvoice->paid == 1)
                                                                     <td>Payé</td>
@@ -105,7 +105,7 @@
                                                                     <td>En attente de paiement</td>
                                                                     @endif
                                                                     <td> <b>{{number_format($order->total)}}</b>  Da</td>
-                                                                    <td><a href="#" class="btn btn-sqr">Détails</a>
+                                                                    <td><a href="{{ asset('customer/order/'.$order->id) }}" class="btn btn-sqr">Détails</a>
                                                                     </td>
                                                                 </tr>
 

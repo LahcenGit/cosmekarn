@@ -10,6 +10,7 @@ use App\Http\Controllers\AttributelineController;
 use App\Http\Controllers\AdminCustomerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -27,6 +28,9 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/success-payment', function () {
     return view('success');
+});
+Route::get('/about', function () {
+    return view('about');
 });
 
 Route::get('/success-order', function () {
@@ -65,5 +69,8 @@ Auth::routes();
 
 //customer
 Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index']);
+Route::get('/customer/order/{id}', [App\Http\Controllers\CustomerController::class, 'orderDetail']);
+Route::get('/about', [App\Http\Controllers\HomeController::class, 'about']);
 
+Route::resource('/contact',ContactController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

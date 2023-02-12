@@ -7,6 +7,7 @@ use App\Models\Cartitem;
 use App\Models\Order;
 use App\Models\Orderline;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use TheHocineSaad\LaravelChargilyEPay\Models\Epay_Invoice;
@@ -19,7 +20,7 @@ class PaymentController extends Controller
 
     $cart = Cart::where('user_id',Auth::user()->id)->first();
     $total = Cartitem::where('cart_id',$cart->id)->sum('total');
-
+    $date = Carbon::now()->format('y');
 
     $name = $request->first_name.' '.$request->last_name;
 
@@ -32,7 +33,7 @@ class PaymentController extends Controller
     $order->phone = $request->phone;
     $order->note = $request->ordernote;
     $order->payment_method = $request->paymentmethod;
-   
+
     if($request->coupon){
         $amount = 100;
     }
@@ -66,9 +67,13 @@ class PaymentController extends Controller
         $invoice = Epay_Invoice::where('user_id',Auth::user()->id)->latest()->first();
         $order->epay_invoice_id = $invoice->id;
         $order->save();
+        $order->code = 'ck'.'-'.$date.'-'.$order->id;
+        $order->save();
     }
 
     else{
+        $order->save();
+        $order->code = 'ck'.'-'.$date.'-'.$order->id;
         $order->save();
     }
 
