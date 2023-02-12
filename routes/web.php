@@ -10,6 +10,7 @@ use App\Http\Controllers\AttributelineController;
 use App\Http\Controllers\AdminCustomerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -70,6 +71,6 @@ Auth::routes();
 Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index']);
 Route::get('/customer/order/{id}', [App\Http\Controllers\CustomerController::class, 'orderDetail']);
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about']);
-Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact']);
 
+Route::resource('/contact',ContactController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

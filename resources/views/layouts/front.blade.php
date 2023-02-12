@@ -127,9 +127,9 @@
 
                                                 </ul>
                                             </li>
-                                            <li><a style="cursor: pointer"> Qui sommes-nous ? </a></li>
+                                            <li><a href="{{ asset('/about') }}"> Qui sommes-nous ? </a></li>
 
-                                            <li><a style="cursor: pointer">Contact</a></li>
+                                            <li><a href="{{ asset('/contact') }}">Contact</a></li>
                                         </ul>
                                     </nav>
                                     <!-- main menu navbar end -->
@@ -586,6 +586,7 @@
 @stack('modal-detail-product-show')
 @stack('delete-item')
 @stack('shipping-script')
+@stack('contact-scripts')
 </body>
 
 </html>
