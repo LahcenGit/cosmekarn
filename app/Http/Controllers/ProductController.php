@@ -167,12 +167,17 @@ class ProductController extends Controller
 
     public function destroy($id){
         $product = Product::find($id);
-        $image = Image::where('product_id', $id)->where('type',1)->first();
-
+        $images = Image::where('product_id', $id)->get();
+        foreach($images as $image){
          File::delete('storage/images/products/'.$image->lien);
+        }
+        $productlines = Productline::where('product_id',$id)->get();
+        foreach($productlines as $productline){
+         $productline->delete();
+        }
 
         $product->delete();
-        return redirect('dashboard-admin/products');
+        return redirect('admin/products');
     }
 
     public function showModal(){

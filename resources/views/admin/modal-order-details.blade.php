@@ -26,7 +26,7 @@
                      <div class="form-row">
                             <div class="form-group col-md-7">
                                 <label> Produit:</label>
-                                <input type="text"  class="form-control invalid" value="{{$orderline->productline->product->designation}}" disabled>
+                                <input type="text"  class="form-control invalid" value="{{$orderline->productline->product->designation}} {{ $orderline->productline->attributeLine->value }}" disabled>
 
                               </div>
 

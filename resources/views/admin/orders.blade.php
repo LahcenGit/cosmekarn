@@ -27,6 +27,7 @@
                                         <th>Wilaya</th>
                                         <th>Adresse</th>
                                         <th>Téléphone</th>
+                                        <th>Méthode de paiement</th>
                                         <th>Statut</th>
                                         <th>Action</th>
                                     </tr>
@@ -39,6 +40,7 @@
                                             <td>{{ $order->wilaya }}</td>
                                             <td>{{ $order->address }}</td>
                                             <td>{{ $order->phone }}</td>
+                                            <td>{{ $order->payment_method }}</td>
                                             @if($order->status == 0)
                                             <td><span class="badge badge-warning">En attente</span></td>
                                             @elseif($order->status == 1)
