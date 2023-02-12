@@ -28,6 +28,9 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/success-payment', function () {
     return view('success');
 });
+Route::get('/about', function () {
+    return view('about');
+});
 
 Route::get('/success-order', function () {
     $cartitems = null;
@@ -65,5 +68,8 @@ Auth::routes();
 
 //customer
 Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index']);
+Route::get('/customer/order/{id}', [App\Http\Controllers\CustomerController::class, 'orderDetail']);
+Route::get('/about', [App\Http\Controllers\HomeController::class, 'about']);
+Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

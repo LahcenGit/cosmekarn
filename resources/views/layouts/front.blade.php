@@ -34,6 +34,9 @@
     <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 
+
+    <link href='https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
+
 </head>
 
 
@@ -455,29 +458,31 @@
                 <div class="minicart-close">
                     <i class="pe-7s-close"></i>
                 </div>
-
+                @if($cartitems)
                 <div class="minicart-content-box">
                     <div class="minicart-item-wrapper">
                         <ul class="cart-list">
-                            @foreach($cartitems as $cartitem)
-                            <li class="minicart-item" id="list-{{$cartitem->id}}">
-                                <div class="minicart-thumb">
-                                    <a href="{{ asset('product/'.$cartitem->productline->product->slug) }}">
-                                        <img src="{{asset('storage/images/products/'.$cartitem->productline->product->images[0]->lien)}}" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="{{ asset('product/'.$cartitem->productline->product->slug) }}">{{ $cartitem->productline->product->designation }}</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">{{ $cartitem->qte }} <strong>&times;</strong></span>
-                                        <span class="cart-price">{{ number_format($cartitem->price) }} Da</span>
-                                    </p>
-                                </div>
-                                <button class="delete-item-list" data-id="{{$cartitem->id}}"><i class="pe-7s-close"></i></button>
-                            </li>
-                            @endforeach
+
+                                @foreach($cartitems as $cartitem)
+                                <li class="minicart-item" id="list-{{$cartitem->id}}">
+                                    <div class="minicart-thumb">
+                                        <a href="{{ asset('product/'.$cartitem->productline->product->slug) }}">
+                                            <img src="{{asset('storage/images/products/'.$cartitem->productline->product->images[0]->lien)}}" alt="product">
+                                        </a>
+                                    </div>
+                                    <div class="minicart-content">
+                                        <h3 class="product-name">
+                                            <a href="{{ asset('product/'.$cartitem->productline->product->slug) }}">{{ $cartitem->productline->product->designation }}</a>
+                                        </h3>
+                                        <p>
+                                            <span class="cart-quantity">{{ $cartitem->qte }} <strong>&times;</strong></span>
+                                            <span class="cart-price">{{ number_format($cartitem->price) }} Da</span>
+                                        </p>
+                                    </div>
+                                    <button class="delete-item-list" data-id="{{$cartitem->id}}"><i class="pe-7s-close"></i></button>
+                                </li>
+                                @endforeach
+
                         </ul>
                     </div>
 
@@ -496,6 +501,7 @@
                         </div>
 
                 </div>
+                @endif
 
             </div>
         </div>
@@ -534,6 +540,19 @@
     <!-- Main JS -->
     <script src="{{ asset('front/assets/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"></script>
+	<script>
+
+		$(document).ready( function () {
+         $('#myTable').DataTable({
+				language: {
+						url: "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+					}
+			});
+
+		});
+    </script>
 
     <script>
         $( ".delete-item-list" ).click(function() {

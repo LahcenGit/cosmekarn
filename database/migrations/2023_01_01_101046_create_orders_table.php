@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('note')->nullable();
             $table->string('payment_method');
             $table->double('total');
+            $table->string('code')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('epay_invoice_id')->references('id')->on('epay_invoices')->onDelete('cascade');
             $table->timestamps();
