@@ -20,7 +20,7 @@
 									<div class="card-body pt-4">
 										<div class="row">
 											<div class="col">
-												<h3 class="mb-1">{{number_format($revenu->s)}} Da</h3>
+												<h3 class="mb-1">{{number_format($revenu)}} Da</h3>
 												<span class="text-cosmekarn">Total ventes</span>
 											</div>
 										</div>
@@ -28,7 +28,7 @@
 
 								</div>
 							</div>
-						
+
 							<div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
 								<div class="card overflow-hidden">
 									<div class="card-body pt-4">
@@ -42,7 +42,7 @@
 
 								</div>
 							</div>
-						
+
 							<div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
 								<div class="card overflow-hidden">
 									<div class="card-body pt-4">
@@ -138,7 +138,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="col-xl-3 col-xxl-4 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header border-0 pb-0">

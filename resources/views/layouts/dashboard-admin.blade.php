@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="{{asset('dashboard/uploader/pe-icon-7-stroke.css')}}">
         <link rel="stylesheet" href="{{asset('dashboard/uploader/drop_uploader.css')}}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" referrerpolicy="no-referrer" />
-        
+
         <link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
 
 
@@ -76,7 +76,7 @@
             Nav header end
         ***********************************-->
 
-	
+
         <!--**********************************
             Header start
         ***********************************-->
@@ -86,7 +86,7 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="search_bar dropdown">
-                                
+
                             </div>
                         </div>
 
@@ -128,10 +128,12 @@
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <span class="ml-2">Profile </span>
                                     </a>
-
-                                    <a href="#" class="dropdown-item ai-icon">
+                                    <a class="dropdown-item ai-icon" style="cursor: pointer" href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                                         <span class="ml-2">Déconnexion </span>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                         @csrf
+                                        </form>
                                     </a>
                                 </div>
                             </li>
@@ -168,7 +170,7 @@
                             </svg>
 							<span class="nav-text">Dashboard</span>
 						</a></li>
-                
+
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -179,8 +181,7 @@
 							<span class="nav-text">Clients</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{url('admin/categories/create')}}">Ajouter</a></li>
-                            <li><a href="{{url('admin/categories')}}">Toutes</a></li>
+                           <li><a href="{{url('admin/customers')}}">Tous</a></li>
 
                         </ul>
                     </li>
@@ -321,7 +322,7 @@
         Scripts
     ***********************************-->
 
-  
+
     <!-- Required vendors -->
     <script src="{{asset('dashboard/vendor/global/global.min.js')}}"></script>
 	<script src="{{asset('dashboard/vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
@@ -351,10 +352,10 @@
 
     <!--Validate jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
-   
+
     <!-- Toastr -->
 
-  
+
 
 	<script>
 	(function($) {

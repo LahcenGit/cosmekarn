@@ -15,14 +15,14 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(){
-       
+
         $month = Carbon::now()->translatedFormat('F');
 
-        $nbr_customers = User::where('type','customer')->count();
-        $nbr_orders = Order::count();
-        $revenu = Orderline::selectRaw('sum(total) as s')->first();
+        $nbr_customers = User::where('type','customer')->whereMonth('created_at', Carbon::now()->month)->count();
+        $nbr_orders = Order::whereMonth('created_at', Carbon::now()->month)->count();
+        $revenu = Orderline::whereMonth('created_at', Carbon::now()->month)->sum('total');
         $users = User::where('type','customer')->limit('5')->get()->reverse();
         $orders = Order::limit('5')->get()->reverse();
         $order_waiting = Order::where('status',0)->count();

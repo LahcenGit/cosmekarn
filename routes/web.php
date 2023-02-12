@@ -7,6 +7,7 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AttributelineController;
+use App\Http\Controllers\AdminCustomerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,7 @@ Route::resource('/admin/attributes',AttributeController::class);
 Route::resource('/admin/attributelines',AttributelineController::class);
 Route::resource('/admin/orders',OrderController::class);
 Route::resource('/admin/products',ProductController::class);
+Route::resource('/admin/customers',AdminCustomerController::class);
 Route::get('order-details/{id}', [OrderController::class, 'orderDetails']);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
@@ -54,6 +56,7 @@ Route::get('/login-register', [App\Http\Controllers\Auth\LoginController::class,
 Route::resource('/carts',CartController::class);
 Route::resource('/',HomeController::class);
 Route::resource('/admin',AdminController::class)->middleware('can:admin');
+
 //payment
 Route::post('/redirection', [App\Http\Controllers\PaymentController::class, 'redirectionPayment']);
 Route::post('/webhook', [App\Http\Controllers\PaymentController::class, 'webhook']);
