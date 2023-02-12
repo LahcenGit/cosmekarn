@@ -72,7 +72,7 @@
                                     <div class="form-group col-md-6">
                                         <label>Variation :</label>
                                             <select  id="select-content-individuel"  class="default-select form-control wide selectpicker"   name="variation" >
-                                                <option> Aucune option</option>
+                                                <option value="0"> Aucune option</option>
                                                 @foreach($attributes as $a)
                                                 <option value="{{$a->id}}">{{$a->value}}</option>
                                                 @endforeach
@@ -161,7 +161,6 @@
                         <h4 class="card-title">Photo principale</h4>
                     </div>
                     <div class="card-body">
-                    <label>L'image principale du produit :</label>
                         <div class="basic-form custom_file_input">
                             <div class="input-group mb-3">
                                 <input type="file" class="file" id="photoPrincipale" name="photoPrincipale" accept="image/*" >
@@ -195,7 +194,6 @@
                         <h4 class="card-title">Photos</h4>
                     </div>
                     <div class="card-body">
-                        <label>L'image principale du produit :</label>
                             <div class="basic-form custom_file_input">
                                     <div class="input-group mb-3">
                                             <input type="file" class="file" name="photos[]" accept="image/*" multiple >

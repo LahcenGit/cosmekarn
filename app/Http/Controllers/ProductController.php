@@ -38,6 +38,7 @@ class ProductController extends Controller
 
     public function store(Request $request){
 
+
         $product = new Product();
         $product->designation = $request->designation;
         $product->short_description = $request->short_description;
@@ -58,15 +59,27 @@ class ProductController extends Controller
 
         //product has no attribute
         if($request->check != 'oui'){
-        $productline = new Productline();
-        $productline->product_id = $product->id;
-        $productline->qte = $request->qte;
-        $productline->price = $request->price;
-        $productline->promo_price = $request->promo;
-        $productline->attributeline_id = $request->variation;
-        $productline->attributeline_id = $request->value;
-        $productline->status = $request->status;
-        $productline->save();
+            //test if there is a single variation
+            if($request->variation == 0){
+                $productline = new Productline();
+                $productline->product_id = $product->id;
+                $productline->qte = $request->qte;
+                $productline->price = $request->price;
+                $productline->promo_price = $request->promo;
+                $productline->status = $request->status;
+                $productline->save();
+            }
+            else{
+                $productline = new Productline();
+                $productline->product_id = $product->id;
+                $productline->qte = $request->qte;
+                $productline->price = $request->price;
+                $productline->promo_price = $request->promo;
+                $productline->attributeline_id = $request->variation;
+                $productline->attributeline_id = $request->value;
+                $productline->status = $request->status;
+                $productline->save();
+            }
         }
         //product has many attribute
         else{
