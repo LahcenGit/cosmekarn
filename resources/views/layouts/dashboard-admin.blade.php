@@ -30,6 +30,10 @@
             .text-cosmekarn{
                 color: #6c2d6e;
             }
+
+            .error {
+                color: red;
+            }
         </style>
 
     </head>

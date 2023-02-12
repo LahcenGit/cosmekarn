@@ -63,6 +63,8 @@ class ProductController extends Controller
         $productline->qte = $request->qte;
         $productline->price = $request->price;
         $productline->promo_price = $request->promo;
+        $productline->attributeline_id = $request->variation;
+        $productline->attributeline_id = $request->value;
         $productline->status = $request->status;
         $productline->save();
         }
@@ -155,6 +157,7 @@ class ProductController extends Controller
 
 
     public function getAttribute($id){
+
         $attributes = Attributeline::where('attribute_id',$id)->get();
         return $attributes;
 

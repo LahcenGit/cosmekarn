@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('attribute_id')->nullable();
             $table->integer('price')->nullable();
             $table->integer('promo_price')->nullable();
-            $table->integer('qte');
+            $table->integer('qte')->nullable();
             $table->float('weight')->nullable();
             $table->string('dimension')->nullable();
             $table->string('status')->nullable();
