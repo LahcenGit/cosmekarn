@@ -39,6 +39,6 @@ class ContactController extends Controller
     }
     public function store(Request $request){
         Mail::to('benosmanhind@gmail.com')->send(new MailContact($request));
-           return true;
+           return 1;
        }
 }

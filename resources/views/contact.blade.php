@@ -102,10 +102,10 @@
                     type: "POST",
                     data: data,
                     success: function (res) {
-                        if (res === '1') {
+
                             $('#show_contact_msg').html('<div class="alert alert-success flash-alert mt-2" id="form-success" role="alert"> Votre messgae à été bien envoyer !</div>');
                             $(".flash-alert").slideDown(200).delay(3500).slideUp(200);
-                        }
+
                     }
                 });
         e.preventDefault();
