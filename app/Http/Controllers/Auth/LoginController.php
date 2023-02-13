@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Cartitem;
+use App\Models\Category;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -73,8 +74,9 @@ class LoginController extends Controller
         $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
+        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
 
-        return view('login-register',compact('cart','cartitems','nbr_cartitem','total'));
+        return view('login-register',compact('cart','cartitems','nbr_cartitem','total','categories'));
 
     }
 }
