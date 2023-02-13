@@ -12,8 +12,8 @@
                     <div class="basic-form">
                       <div class="form-row">
                         <div class="col-md-12">
-                            <label>Attribut*:</label>
-                            <input type="text"  class="form-control input-default @error('attr') is-invalid @enderror" value="{{old('attr')}}" id="attr" placeholder="Attribut">
+                            <label>Variant*:</label>
+                            <input type="text"  class="form-control input-default @error('attr') is-invalid @enderror" value="{{old('attr')}}" id="attr" placeholder="variant">
                                 @error('attr')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

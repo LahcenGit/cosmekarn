@@ -27,7 +27,7 @@
     <!-- contact area start -->
     <div class="contact-area section-padding pt-0 mt-5">
         <div class="container">
-            <div class="row">
+            <div class="row d-flex justify-content-center">
                 <div class="col-lg-6">
                     <div class="contact-message">
                         <h4 class="contact-title">Contactez-nous</h4>

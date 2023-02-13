@@ -90,43 +90,25 @@
                                     <nav class="desktop-menu">
                                         <ul>
                                             <li><a href="{{ asset('/') }}">Accueil</a></li>
-                                            <li class="position-static"><a href="#">Catégories <i class="fa fa-angle-down"></i></a>
-                                                <ul class="megamenu dropdown">
-                                                    <li class="mega-title"><span>Maquillage</span>
-                                                        <ul>
-                                                            <li><a style="cursor: pointer">Teint</a></li>
-                                                            <li><a style="cursor: pointer">Yeux</a></li>
-                                                            <li><a style="cursor: pointer">Lèvres</a></li>
-                                                            <li><a style="cursor: pointer">Ongles</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="mega-title"><span>Corps & Bain</span>
-                                                        <ul>
-                                                            <li><a style="cursor: pointer">Gel douche</a></li>
-                                                            <li><a style="cursor: pointer">Soin du corps</a></li>
-                                                            <li><a style="cursor: pointer">Soin du visage</a></li>
-                                                            <li><a style="cursor: pointer">Hygiène intime</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="mega-title"><span>Cheveux</span>
-                                                        <ul>
-                                                            <li><a style="cursor: pointer">Shampooing</a></li>
-                                                            <li><a style="cursor: pointer">Soin cheveux</a></li>
-                                                            <li><a style="cursor: pointer">Coloration & Teinture</a></li>
-                                                            <li><a style="cursor: pointer">Produit de coiffage</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="mega-title"><span>Parfum</span>
-                                                        <ul>
-                                                            <li><a style="cursor: pointer">Parfum Femme </a></li>
-                                                            <li><a style="cursor: pointer">Déodorant femme</a></li>
-                                                            <li><a style="cursor: pointer">Coffret femme</a></li>
-                                                            <li><a style="cursor: pointer">Parfum homme</a></li>
-                                                        </ul>
-                                                    </li>
+                                            <li><a style="cursor: pointer">Catégories <i class="fa fa-angle-down"></i></a>
+                                                <ul class="dropdown">
+                                                    @foreach($categories as $category)
+                                                        @if($category->childCategories)
+                                                            <li><a style="cursor: pointer">{{ $category->designation }}<i class="fa fa-angle-right"></i></a>
+                                                                <ul class="dropdown">
+                                                                    @foreach($category->childCategories as $childCategory)
+                                                                        <li><a style="cursor: pointer">{{ $childCategory->designation }}</a></li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </li>
+                                                        @else
+                                                        <li><a href="blog-left-sidebar.html">{{ $category->designation }}</a></li>
+                                                        @endif
 
+                                                    @endforeach
                                                 </ul>
                                             </li>
+                                            <li><a href="{{ asset('/tracking') }}"> Tracking </a></li>
                                             <li><a href="{{ asset('/about') }}"> Qui sommes-nous ? </a></li>
 
                                             <li><a href="{{ asset('/contact') }}">Contact</a></li>

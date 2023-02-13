@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Cartitem;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,7 @@ class HomeController extends Controller
 {
     //
     public function index(){
+        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
 
         $products = Product::all();
         if(Auth::user()){
@@ -36,7 +38,7 @@ class HomeController extends Controller
             $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('welcome',compact('products','cartitems','nbr_cartitem','total'));
+        return view('welcome',compact('products','cartitems','nbr_cartitem','total','categories'));
 
     }
     public function about(){
@@ -61,10 +63,13 @@ class HomeController extends Controller
             $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('about',compact('cartitems','nbr_cartitem','total'));
+        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
+        return view('about',compact('cartitems','nbr_cartitem','total','categories'));
 
     }
-    public function contact(){
+
+
+    public function tracking(){
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
             $cartitems = $cart->cartitems;
@@ -86,7 +91,7 @@ class HomeController extends Controller
             $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('contact',compact('cartitems','nbr_cartitem','total'));
-
+        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
+        return view('tracking',compact('cartitems','nbr_cartitem','total','categories'));
     }
 }
