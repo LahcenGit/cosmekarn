@@ -9,10 +9,11 @@ class CategoryController extends Controller
 {
     //
     public function index(){
-
         $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
         $countcategory = Category::count();
-        return view('admin.categories',compact('categories','countcategory'));
+        $value = null;
+        $message = null;
+        return view('admin.categories',compact('categories','countcategory','value','message'));
     }
 
     public function create(){
@@ -35,7 +36,52 @@ class CategoryController extends Controller
          else{
              $category->parent_id = $request['category'];
          }
+         $request->session()->put('key', $request['category']);
+         $value = $request->session()->get('key');
          $category->save();
-         return redirect('admin/categories');
+         $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
+         $countcategory = Category::count();
+         $message = 'Catégorie ajoutée avec succés !';
+         return view('admin.categories',compact('value','categories','countcategory','message'));
+    }
+
+
+
+    public function edit($id){
+        $category = Category::find($id);
+        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
+        $countcategory = Category::count();
+        return view("admin.edit-category",compact('category','categories','countcategory'));
+    }
+
+    public function update(Request $request, $id){
+        $category = Category::find($id);
+
+        $category->designation = $request['name'];
+        $category->description = $request['description'];
+
+        if($request['category'] == 0){
+
+         $category->parent_id = NULL;
+
+         $category->save();
+        }
+        else{
+            $category->parent_id = $request['category'];
+        }
+        $category->save();
+        return redirect('admin/categories');
+    }
+
+    public function destroy($id){
+
+        $category = Category::find($id);
+        $childCategories = Category::where('parent_id',$id)->get();
+        foreach($childCategories as $childCategory){
+            $childCategory->parent_id = null;
+            $childCategory->save();
+        }
+        $category->delete();
+        return redirect('/admin/categories');
     }
 }

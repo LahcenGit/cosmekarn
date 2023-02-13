@@ -17,20 +17,95 @@
                 </ol>
             </div>
         </div>
-
-
-
+        @if($message)
+            <div class="container mt-4 ">
+                <div class="alert alert-success alert-dismissible fade show flash-alert" style="background-color:#60348B; border-color:#60348B; color:#fff; font-size: 14px;" role="alert">
+                <strong> {{ $message }} <i class="fa-solid fa-face-smile"></i></strong>
+                </div>
+            </div>
+        @endif
         <!-- row -->
         <div class="row ">
-            <div class="col-12">
+
+            <div class="col-xl-5 col-lg-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Ajouter catégorie</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form action="{{url('admin/categories')}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label>Désignation*:</label>
+                                    <input type="text"  class="form-control input-default @error('designation') is-invalid @enderror" value="{{old('designation')}}" name="designation" placeholder="designation">
+                                        @error('designation')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                                <div class="form-group">
+
+                                    <label>Liste des catégories :</label>
+
+                                    <select class="form-control  @error('category') is-invalid @enderror" id="sel1"  class="selectpicker" data-live-search="true" name="category">
+
+                                        <option value=0>Nothing selected</option>
+
+                                            @foreach($categories as $category)
+                                            @if($value)
+                                                <option value="{{$category->id}}" @if ($value == $category->id ) selected @endif >{{$category->designation}}</option>
+                                                @foreach($category->childCategories as $sub)
+
+                                                <option  value="{{$sub->id}}" @if ($value == $sub->id ) selected @endif> &nbsp &nbsp{{$sub->designation}}</option>
+                                                @foreach($sub->childCategories as $subsub)
+                                                    <option value="{{$subsub->id}}"  @if ($value == $subsub->id ) selected @endif>  &nbsp  &nbsp  &nbsp &nbsp{{$subsub->designation}}</option>
+
+
+                                                @foreach($subsub->childCategories as $subsubsub)
+                                                <option value="{{$subsubsub->id}}"  @if ($value == $subsubsub->id ) selected @endif>  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp{{$subsubsub->designation}}</option>
+                                                @endforeach
+                                                @endforeach
+                                                @endforeach
+                                            @else
+                                                <option value="{{$category->id}}" @if (old('category') == $category->id ) selected @endif >{{$category->designation}}</option>
+                                                @foreach($category->childCategories as $sub)
+
+                                                <option  value="{{$sub->id}}" @if (old('category') == $sub->id ) selected @endif> &nbsp &nbsp{{$sub->designation}}</option>
+                                                @foreach($sub->childCategories as $subsub)
+                                                    <option value="{{$subsub->id}}"  @if (old('category') == $subsub->id ) selected @endif>  &nbsp  &nbsp  &nbsp &nbsp{{$subsub->designation}}</option>
+                                                @foreach($subsub->childCategories as $subsubsub)
+                                                <option value="{{$subsubsub->id}}"  @if (old('category') == $subsubsub->id ) selected @endif>  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp{{$subsubsub->designation}}</option>
+                                                @endforeach
+                                                @endforeach
+                                                @endforeach
+                                            @endif
+                                            @endforeach
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label >Description : </label>
+                                    <textarea class="form-control" name="description" rows="3"></textarea>
+                                </div>
+                                <button type="submit"  class="btn btn-primary mt-3">Ajouter</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-7">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">La table des catégories</h4>
-                        <a href="{{url('/admin/categories/create')}}" type="button"  class="btn btn-primary mt-3">Ajouter</a>
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                        <table id="example3" class="display" style="min-width: 845px">
+                        <table id="example3" class="display" >
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -56,11 +131,11 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="{{url('admin/category/'.$category->id)}}" method="post">
+                                        <form action="{{url('admin/categories/'.$category->id)}}" method="post">
                                             {{csrf_field()}}
                                             {{method_field('DELETE')}}
                                         <div class="d-flex">
-                                            <a href="{{url('admin/category/'.$category->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{url('admin/categories/'.$category->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                             <button class="  btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
                                         </div>
                                         </form>

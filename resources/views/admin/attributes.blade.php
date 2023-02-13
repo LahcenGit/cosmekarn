@@ -9,17 +9,62 @@
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Attributs</a></li>
             </ol>
         </div>
+        @if($message)
+        <div class="container mt-4 ">
+            <div class="alert alert-success alert-dismissible fade show flash-alert" style="background-color:#60348B; border-color:#60348B; color:#fff; font-size: 14px;" role="alert">
+            <strong> {{ $message }} <i class="fa-solid fa-face-smile"></i></strong>
+            </div>
+        </div>
+       @endif
 
         <div class="row">
-        <div class="col-12">
+            <div class="col-xl-5 col-lg-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Ajouter attribut</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form action="{{url('admin/attributes')}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label>Attribut*:</label>
+                                    <input type="text"  class="form-control input-default @error('attr') is-invalid @enderror" value="{{old('attr')}}" name="attr" placeholder="Attribut">
+                                        @error('attr')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                                <div class="form-group">
+
+                                    <label>Type :</label>
+
+                                    <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="type">
+                                        <option value=0>Nothing selected</option>
+                                            @foreach($attributes as $attribute)
+                                            @if($value)
+                                            <option value="{{$attribute->id}}" @if ($value == $attribute->id ) selected @endif >{{$attribute->value}}</option>
+                                            @else
+                                            <option value="{{$attribute->id}}" @if (old('attribute') == $attribute->id ) selected @endif >{{$attribute->value}}</option>
+                                            @endif
+                                            @endforeach
+                                    </select>
+                                </div>
+                                    <button type="submit"  class="btn btn-primary mt-3">Ajouter</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-7">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Table des attributs</h4>
-                        <a href="{{url('/admin/attributes/create')}}" type="button"  class="btn btn-primary mt-3">Ajouter</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example3" class="display" style="min-width: 845px">
+                            <table id="example3" class="display" >
                                 <thead>
                                     <tr>
                                         <th>#</th>

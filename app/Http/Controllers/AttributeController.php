@@ -12,7 +12,9 @@ class AttributeController extends Controller
     public function index(){
         $attributes = Attribute::all();
         $attributelines = Attributeline::all();
-        return view('admin.attributes',compact('attributes','attributelines'));
+        $message = null;
+        $value = null;
+        return view('admin.attributes',compact('attributes','attributelines','message','value'));
     }
     public function create(){
         $attributes = Attribute::all();
@@ -32,8 +34,12 @@ class AttributeController extends Controller
             $attributeline->value = $request->attr;
             $attributeline->save();
         }
-
-        return redirect('admin/attributes');
+        $request->session()->put('key', $request['type']);
+        $value = $request->session()->get('key');
+        $attributes = Attribute::all();
+        $attributelines = Attributeline::all();
+        $message = 'Variation ajoutée avec succés !';
+        return view('admin.attributes',compact('value','attributes','attributelines','message'));
     }
 
     public function edit($id){

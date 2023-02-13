@@ -423,7 +423,12 @@
     });
 </script>
 
+<script>
+    $(document).ready(function(){
+          $(".flash-alert").slideDown(200).delay(3500).slideUp(200);
+    });
 
+</script>
 
 @stack('add-attribute-scripts')
 @stack('add-image-scripts')
