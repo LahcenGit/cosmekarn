@@ -8,9 +8,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AttributelineController;
 use App\Http\Controllers\AdminCustomerController;
+use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -46,6 +48,7 @@ Route::resource('/admin/attributelines',AttributelineController::class);
 Route::resource('/admin/orders',OrderController::class);
 Route::resource('/admin/products',ProductController::class);
 Route::resource('/admin/customers',AdminCustomerController::class);
+Route::resource('/admin/payments',AdminPaymentController::class);
 Route::get('order-details/{id}', [OrderController::class, 'orderDetails']);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
@@ -70,6 +73,6 @@ Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index'
 Route::get('/customer/order/{id}', [App\Http\Controllers\CustomerController::class, 'orderDetail']);
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about']);
 Route::get('/tracking', [App\Http\Controllers\HomeController::class, 'tracking']);
-
+Route::resource('/comment',CommentController::class);
 Route::resource('/contact',ContactController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,7 +1,4 @@
 @extends('layouts.front')
-
-
-
 @section('content')
 <!-- page main wrapper start -->
 <div class="shop-main-wrapper section-padding pb-0">
@@ -12,7 +9,7 @@
                 <!-- product details inner end -->
                 <div class="product-details-inner">
                     <div class="row product-data">
-                        
+
                         <div class="col-lg-5">
                             <div class="product-large-slider">
                                 @if($first_image)
@@ -98,7 +95,7 @@
                                 </div>
                                 <p class="pro-desc">{{$product->short_description}}</p>
 
-                              
+
                                 @if($product_lines)
                                     @foreach($product_lines as $product_line)
                                         <div class="pro-size" id="list-attr">
@@ -111,7 +108,7 @@
                                                             <a class="btn btn-attribute  selected-attribute attribute-text mr-2"  data-id="{{$item->id}}" id="{{'a-'.$item->id}}">{{$item->attributeLine->value}}</a>
                                                         @else
                                                              <a class="btn btn-attribute  attribute-text mr-2" data-id="{{$item->id}}" id="{{'a-'.$item->id}}">{{$item->attributeLine->value}}</a>
-                                                        
+
                                                         @endif
                                                 @endif
                                           @endforeach
@@ -213,69 +210,46 @@
                                         </table>
                                     </div>
                                     <div class="tab-pane fade" id="tab_three">
-                                        <form action="#" class="review-form">
+
                                             <h5>1  avis pou <span>{{ $product->designation }}</span></h5>
-                                            <div class="total-reviews">
-                                                <div class="rev-avatar">
-                                                    <img src="assets/img/about/avatar.jpg" alt="">
-                                                </div>
+                                            <div class="total-reviews mt-4" id="add-comment">
                                                 <div class="review-box">
-                                                    <div class="ratings">
-                                                        <span class="good"><i class="fa fa-star"></i></span>
-                                                        <span class="good"><i class="fa fa-star"></i></span>
-                                                        <span class="good"><i class="fa fa-star"></i></span>
-                                                        <span class="good"><i class="fa fa-star"></i></span>
-                                                        <span><i class="fa fa-star"></i></span>
-                                                    </div>
                                                     <div class="post-author">
                                                         <p><span>Hind Benosman</span> 03 dec, 2022</p>
                                                     </div>
                                                     <p>J'aime beaucoup les produits, la description correspond totalement au produit. Concernant, le fond de teint, le choix des teintes est très variées, il y en a pour toutes les carnations. De plus la livraison est rapide.</p>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <div class="col">
-                                                    <label class="col-form-label"><span class="text-danger">*</span>
-                                                        Nom</label>
-                                                    <input type="text" class="form-control" required>
+                                            @Auth
+                                            <div class="comment-section">
+                                            <form id="comment-form" action="{{asset('/comment')}}" method="POST" >
+                                                @csrf
+                                                <div class="form-group row">
+                                                    <div class="col">
+                                                        <label class="col-form-label"><span class="text-danger">*</span>
+                                                            Commentaire</label>
+                                                        <textarea class="form-control" id="comment" required></textarea>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col">
-                                                    <label class="col-form-label"><span class="text-danger">*</span>
-                                                         Email</label>
-                                                    <input type="email" class="form-control" required>
+                                                <div class="form-group row">
+                                                    <div class="col">
+                                                        <label class="col-form-label"> Votre note </label>
+                                                        <div class="my-rating"></div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col">
-                                                    <label class="col-form-label"><span class="text-danger">*</span>
-                                                        Commentaire</label>
-                                                    <textarea class="form-control" required></textarea>
+                                                <input type="hidden" class="form-control" id="product" value="{{ $product->id }}">
 
-                                                </div>
+                                                    <button class="btn btn-sqr" >Envoyer</button>
+
+                                            </form> <!-- end of review-form -->
                                             </div>
-                                            <div class="form-group row">
-                                                <div class="col">
-                                                    <label class="col-form-label"><span class="text-danger">*</span>
-                                                        Évaluation</label>
-                                                    &nbsp;&nbsp;&nbsp; Mauvais &nbsp;
-                                                    <input type="radio" value="1" name="rating">
-                                                    &nbsp;
-                                                    <input type="radio" value="2" name="rating">
-                                                    &nbsp;
-                                                    <input type="radio" value="3" name="rating">
-                                                    &nbsp;
-                                                    <input type="radio" value="4" name="rating">
-                                                    &nbsp;
-                                                    <input type="radio" value="5" name="rating" checked>
-                                                    &nbsp;Excellent
-                                                </div>
+                                            <div id="show_comment_msg" >
+
                                             </div>
-                                            <div class="buttons">
-                                                <button class="btn btn-sqr" type="submit">Envoyer</button>
-                                            </div>
-                                        </form> <!-- end of review-form -->
+                                        @else
+                                        <p>Veuillez vous authentifier pour pouvoir poster un commentaire.</p>
+                                        <a href="{{asset('/login-register')}}"class="btn btn-sqr">Se connecter</a>
+                                        @endauth
                                     </div>
                                 </div>
                             </div>
@@ -430,7 +404,7 @@
                         var id = $('#list-attr a.selected-attribute').data('id');
                         alert(id);
                     }
-                 
+
                     $.ajax({
                             url: '/carts',
                             type: "POST",
@@ -521,6 +495,57 @@
             });
 
 });
+</script>
+@endpush
+
+@push('comment-scripts')
+<script>
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+   $("#comment-form").on("submit", function (e)
+    {
+        e.preventDefault();
+        $('#show_comment_msg').html('<div >En cours....</div>');
+        var comment = $('#comment').val();
+        var product = $('#product').val();
+        var rating = $('.my-rating').starRating('getRating');
+        var formURL = $(this).attr("action");
+
+
+        var data = {
+            "_token": "{{ csrf_token() }}",
+            comment: comment,
+            product: product,
+            rating: rating
+        };
+        $.ajax(
+                {
+                    url: formURL,
+                    type: "POST",
+                    data: data,
+                    success: function (res) {
+                        <div class="review-box">
+                            <div class="post-author">
+                                <p><span>Hind Benosman</span> 03 dec, 2022</p>
+                            </div>
+                            <p>J'aime beaucoup les produits.</p>
+                        </div>
+
+                        $('#add-comment').append('<div class="review-box">'+'<div class="post-author">'+'<p><span>'+res.name+'</span>'+res.date+'</p>'+' | '+'('+'<b>'+res.rating+'/'+'5'+'</b>'+')'+'</div>'+'<p>'+res.comment+'</p>'+'</div>');
+                        $('#show_comment_msg').html('<div class="alert alert-success mt-2 flash-alert" id="form-success" role="alert"> Merci pour votre commentaire !</div>');
+                        $(".flash-alert").slideDown(200).delay(3500).slideUp(200);
+                        $(".comment-section").hide();
+
+
+                    }
+                });
+
+    });
+
 </script>
 @endpush
 

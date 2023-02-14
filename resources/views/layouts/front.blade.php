@@ -33,7 +33,7 @@
     <!-- main style css -->
     <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
-
+    <link rel="stylesheet" href="{{ asset('plugins/star-rating-svg.css') }}" />
 
     <link href='https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
 
@@ -66,7 +66,7 @@
         opacity: 1;
         border: #6e6e6e solid 1px;
     }
-  
+
 
 </style>
 <body>
@@ -546,6 +546,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"></script>
+    <script type="text/javascript" src="{{ asset('plugins/jquery.star-rating-svg.js') }}"></script>
 	<script>
 
 		$(document).ready( function () {
@@ -555,6 +556,18 @@
 					}
 			});
 
+         });
+         $(".my-rating").starRating({
+			starSize: 25,
+			initialRating: 3.5,
+		});
+
+		let rate =$('#rate-result').val();
+
+		$(".rating-result").starRating({
+			starSize: 25,
+			initialRating: rate,
+            readOnly: true
 		});
     </script>
 
@@ -591,6 +604,7 @@
 @stack('delete-item')
 @stack('shipping-script')
 @stack('contact-scripts')
+@stack('comment-scripts')
 </body>
 
 </html>

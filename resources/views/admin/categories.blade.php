@@ -13,7 +13,7 @@
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/admin')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active"><a href="{{url('/admin/category')}}">Categories</a></li>
+                    <li class="breadcrumb-item active"><a href="{{url('/admin/categories')}}">Categories</a></li>
                 </ol>
             </div>
         </div>

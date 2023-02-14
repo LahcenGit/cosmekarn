@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Cartitem;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\Orderline;
 use Illuminate\Http\Request;
@@ -34,7 +35,8 @@ class CustomerController extends Controller
 
 
         $orders = Order::where('user_id',Auth::user()->id)->get();
-        return view('customer.dashboard-customer',compact('cart','cartitems','nbr_cartitem','total','orders'));
+        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
+        return view('customer.dashboard-customer',compact('cart','cartitems','nbr_cartitem','total','orders','categories'));
 
     }
 
@@ -62,7 +64,7 @@ class CustomerController extends Controller
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
         $orderlines = Orderline::where('order_id',$id)->get();
-
-        return view('customer.detail-order',compact('orderlines','cart','cartitems','nbr_cartitem','total','total_order','code'));
+        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
+        return view('customer.detail-order',compact('orderlines','cart','cartitems','nbr_cartitem','total','total_order','code','categories'));
     }
 }
