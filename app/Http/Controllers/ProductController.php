@@ -84,11 +84,11 @@ class ProductController extends Controller
         //product has many attribute
         else{
 
-        for($i=0 ; $i<count($request->a) ; $i++){
+        for($i=0 ; $i<count($request->as) ; $i++){
             $productline = new Productline();
             $productline->product_id = $product->id;
             $productline->attributeline_id = $request->values[$i];
-            $productline->attribute_id = $request->a[$i];
+            $productline->attribute_id = $request->as[$i];
             $productline->qte = $request->qtes[$i];
 
             if($request->price){

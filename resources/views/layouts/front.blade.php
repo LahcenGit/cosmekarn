@@ -46,6 +46,28 @@
         background-color: #FFEEFA;
         border-color: #E85BAC;
     }
+
+    .btn-attribute {
+        height: 40px;
+        color: #000;
+        line-height: 40px;
+        border-radius: 50px;
+        padding: 0 25px;
+        background-color: #E0E0E0;
+        margin-right: 5px;
+        opacity: 0.5;
+    }
+    .btn-attribute:hover{
+        transition: 0.3s;
+        opacity: 1;
+    }
+
+    .selected-attribute{
+        opacity: 1;
+        border: #6e6e6e solid 1px;
+    }
+  
+
 </style>
 <body>
     <!-- Start Header Area -->

@@ -1,7 +1,4 @@
 @extends('layouts.front')
-
-
-
 @section('content')
 <!-- page main wrapper start -->
 <div class="shop-main-wrapper section-padding pb-0">
@@ -12,7 +9,6 @@
                 <!-- product details inner end -->
                 <div class="product-details-inner">
                     <div class="row product-data">
-                        
                         <div class="col-lg-5">
                             <div class="product-large-slider">
                                 @if($first_image)
@@ -53,7 +49,6 @@
                                 @endif
                             </div>
                         </div>
-
                         <div class="col-lg-7">
                             <div class="product-details-des">
                                 <div class="manufacturer-name">
@@ -98,21 +93,17 @@
                                 </div>
                                 <p class="pro-desc">{{$product->short_description}}</p>
 
-                              
                                 @if($product_lines)
                                     @foreach($product_lines as $product_line)
-                                        <div class="pro-size" id="list-attr">
+                                        <div class="pro-size">
                                           @foreach($product_line as $item)
                                                 @if($loop->iteration == 1 && $item->attribute->value != 'Couleur')
                                                 <h6 class="option-title">{{$item->attribute->value}}:</h6>
                                                 @endif
                                                 @if($item->attribute->value != 'Couleur')
-                                                        @if ($loop->first)
-                                                            <a class="btn btn-attribute  selected-attribute attribute-text mr-2"  data-id="{{$item->id}}" id="{{'a-'.$item->id}}">{{$item->attributeLine->value}}</a>
-                                                        @else
-                                                             <a class="btn btn-attribute  attribute-text mr-2" data-id="{{$item->id}}" id="{{'a-'.$item->id}}">{{$item->attributeLine->value}}</a>
-                                                        
-                                                        @endif
+                                                <div class="action_link">
+                                                    <a class="btn btn-cart2 ml-2" href="#">{{$item->attributeLine->value}}</a>
+                                                </div>
                                                 @endif
                                           @endforeach
                                         </div>
@@ -384,15 +375,6 @@
 
 @push('select-icon-indice')
 
-<script>
-    $(".attribute-text").click(function() {
-        $('.selected-attribute').removeClass("selected-attribute");
-        id = $(this).data('id');
-        $("#a-"+id).addClass("selected-attribute");
-        $('#related-img-'+id).trigger('click');
-    });
-</script>
-
 
 <script>
     $(".select-icon").click(function() {
@@ -416,23 +398,18 @@
 
     $( ".addToCartBtn" ).click(function(e) {
         e.preventDefault();
-        var product_id = $('.product_id').val();
-        var qte = $('.qty-val').val();
+        var product_id = $(this).closest('.product-data').find('.product_id').val();
+        var qte = $(this).closest('.product-data').find('.qty-val').val();
 
         $.ajax({
-                url: '/get-product/' + product_id ,
+                url: '/cosmekarn/public/get-product/' + product_id ,
                 type: "GET",
                 success: function (res) {
 
                 if(res.countproductlines > 1){
                     var id = $('#list-line li.selected-icon').attr('value-id');
-                    if(!id){
-                        var id = $('#list-attr a.selected-attribute').data('id');
-                        alert(id);
-                    }
-                 
                     $.ajax({
-                            url: '/carts',
+                            url: '/cosmekarn/public/carts',
                             type: "POST",
                             data:{
                                 'id' : id,
@@ -484,37 +461,31 @@
                                 'qte' :qte,
                             },
                             success: function (res) {
-                                toastr.success('Produit ajouté avec success');
+
+                                $("#liveToast").show();
                                 $(".nbr_product").text(res.nbr_cart);
-
                                 if(res.qtes == 0){
+                                    $data =  '<li>'+
+                                                '<div class="shopping-cart-img">'+
+                                                    '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image')}}" /></a>'+
+                                                '</div>'+
+                                                '<div class="shopping-cart-title">'+
+                                                    '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+
+                                                    '<h4><span>'+res.qte+' × </span>'+res.price+' Da</h4>'+
+                                                '</div>'+
+                                                '<div class="shopping-cart-delete">'+
+                                                    '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
+                                                '</div>'+
+                                             '</li>';
 
-                                    var $path = '{{asset("storage/images/products/")}}';
-
-                                    $data = '<li class="minicart-item" id="list-'+id+'">'+
-                                            '<div class="minicart-thumb">'+
-                                                '<a style="cursor: pointer">'+
-                                                    '<img src="'+ $path + '/'+res.image + '" alt="product">' +
-                                                '</a>'+
-                                            '</div>'+
-                                            '<div class="minicart-content">'+
-                                               '<h3 class="product-name">'+
-                                                    '<a style="cursor: pointer">'+res.name+'</a>'+
-                                                '</h3>'+
-                                                '<p>'+
-                                                    '<span class="cart-quantity">'+res.qte+' <strong>&times;</strong></span>'+
-                                                    '<span class="cart-price">'+res.price+' Da</span>'+
-                                                '</p>'+
-                                            '</div>'+
-                                            '<button class="delete-item-list" data-id="'+id+'"><i class="pe-7s-close"></i></button>'+
-                                        '</li>';
-                                $('.cart-list').append($data);
+                                    $('.cart-list').append($data);
                                 }
                                 else{
                                     alert("Le produit existe déja dans votre panier");
                                 }
                                 $(".total").text(res.total +' Da');
-                               }
+
+                            }
                             });
                          }
                }
