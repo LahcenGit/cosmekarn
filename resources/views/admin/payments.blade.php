@@ -33,7 +33,7 @@
                                         <th>Client</th>
                                         <th>Email</th>
                                         <th>Montant</th>
-                                        <th>Montant du </th>
+                                        <th>Montant dû </th>
                                         <th>Méthode de paiement</th>
                                         <th>Statut</th>
                                     </tr>

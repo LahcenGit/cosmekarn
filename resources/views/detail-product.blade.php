@@ -210,8 +210,7 @@
                                         </table>
                                     </div>
                                     <div class="tab-pane fade" id="tab_three">
-
-                                            <h5>1  avis pou <span>{{ $product->designation }}</span></h5>
+                                          <h5>1  avis pour <span>{{ $product->designation }}</span></h5>
                                             <div class="total-reviews mt-4" id="add-comment">
                                                 <div class="review-box">
                                                     <div class="post-author">
@@ -222,29 +221,26 @@
                                             </div>
                                             @Auth
                                             <div class="comment-section">
-                                            <form id="comment-form" action="{{asset('/comment')}}" method="POST" >
-                                                @csrf
-                                                <div class="form-group row">
-                                                    <div class="col">
-                                                        <label class="col-form-label"><span class="text-danger">*</span>
-                                                            Commentaire</label>
-                                                        <textarea class="form-control" id="comment" required></textarea>
+                                                <form class="comment-form" action="{{asset('/comment')}}" method="POST" >
+                                                    @csrf
+                                                    <div class="form-group row">
+                                                        <div class="col">
+                                                            <label class="col-form-label"><span class="text-danger">*</span>
+                                                                Commentaire</label>
+                                                            <textarea class="form-control" id="comment" required></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col">
-                                                        <label class="col-form-label"> Votre note </label>
-                                                        <div class="my-rating"></div>
+                                                    <div class="form-group row">
+                                                        <div class="col">
+                                                            <label class="col-form-label"> Votre note </label>
+                                                            <div class="my-rating"></div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <input type="hidden" class="form-control" id="product" value="{{ $product->id }}">
-
-                                                    <button class="btn btn-sqr" >Envoyer</button>
-
-                                            </form> <!-- end of review-form -->
+                                                    <input type="hidden" class="form-control" id="product" value="{{ $product->id }}">
+                                                    <button type="button" class="btn btn-sqr" >Envoyer</button>
+                                                </form> <!-- end of review-form -->
                                             </div>
-                                            <div id="show_comment_msg" >
-
+                                            <div id="show_comment_msg">
                                             </div>
                                         @else
                                         <p>Veuillez vous authentifier pour pouvoir poster un commentaire.</p>
@@ -506,9 +502,9 @@
         }
     });
 
-   $("#comment-form").on("submit", function (e)
+   $(".comment-form").on("submit", function (e)
     {
-        e.preventDefault();
+        alert(1);
         $('#show_comment_msg').html('<div >En cours....</div>');
         var comment = $('#comment').val();
         var product = $('#product').val();
@@ -543,6 +539,7 @@
 
                     }
                 });
+                e.preventDefault();
 
     });
 
