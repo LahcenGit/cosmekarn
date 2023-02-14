@@ -7,6 +7,7 @@ use App\Models\Attributeline;
 use App\Models\Cart;
 use App\Models\Cartitem;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\Productcategory;
@@ -286,8 +287,13 @@ class ProductController extends Controller
             $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-
-        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes','cartitems','nbr_cartitem','total'));
+        $comments = Comment::where('product_id',$product->id)->get();
+        $count_comment = Comment::where('product_id',$product->id)->count();
+        $nbr_comment = 0;
+        if(Auth::user()){
+            $nbr_comment = Comment::where('product_id',$product->id)->where('user_id',Auth::user()->id)->count();
+        }
+        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes','cartitems','nbr_cartitem','total','comments','count_comment','nbr_comment'));
     }
 
 
