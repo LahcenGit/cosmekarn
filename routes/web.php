@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\AdminCommentController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -60,6 +61,7 @@ Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index
 Route::get('/login-register', [App\Http\Controllers\Auth\LoginController::class, 'loginRegister'])->name('login-register');
 Route::resource('/carts',CartController::class);
 Route::resource('/',HomeController::class);
+Route::resource('/admin/comments',AdminCommentController::class)->middleware('can:admin');
 Route::resource('/admin',AdminController::class)->middleware('can:admin');
 
 //payment

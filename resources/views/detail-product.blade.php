@@ -305,7 +305,7 @@
 
                                 </div>
                                 <div class="cart-hover">
-                                    <button class="btn btn-cart">Ajouter au panier</button>
+                                    <a href="{{ asset('product/'.$related_product->product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                 </div>
                             </figure>
                             <div class="product-caption text-center">
@@ -529,7 +529,7 @@
 
 
                         $('#add-comment').append('<div class="review-box mb-3">'+'<div class="post-author">'+'<p>'+'<b>'+res.name + '</b>' + res.date +' | '+'('+'<b>'+res.rating+'/'+'5'+'</b>'+')'+'<p>'+'</div>'+'<p>'+res.comment+'</p>'+'</div>');
-                        $('#show_comment_msg').html('<div class="alert alert-success mt-2 flash-alert" id="form-success" role="alert"> Merci pour votre commentaire !</div>');
+                        $('#show_comment_msg').html('<div class="alert alert-success mt-2 flash-alert" id="form-success" role="alert" style="color:#fff; background-color:#E41F85; border-color:#E41F85;"> Merci pour votre commentaire !</div>');
                         $(".flash-alert").slideDown(200).delay(3500).slideUp(200);
                         $(".comment-section").hide();
 
