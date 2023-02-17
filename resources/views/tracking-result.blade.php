@@ -1,6 +1,13 @@
 @extends('layouts.front')
 @section('content')
 
+
+<style>
+    .bg-cosmekarn {
+  background-color: #E41F85 !important;
+    }
+</style>
+
 <main>
     <!-- breadcrumb area start -->
     <div class="breadcrumb-area">
@@ -24,26 +31,47 @@
     <!-- login register wrapper start -->
     <div class="login-register-wrapper section-padding">
         <div class="container">
+            @if(!$response_array)
+
+                <div class="member-area-from-wrap">
+                    <div class="row d-flex justify-content-center">
+                        <!-- Login Content Start -->
+                        <div class="col-lg-6">
+                            <div class="login-reg-form-wrap">
+                                <h5 style="color: #E41F85">{{$code}}</h5>
+                                <p>Aucune donnée pour ce code de suivi !</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            @else
+            
             <div class="member-area-from-wrap">
                 <div class="row d-flex justify-content-center">
                     <!-- Login Content Start -->
                     <div class="col-lg-6">
                         <div class="login-reg-form-wrap">
-                            <h5>Suivi votre commande</h5>
-                            <form action="{{asset('/tracking')}}" method="POST">
-                            @csrf
-                                <div class="single-input-item">
-                                    <input type="text" name="codetrack" placeholder="Entrer votre code de suivi" required />
-                                </div>
-                                <div class="single-input-item">
-                                    <button type="submit" class="btn btn-sqr">Suivi</button>
-                                </div>
-                            </form>
+                            <h5 style="color: #E41F85">{{$code}}</h5>
                         </div>
                     </div>
-
                 </div>
+
+                @foreach($response_array as $response)
+                    <div class="row d-flex justify-content-center mt-2">
+                        <!-- Login Content Start -->
+                        <div class="col-lg-6" >
+                            <div class="login-reg-form-wrap">
+                                <h5> {{$response['commune_name']}} </h5> <span class="badge bg-cosmekarn ">{{$response['status']}}</span>
+                                <p>Date : <b>{{$response['date_status']}}</b> </p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                
             </div>
+
+            @endif
         </div>
     </div>
 
