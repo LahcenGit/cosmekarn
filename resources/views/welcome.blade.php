@@ -8,8 +8,6 @@
         padding: 10px;
         font-weight: 200;
     }
-
-
 </style>
 
 <main>
@@ -255,9 +253,14 @@
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
-                                                            <li>
-                                                                <a  width="30px" height="30px"  style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
-                                                            </li>
+                                                             @if($item->attribute_icone)
+                                                                <li>
+                                                                    <a  width="30px" height="30px"  style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                                                </li>
+                                                            @else
+                                                               
+                                                            @endif
+                                                            
                                                         @endif
                                                     @endforeach
                                                 </ul>
