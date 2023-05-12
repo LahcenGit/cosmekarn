@@ -605,6 +605,7 @@
 @stack('shipping-script')
 @stack('contact-scripts')
 @stack('comment-scripts')
+
 </body>
 
 </html>

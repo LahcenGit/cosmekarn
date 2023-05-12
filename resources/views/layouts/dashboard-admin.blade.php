@@ -450,5 +450,6 @@
 @stack('show-modal-scripts')
 @stack('store-attribute-scripts')
 @stack('modal-order-details-scripts')
+@stack('modal-pack-details-scripts')
 </body>
 </html>
