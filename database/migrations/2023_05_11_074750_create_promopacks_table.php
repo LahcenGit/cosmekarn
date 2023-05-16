@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('date_debut');
             $table->string('date_fin');
             $table->integer('qte');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

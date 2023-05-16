@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Promopack;
 use App\Models\Promopackline;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PromopackController extends Controller
 {
@@ -28,6 +29,15 @@ class PromopackController extends Controller
         $pack_promo->date_debut = $request->date_debut;
         $pack_promo->date_fin = $request->date_fin;
         $pack_promo->description = $request->description;
+        $hasFile = $request->hasFile('photo');
+        if($hasFile){
+            $destination = 'public/images/packpromo';
+            $path = $request->file('photo')->store($destination);
+            dd($path);
+            $storageName = basename($path);
+            $pack_promo->photo = $storageName;
+
+        }
         $pack_promo->save();
         foreach($request->products as $product){
             $packline = new Promopackline();
@@ -36,6 +46,62 @@ class PromopackController extends Controller
             $packline->save();
         }
 
+        return redirect('admin/pack-promo');
+    }
+
+    public function edit($id){
+        $pack_promo = Promopack::find($id);
+        $array = array();
+        $packlines = Promopackline::where('promopack_id',$id)->get();
+        foreach($packlines as $packline){
+           array_push($array , $packline->product_id);
+        }
+        $products = Product::whereNotIn('id',$array)->orderBy('created_at','desc')->get();
+         return view('admin.edit-pack-promo',compact('products','packlines','pack_promo'));
+    }
+
+    public function update(Request $request , $id){
+        $pack_promo = Promopack::find($id);
+        Storage::disk('public')->delete('images/packpromo/'.$pack_promo->photo);
+        $packlines = Promopackline::where('promopack_id',$id)->get();
+        foreach($packlines as $packline){
+           $packline->delete();
+        }
+        $pack_promo->designation = $request->designation;
+        $pack_promo->price = $request->price;
+        $pack_promo->price_promo = $request->price_promo;
+        $pack_promo->qte = $request->qte;
+        $pack_promo->date_debut = $request->date_debut;
+        $pack_promo->date_fin = $request->date_fin;
+        $pack_promo->description = $request->description;
+
+        $hasFile = $request->hasFile('photo');
+        if($hasFile){
+            $destination = 'public/images/packpromo';
+            $path = $request->file('photo')->store($destination);
+            dd($path);
+            $storageName = basename($path);
+            $pack_promo->photo = $storageName;
+
+        }
+        $pack_promo->save();
+        foreach($request->products as $product){
+            $packline = new Promopackline();
+            $packline->promopack_id = $pack_promo->id;
+            $packline->product_id = $product;
+            $packline->save();
+        }
+
+        return redirect('admin/pack-promo');
+    }
+
+    public function destroy($id){
+        $pack_promo = Promopack::find($id);
+        $packlines = Promopackline::where('promopack_id',$id)->get();
+        foreach($packlines as $packline){
+           $packline->delete();
+        }
+        $pack_promo->delete();
         return redirect('admin/pack-promo');
     }
     public function packDetail($id){

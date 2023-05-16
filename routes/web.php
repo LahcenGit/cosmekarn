@@ -15,6 +15,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminCommentController;
 use App\Http\Controllers\PromopackController;
+use App\Http\Controllers\PromocartController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -51,8 +52,10 @@ Route::resource('/admin/orders',OrderController::class);
 Route::resource('/admin/products',ProductController::class);
 Route::resource('/admin/customers',AdminCustomerController::class);
 Route::resource('/admin/pack-promo',PromopackController::class);
+Route::resource('/admin/cart-promo',PromocartController::class);
 Route::resource('/admin/payments',AdminPaymentController::class);
 Route::get('pack-details/{id}', [PromopackController::class, 'packDetail']);
+Route::get('cart-details/{id}', [PromocartController::class, 'cartDetail']);
 Route::get('order-details/{id}', [OrderController::class, 'orderDetails']);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
