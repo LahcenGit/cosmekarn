@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Product;
+use App\Models\Productline;
 use App\Models\Promopack;
 use App\Models\Promopackline;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Str;
 class PromopackController extends Controller
 {
     //
@@ -21,7 +23,33 @@ class PromopackController extends Controller
     }
 
     public function store(Request $request){
+        $hasFile = $request->hasFile('photo');
+        $product = new Product();
+        $product->designation = $request->designation;
+        $product->long_description = $request->description;
+        $product->short_description = $request->short_description;
+        $product->slug = str::slug($request->designation);
+        $product->is_brouillon = 0;
+        $product->save();
+        if($hasFile){
+            $destination = 'public/images/products';
+            $path = $request->file('photo')->store($destination);
+            $storageName = basename($path);
+            $image = new Image();
+            $image->lien = $storageName;
+            $image->type = 1;
+            $product->images()->save($image);
+        }
+
+        $productline = new Productline();
+        $productline->product_id = $product->id;
+        $productline->price = $request->price;
+        $productline->promo_price = $request->price_promo;
+        $productline->qte = $request->qte;
+        $productline->save();
+
         $pack_promo = new Promopack();
+        $pack_promo->product_id = $product->id;
         $pack_promo->designation = $request->designation;
         $pack_promo->price = $request->price;
         $pack_promo->price_promo = $request->price_promo;
@@ -29,11 +57,10 @@ class PromopackController extends Controller
         $pack_promo->date_debut = $request->date_debut;
         $pack_promo->date_fin = $request->date_fin;
         $pack_promo->description = $request->description;
-        $hasFile = $request->hasFile('photo');
+
         if($hasFile){
             $destination = 'public/images/packpromo';
             $path = $request->file('photo')->store($destination);
-            dd($path);
             $storageName = basename($path);
             $pack_promo->photo = $storageName;
 

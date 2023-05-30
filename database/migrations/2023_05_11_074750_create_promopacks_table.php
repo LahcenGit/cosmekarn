@@ -15,14 +15,17 @@ return new class extends Migration
     {
         Schema::create('promopacks', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->string('designation');
             $table->float('price')->nullable();
             $table->float('price_promo')->nullable();
-            $table->string('description');
+            $table->longText('description');
+            $table->longText('short_description')->nullable();
             $table->string('date_debut');
             $table->string('date_fin');
             $table->integer('qte');
             $table->string('photo')->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -103,8 +103,19 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
+                                        <label>Déscription courte :</label>
+                                        <textarea  class="form-control @error('short_description') is-invalid @enderror" value="{{old('short_description')}}" name="short_description" ></textarea>
+                                            @error('short_description')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
                                         <label>Déscription* :</label>
-                                        <textarea  class="form-control @error('description') is-invalid @enderror" value="{{old('description')}}" name="description" required></textarea>
+                                        <textarea  class="summernote form-control @error('description') is-invalid @enderror" value="{{old('description')}}" name="description" ></textarea>
                                             @error('description')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -112,7 +123,8 @@
                                             @enderror
                                     </div>
                                 </div>
-                                    <button type="submit"  class="btn btn-primary mt-3">Ajouter</button>
+
+                                <button type="submit"  class="btn btn-primary mt-3">Ajouter</button>
 
                             </div>
                         </div>

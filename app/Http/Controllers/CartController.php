@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Cartitem;
+use App\Models\Category;
 use App\Models\Productline;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +20,8 @@ class CartController extends Controller
             $cartitems = $cart->cartitems;
             $nbr_cartitem = $cart->cartitems->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-
-            return view('carts',compact('cartitems','nbr_cartitem','total','cart_id'));
+            $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
+            return view('carts',compact('cartitems','nbr_cartitem','total','cart_id','categories'));
             }
         }
         else{
@@ -28,7 +29,8 @@ class CartController extends Controller
             $cartitems = Cartitem::where('cart_id',$cart_id)->get();
             $nbr_cartitem = Cartitem::where('cart_id',$cart_id)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart_id)->first();
-            return view('carts',compact('cartitems','nbr_cartitem','total','cart_id'));
+            $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
+            return view('carts',compact('cartitems','nbr_cartitem','total','cart_id','categories'));
         }
     }
 
