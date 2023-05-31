@@ -141,14 +141,10 @@
                                             <td>Total</td>
                                             <td><b>{{ number_format($total->sum) }}</b>  Da</td>
                                         </tr>
-
-                                        @if($type_promo )
                                         <tr>
                                             <td>Promo :</td>
                                             <td> <b> @if($type_promo == 1) {{$value_promo}} % @else {{$value_promo}} Da @endif</b></td>
                                         </tr>
-                                        @endif
-
                                         <tr>
                                             <td>Livraison</td>
                                             <td class="d-flex justify-content-center">
@@ -170,9 +166,9 @@
                                         </tr>
                                         <tr>
                                             <td>Total </td>
-                                            
+
                                             @if($total_promo)
-                                            <td><b class="total-price">{{number_format($total_promo->sum + 400) }} Da</b></td>
+                                            <td><b class="total-price">{{number_format($total_promo + 400) }} Da</b></td>
                                             @else
                                             <td><b class="total-price">{{number_format($total->sum + 400) }} Da</b></td>
                                             @endif
@@ -251,7 +247,7 @@
     $('.shipping-redio').on('click', function() {
       var value =  $(this).val();
       var total = '{{$total->sum}}';
-
+      alert(total);
       total = parseInt(total);
       value = parseInt(value);
 

@@ -28,24 +28,25 @@ class CheckoutController extends Controller
         $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
         $wilayas = Wilaya::all();
 
-        //promo panier 
+        //promo panier
         $currentDate = Carbon::now()->format('Y-m-d');
 
         $cart_promo = Promocart::whereDate('date_debut', '<=', $currentDate)
                     ->whereDate('date_fin', '>=', $currentDate)
-                    ->where('mt_panier', '<=', $total)
+                    ->where('mt_panier', '<=', $total->sum)
                     ->orderByDesc('mt_panier')
                     ->first();
+
         if($cart_promo){
            $type_promo = $cart_promo->format ;
            $value_promo = $cart_promo->value ;
 
            if($cart_promo->type == '0'){//implicite
                 if($type_promo  =='0'){ //fix
-                    $total_promo = $total - $value_promo ;
+                    $total_promo = $total->sum - $value_promo ;
                 }
                 else{//pourcentage
-                    $total_promo = $total - ($total*$value_promo)/100 ;
+                    $total_promo = $total->sum - ($total*$value_promo)/100 ;
                 }
            }
         }
