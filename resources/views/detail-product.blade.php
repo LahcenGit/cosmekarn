@@ -194,6 +194,7 @@
                                     <div class="tab-pane fade" id="tab_two">
                                         <table class="table table-bordered">
                                             <tbody>
+                                                @if($product_lines)
                                                 @foreach($product_lines as $product_line)
                                                    <tr>
                                                         <td>
@@ -206,6 +207,7 @@
                                                         </td>
                                                    </tr>
                                                 @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>

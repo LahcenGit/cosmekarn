@@ -15,7 +15,8 @@ class Promocart extends Model
          'date_debut',
          'date_fin',
          'value',
-         'product'
+         'mt_panier',
+         'product',
         ];
 
     public function product(){

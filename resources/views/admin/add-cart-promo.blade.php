@@ -24,7 +24,7 @@
             <div class="col-xl-9 col-lg-9">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Ajouter pack promo</h4>
+                        <h4 class="card-title">Ajouter promo panier</h4>
                     </div>
                     <div class="card-body">
                             <div class="form-row">
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label>Format:</label>
                                     <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="format">
                                         <option value=0>Nothing selected</option>
@@ -55,10 +55,19 @@
                                         <option value="1" @if (old('type') == 1  ) selected @endif >Pourcentage</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label>Valeur* :</label>
                                     <input type="text"  class="form-control input-default control-number @error('value') is-invalid @enderror" value="{{old('value')}}" name="value" placeholder="0" required>
                                         @error('value')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Montant panier* :</label>
+                                    <input type="text"  class="form-control input-default control-number @error('mt_panier') is-invalid @enderror" value="{{old('mt_panier')}}" name="mt_panier" placeholder="0" required>
+                                        @error('mt_panier')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\Productcategory;
 use App\Models\Productline;
 use App\Models\Promopack;
 use App\Models\Promopackline;
@@ -31,6 +32,11 @@ class PromopackController extends Controller
         $product->slug = str::slug($request->designation);
         $product->is_brouillon = 0;
         $product->save();
+        $productcategory = new Productcategory();
+        $productcategory->product_id = $product->id;
+        $productcategory->category_id = 7;
+        $productcategory->save();
+
         if($hasFile){
             $destination = 'public/images/products';
             $path = $request->file('photo')->store($destination);
