@@ -83,14 +83,22 @@
                                     <label for="email" class="required">Email </label>
                                     <input type="email" id="email" placeholder="Email" name="email" required />
                                 </div>
+
                                 <div class="single-input-item">
                                     <label for="country" class="required">Wilayas</label>
-                                    <select name="country" class="nice-select" id="country">
+                                    <select name="country" class="nice-select" id="wilayas">
                                         @foreach ($wilayas as $wilaya)
-                                        <option value="{{$wilaya->name}}">{{$wilaya->name}}</option>
+                                        <option value="{{$wilaya->wilaya}}">{{$wilaya->wilaya}}</option>
 
                                         @endforeach
 
+                                    </select>
+                                </div>
+
+                                <div class="single-input-item">
+                                    <label for="country" class="required">Communes</label>
+                                    <select name="country" class="nice-select" id="communes">
+                                         <option value="select">selectionner...</option>
                                     </select>
                                 </div>
 
@@ -141,10 +149,12 @@
                                             <td>Total</td>
                                             <td><b>{{ number_format($total->sum) }}</b>  Da</td>
                                         </tr>
-                                        <tr>
-                                            <td>Promo :</td>
-                                            <td> <b> @if($type_promo == 1) {{$value_promo}} % @else {{$value_promo}} Da @endif</b></td>
-                                        </tr>
+                                        @if($has_promo)
+                                            <tr>
+                                                <td>Promo :</td>
+                                                <td> <b> @if($type_promo == 1) {{$value_promo}} % @else {{$value_promo}} Da @endif</b></td>
+                                            </tr>
+                                        @endif
                                         <tr>
                                             <td>Livraison</td>
                                             <td class="d-flex justify-content-center">
@@ -152,13 +162,13 @@
                                                     <li>
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" id="bureau" name="shipping" value="400" class="custom-control-input shipping-redio" checked />
-                                                            <label class="custom-control-label" for="bureau">bureau : 400 da</label>
+                                                            <label class="custom-control-label" for="bureau">bureau : <span id="bureau-cost" >0</span> da</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" id="domicile" value="700" name="shipping" class="custom-control-input shipping-redio" />
-                                                            <label class="custom-control-label" for="domicile">à domicile : 700 da</label>
+                                                            <label class="custom-control-label" for="domicile">à domicile : <span id="domicile-cost" >0</span>  da</label>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -168,9 +178,9 @@
                                             <td>Total </td>
 
                                             @if($total_promo)
-                                            <td><b class="total-price">{{number_format($total_promo + 400) }} Da</b></td>
+                                            <td><b class="total-price">{{number_format($total_promo ) }} Da</b></td>
                                             @else
-                                            <td><b class="total-price">{{number_format($total->sum + 400) }} Da</b></td>
+                                            <td><b class="total-price">{{number_format($total->sum ) }} Da</b></td>
                                             @endif
                                         </tr>
                                     </tfoot>
@@ -242,7 +252,54 @@
 @endsection
 
 @push('shipping-script')
+
+
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+
+    $( "#wilayas" ).change(function() {
+        var name = $(this).val();
+        var data ="";
+        $.ajax({
+			url: '/get-communes/'+name ,
+			type: 'GET',
+           
+        success: function (res) {
+                $.each(res, function(i, res) {
+                    data = data + '<option value="'+ res.commune+ '" >'+ res.commune+ '</option>';
+                });
+                $('#communes').html(data);
+                $('#communes').niceSelect('update');
+            }
+
+        });
+    });
+
+
+    $( "#communes" ).change(function() {
+        var wilaya = $('#wilayas').val();
+        var commune = $(this).val();
+        $.ajax({
+			url: '/get-cost/'+wilaya+'/'+ commune ,
+			type: 'GET',
+           
+        success: function (res) {
+                $('#bureau-cost').html(res.price_b);
+                $('#domicile-cost').html(res.price_a + res.supp);
+            }
+
+        });
+    });
+
+</script>
+<script>
+
+
 
     $('.shipping-redio').on('click', function() {
       var value =  $(this).val();

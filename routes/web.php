@@ -89,3 +89,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/tracking', [App\Http\Controllers\TrackingController::class, 'tracking']);
 Route::post('/tracking', [App\Http\Controllers\TrackingController::class, 'trackingResult']);
+
+//delivery coast
+Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);
+Route::get('/get-cost/{wilaya}/{commune}', [App\Http\Controllers\CheckoutController::class, 'getCost']);
