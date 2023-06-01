@@ -49,6 +49,7 @@ Route::resource('/admin/categories',CategoryController::class);
 Route::resource('/admin/attributes',AttributeController::class);
 Route::resource('/admin/attributelines',AttributelineController::class);
 Route::resource('/admin/orders',OrderController::class);
+Route::get('admin/order-detail/{id}', [OrderController::class, 'orderDetail']);
 Route::resource('/admin/products',ProductController::class);
 Route::resource('/admin/customers',AdminCustomerController::class);
 Route::resource('/admin/pack-promo',PromopackController::class);

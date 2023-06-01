@@ -34,4 +34,10 @@ class OrderController extends Controller
         }
         return view('admin.modal-order-details',compact('orderlines','total'));
     }
+
+    public function orderDetail($id){
+        $order = Order::find($id);
+        $orderlines = Orderline::where('order_id',$id)->get();
+        return view('admin.detail-order',compact('order','orderlines'));
+    }
 }

@@ -96,8 +96,8 @@
                                 </div>
 
                                 <div class="single-input-item">
-                                    <label for="country" class="required">Communes</label>
-                                    <select name="country" class="nice-select" id="communes">
+                                    <label for="commune" class="required">Communes</label>
+                                    <select name="commune" class="nice-select" id="communes">
                                          <option value="select">selectionner...</option>
                                     </select>
                                 </div>
@@ -161,13 +161,13 @@
                                                 <ul class="shipping-type">
                                                     <li>
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="bureau" name="shipping" value="400" class="custom-control-input shipping-redio" checked />
+                                                            <input type="radio" id="bureau" name="shipping"  class="custom-control-input shipping-redio" checked />
                                                             <label class="custom-control-label" for="bureau">bureau : <span id="bureau-cost" >0</span> da</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="domicile" value="700" name="shipping" class="custom-control-input shipping-redio" />
+                                                            <input type="radio" id="domicile"  name="shipping" class="custom-control-input shipping-redio" />
                                                             <label class="custom-control-label" for="domicile">à domicile : <span id="domicile-cost" >0</span>  da</label>
                                                         </div>
                                                     </li>
@@ -268,7 +268,7 @@
         $.ajax({
 			url: '/get-communes/'+name ,
 			type: 'GET',
-           
+
         success: function (res) {
                 $.each(res, function(i, res) {
                     data = data + '<option value="'+ res.commune+ '" >'+ res.commune+ '</option>';
@@ -284,13 +284,25 @@
     $( "#communes" ).change(function() {
         var wilaya = $('#wilayas').val();
         var commune = $(this).val();
-        $.ajax({
+        var total_promo = '{{$total_promo}}';
+        if(total_promo){
+            var total = total_promo;
+        }
+        else{
+            var total = '{{$total->sum}}';
+        }
+        var total_final;
+       $.ajax({
 			url: '/get-cost/'+wilaya+'/'+ commune ,
 			type: 'GET',
-           
+
         success: function (res) {
                 $('#bureau-cost').html(res.price_b);
+                $('#bureau').val(res.price_b);
                 $('#domicile-cost').html(res.price_a + res.supp);
+                $('#domicile').val(res.price_a + res.supp);
+                total_final = parseFloat(total) + parseFloat(res.price_b);
+                $('.total-price').html(total_final +'Da');
             }
 
         });
@@ -303,8 +315,13 @@
 
     $('.shipping-redio').on('click', function() {
       var value =  $(this).val();
-      var total = '{{$total->sum}}';
-      alert(total);
+      var total_promo = '{{$total_promo}}';
+        if(total_promo){
+            var total = total_promo;
+        }
+        else{
+            var total = '{{$total->sum}}';
+        }
       total = parseInt(total);
       value = parseInt(value);
 
