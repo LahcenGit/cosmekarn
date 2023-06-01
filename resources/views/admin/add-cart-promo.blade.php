@@ -8,13 +8,13 @@
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
                     <h4>Bonjour, bienvenue!</h4>
-                    <span>Pack promo</span>
+                    <span> Promo panier</span>
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/admin')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Pack promo</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Promo panier</a></li>
                 </ol>
             </div>
         </div>
@@ -30,16 +30,16 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Type* :</label>
-                                    <select class="form-control select-type" id="sel1"  class="selectpicker" data-live-search="true" name="type" >
-                                        <option value=0>Nothing selected</option>
+                                    <select class="form-control select-type" id="sel1"  class="selectpicker" data-live-search="true" name="type" required>
+                                        <option value="" disabled selected>Selectionner...</option>
                                         <option value="0" @if (old('type') == 0 ) selected @endif >Implicite</option>
                                         <option value="1" @if (old('type') == 1  ) selected @endif >Explicite</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6 product" style="display: none">
                                     <label>Produits* :</label>
-                                    <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="product[]" multiple>
-                                        <option value=0>Nothing selected</option>
+                                    <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="product[]" multiple >
+                                        <option value="" disabled >Selectionner...</option>
                                             @foreach($products as $product)
                                             <option value="{{$product->id}}" @if (old('product') == $product->id ) selected @endif >{{$product->designation}}</option>
                                             @endforeach
@@ -49,8 +49,8 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label>Format:</label>
-                                    <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="format">
-                                        <option value=0>Nothing selected</option>
+                                    <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="format" required>
+                                        <option value="" disabled selected>Selectionner...</option>
                                         <option value="0" @if (old('type') == 0 ) selected @endif >Fix</option>
                                         <option value="1" @if (old('type') == 1  ) selected @endif >Pourcentage</option>
                                     </select>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label>Montant panier* :</label>
-                                    <input type="text"  class="form-control input-default control-number @error('mt_panier') is-invalid @enderror" value="{{old('mt_panier')}}" name="mt_panier" placeholder="0" required>
+                                    <input type="text" id="mt-panier"  class="form-control input-default control-number @error('mt_panier') is-invalid @enderror" value="{{old('mt_panier')}}" name="mt_panier" placeholder="0" >
                                         @error('mt_panier')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -116,11 +116,16 @@
 $(".select-type").change(function() {
 
   var type = $(this).val();
+  var inputField = $('#mt-panier');
   if(type == 1){
     $(".product").css({display: "block"});
+
+    // Add the "required" attribute
+    inputField.prop('required', true);
   }
   else{
     $(".product").css({display: "none"});
+    inputField.prop('required', false);
   }
 
 });

@@ -18,7 +18,8 @@
                 </ol>
             </div>
         </div>
-        <form action="{{url('admin/cart-promo')}}" method="POST" id="addProduct" enctype="multipart/form-data">
+        <form action="{{url('admin/cart-promo/'.$cart_promo->id)}}" method="POST" id="addProduct" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PUT">
         @csrf
         <div class="row ">
             <div class="col-xl-9 col-lg-9">
@@ -40,13 +41,13 @@
                                 <div class="form-group col-md-6 product" >
                                     <label>Produits* :</label>
                                     <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="product[]" multiple>
-                                        <option value=0>Nothing selected</option>
+                                        <option value="" disabled>Selectionner</option>
                                             @foreach($array as $line)
-                                            <option value="{{$line->id}}" @if (old('product') == $product->id ) selected @endif >{{$product->designation}}</option>
+                                            <option value="{{$line->id}}"  selected >{{$line->designation}}</option>
                                             @endforeach
 
                                             @foreach($products as $product)
-                                            <option value="{{$product->id}}" @if (old('product') == $product->id ) selected @endif >{{$product->designation}}</option>
+                                            <option value="{{$product->id}}" >{{$product->designation}}</option>
                                             @endforeach
                                     </select>
                                 </div>
@@ -55,7 +56,7 @@
                                 <div class="form-group col-md-6 product" style="display: none">
                                     <label>Produits* :</label>
                                     <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="product[]" multiple>
-                                        <option value=0>Nothing selected</option>
+                                        <option value="" disabled>Selectionner</option>
                                             @foreach($products as $product)
                                             <option value="{{$product->id}}" @if (old('product') == $product->id ) selected @endif >{{$product->designation}}</option>
                                             @endforeach
@@ -63,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label>Format:</label>
                                     <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="format">
                                         <option value=0>Nothing selected</option>
@@ -71,10 +72,19 @@
                                         <option value="1" @if (old('type') == 1  ) selected @endif >Pourcentage</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label>Valeur* :</label>
-                                    <input type="text"  class="form-control input-default control-number @error('value') is-invalid @enderror" value="{{old('value')}}" name="value" placeholder="0" required>
+                                    <input type="text"  class="form-control input-default control-number @error('value') is-invalid @enderror" value="{{$cart_promo->value}}" name="value" placeholder="0" required>
                                         @error('value')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Montant panier* :</label>
+                                    <input type="text" id="mt-panier"  class="form-control input-default control-number @error('mt_panier') is-invalid @enderror" value="{{$cart_promo->mt_panier}}" name="mt_panier" placeholder="0" >
+                                        @error('mt_panier')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -84,7 +94,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Date debut* :</label>
-                                    <input type="date" class="form-control input-default control-number @error('date_debut') is-invalid @enderror" value="{{old('date_debut')}}" name="date_debut" required>
+                                    <input type="date" class="form-control input-default control-number @error('date_debut') is-invalid @enderror" value="{{$cart_promo->date_debut}}" name="date_debut" required>
                                         @error('date_debut')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -93,7 +103,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Date fin* :</label>
-                                    <input type="date"  class="form-control input-default control-number @error('date_fin') is-invalid @enderror" value="{{old('date_fin')}}" name="date_fin"  required>
+                                    <input type="date"  class="form-control input-default control-number @error('date_fin') is-invalid @enderror" value="{{$cart_promo->date_fin}}" name="date_fin"  required>
                                         @error('date_fin')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -102,7 +112,7 @@
                                 </div>
 
                             </div>
-                             <button type="submit"  class="btn btn-primary mt-3">Ajouter</button>
+                             <button type="submit"  class="btn btn-primary mt-3">Enregistrer</button>
                             </div>
                         </div>
                     </div>
@@ -123,12 +133,18 @@
 $(".select-type").change(function() {
 
   var type = $(this).val();
+  var inputField = $('#mt-panier');
   if(type == 1){
     $(".product").css({display: "block"});
+
+    // Add the "required" attribute
+    inputField.prop('required', true);
   }
   else{
     $(".product").css({display: "none"});
+    inputField.prop('required', false);
   }
+
 
 });
 </script>

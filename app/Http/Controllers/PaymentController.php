@@ -128,15 +128,15 @@ class PaymentController extends Controller
 
     if($total_promo){
         if($request->shipping){
-
-            $total_f = $total_promo + $request->shipping;
+           $total_f = $total_promo + $request->shipping;
         }
      }
     else{
-        $total_f = $total;
+        $total_f = $total + $request->shipping;
     }
     $order->total_f = $total_f;
     $order->value = $value_promo;
+    $order->delivery_cost =  $request->shipping;
     if($request->paymentmethod == 'EDAHABIA' || $request->paymentmethod == 'CIB'){
 
         $configurations = [

@@ -87,7 +87,7 @@
                             <tr>
 
                                 <td colspan="4" style="text-align:right;"><b>Livraison</b> </td>
-                                <td >  1000 Da</td>
+                                <td >  {{ $order->delivery_cost }} Da</td>
 
 
                             </tr>

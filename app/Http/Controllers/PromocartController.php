@@ -29,17 +29,39 @@ class PromocartController extends Controller
 
     public function edit($id){
         $cart_promo = Promocart::find($id);
-        $jsonData = json_decode($cart_promo->product, true);
-        $array_designation = array();
-        $array_id = array();
-        foreach($jsonData as $product => $value){
-           $product = Product::where('id',$value)->first();
-           array_push($array_designation, $product->designation);
-           array_push($array_id, $product->id);
+        if($cart_promo->type == 1){
+            $jsonData = json_decode($cart_promo->product, true);
+            $array = array();
+            $array_id = array();
+            foreach($jsonData as $product => $value){
+               $product = Product::where('id',$value)->first();
+               array_push($array, $product);
+
+            }
+            $products = Product::whereNotIn('id',$jsonData)->get();
         }
-        $products = Product::whereNotIn('id',$jsonData)->get();
+        else{
+            $products = Product::orderBy('created_at','desc')->get();
+            $array = null;
+        }
+
 
         return view('admin.edit-cart-promo',compact('cart_promo','array','products'));
+    }
+
+    public function update(Request $request , $id){
+        $cart_promo = Promocart::find($id);
+        if( $request->product){
+            $cart_promo->product = json_encode($request['product']);
+        }
+        $cart_promo->type = $request->type;
+        $cart_promo->format = $request->format;
+        $cart_promo->value = $request->value;
+        $cart_promo->mt_panier = $request->mt_panier;
+        $cart_promo->date_debut = $request->date_debut;
+        $cart_promo->date_debut = $request->date_fin;
+        $cart_promo->save();
+        return redirect('admin/cart-promo');
     }
 
     public function destroy($id){

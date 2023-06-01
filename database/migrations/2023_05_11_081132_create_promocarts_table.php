@@ -18,7 +18,7 @@ return new class extends Migration
             $table->tinyInteger('type');
             $table->tinyInteger('format');
             $table->double('value');
-            $table->double('mt_panier');
+            $table->double('mt_panier')->nullable();
             $table->json('product')->nullable();
             $table->string('date_debut');
             $table->string('date_fin');

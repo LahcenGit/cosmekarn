@@ -29,6 +29,7 @@ return new class extends Migration
             $table->double('total');
             $table->double('total_f');
             $table->double('value')->nullable();
+            $table->double('delivery_cost')->nullable();
             $table->string('code')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('epay_invoice_id')->references('id')->on('epay_invoices')->onDelete('cascade');

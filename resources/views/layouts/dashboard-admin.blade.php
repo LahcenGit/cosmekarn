@@ -383,7 +383,7 @@
 
     <!-- Toastr -->
 
-
+    <script src="{{asset('/print/printThis.js')}}"></script>
 
 	<script>
 	(function($) {
@@ -467,5 +467,6 @@
 @stack('modal-pack-details-scripts')
 @stack('select-type-scripts')
 @stack('modal-cart-details-scripts')
+@stack('order-detail-scripts')
 </body>
 </html>
