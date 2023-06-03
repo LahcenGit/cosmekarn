@@ -468,5 +468,6 @@
 @stack('select-type-scripts')
 @stack('modal-cart-details-scripts')
 @stack('order-detail-scripts')
+@stack('modal-add-order-scripts')
 </body>
 </html>

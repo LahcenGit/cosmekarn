@@ -64,6 +64,7 @@
 
                                                 <div class="d-flex">
                                                     <a href="{{ asset('admin/order-detail/'.$order->id) }}" class="btn btn-primary shadow btn-xs sharp mr-1 order-details"><i class="fas fa-eye"></i></a>
+                                                    <button data-id="{{ $order->id }}" class="btn btn-success shadow btn-xs sharp mr-1 add-odrer-to-yalidine"><i class="fas fa-plus"></i></button>
                                                     <a href="{{url('admin/orders/'.$order->id.'/edit')}}" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fas fa-pencil-alt"></i></a>
                                                     <form action="{{url('admin/orders/'.$order->id)}}" method="post">
                                                         {{csrf_field()}}
@@ -85,29 +86,49 @@
     </div>
 </div>
 
-<div id="modal-order-details">
+<div id="modal-add-order">
 
 </div>
 @endsection
 
-@push('modal-order-details-scripts')
+@push('modal-add-order-scripts')
 <script>
   $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
-$(".order-details").click(function() {
+$(".add-odrer-to-yalidine").click(function() {
   var id = $(this).data('id');
-    $.ajax({
-        url: '/order-details/'+id ,
+ $.ajax({
+        url: '/add-order-to-yalidine/'+id ,
         type: "GET",
         success: function (res) {
-        $('#modal-order-details').html(res);
-        $("#exampleModal").modal('show');
+        $('#modal-add-order').html(res);
+        $('#modal-add-order').find("#wilaya").selectpicker();
+        $("#orderModal").modal('show');
         }
     });
 
 });
+
+$("#modal-add-order").on('change','#wilaya',function(e){
+        var name = $(this).val();
+        var data ="";
+        $.ajax({
+			url: '/admin/get-communes/'+name ,
+			type: 'GET',
+
+        success: function (res) {
+
+                $.each(res, function(i, res) {
+                    data = data + '<option value="'+ res+ '" >'+ res+ '</option>';
+                });
+                $('#commune').html(data);
+
+            }
+
+        });
+    });
 </script>
 @endpush

@@ -44,7 +44,7 @@ Route::get('/success-order', function () {
 
 });
 
-
+//admin route
 Route::resource('/admin/categories',CategoryController::class);
 Route::resource('/admin/attributes',AttributeController::class);
 Route::resource('/admin/attributelines',AttributelineController::class);
@@ -58,9 +58,12 @@ Route::resource('/admin/payments',AdminPaymentController::class);
 Route::get('pack-details/{id}', [PromopackController::class, 'packDetail']);
 Route::get('cart-details/{id}', [PromocartController::class, 'cartDetail']);
 Route::get('order-details/{id}', [OrderController::class, 'orderDetails']);
+Route::get('add-order-to-yalidine/{id}', [OrderController::class, 'addOrderToYalidine']);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
 Route::post('/add-attribute', [App\Http\Controllers\ProductController::class, 'addAttribute']);
+Route::get('/admin/get-communes/{name}', [App\Http\Controllers\OrderController::class, 'getCommunes']);
+//front route
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
 Route::get('/show-modal-detail-product/{id}', [App\Http\Controllers\ProductController::class, 'showModalDetailProduct']);
 Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);

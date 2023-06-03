@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deliverycost;
 use App\Models\Order;
 use App\Models\Orderline;
 use Illuminate\Http\Request;
@@ -40,4 +41,13 @@ class OrderController extends Controller
         $orderlines = Orderline::where('order_id',$id)->get();
         return view('admin.detail-order',compact('order','orderlines'));
     }
+
+    public function addOrderToYalidine($id){
+        $order = Order::find($id);
+        $wilayas = Deliverycost::select('*')->groupBy('wilaya')->get();
+        return view('admin.modal-add-order-to-yalidine',compact('order','wilayas'));
+    }
+    public function getCommunes($name){
+        return $communes = Deliverycost::where('wilaya',$name)->pluck('commune');
+     }
 }
