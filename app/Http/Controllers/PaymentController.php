@@ -113,7 +113,8 @@ class PaymentController extends Controller
 
     $order = new Order();
     $order->user_id = Auth::user()->id;
-    $order->name = $name;
+    $order->first_name = $request->first_name;
+    $order->last_name = $request->last_name;
     $order->status = 0 ;
     $order->wilaya = $request->country;
     $order->commune = $request->commune;
@@ -121,7 +122,6 @@ class PaymentController extends Controller
     $order->phone = $request->phone;
     $order->note = $request->ordernote;
     $order->payment_method = $request->paymentmethod;
-
 
 
     $order->total = $total;

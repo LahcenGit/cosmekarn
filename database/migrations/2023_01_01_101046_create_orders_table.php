@@ -18,10 +18,11 @@ return new class extends Migration
             $table->unsignedBigInteger('epay_invoice_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->tinyInteger('status');
-            $table->string('delivery_code')->nullable();
+            $table->string('tracking_code')->nullable();
             $table->string('wilaya');
             $table->string('commune');
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('address');
             $table->string('phone');
             $table->string('note')->nullable();
@@ -31,6 +32,10 @@ return new class extends Migration
             $table->double('value')->nullable();
             $table->double('delivery_cost')->nullable();
             $table->string('code')->nullable();
+            $table->integer('declared_value')->nullable();
+            $table->boolean('freeshipping')->nullable();
+            $table->boolean('is_stopdesk')->nullable();
+            $table->string('stopdesk_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('epay_invoice_id')->references('id')->on('epay_invoices')->onDelete('cascade');
             $table->timestamps();

@@ -1,5 +1,5 @@
 <div class="modal fade" id="orderModal">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Ajouter Un Variant</h5>
@@ -11,44 +11,39 @@
                 <div class="card-body">
                     <div class="basic-form">
                       <div class="form-row">
-                        <div class="col-md-12">
-                            <label>Client*:</label>
-                            <input type="text"  class="form-control input-default " value="{{ $order->name }}" id="name" >
+                        <div class="col-md-6">
+                            <label>Nom*:</label>
+                            <input type="text"  class="form-control input-default " value="{{ $order->first_name }}" id="name" disabled >
+                        </div>
+                        <div class="col-md-6">
+                            <label>Prenom*:</label>
+                            <input type="text"  class="form-control input-default " value="{{ $order->last_name }}" id="name" disabled>
                         </div>
                       </div>
                       <div class="form-row">
-                        <div class="col-md-12 mt-2">
+                        <div class="col-md-6 mt-2">
                             <label>Téléphone*:</label>
-                            <input type="text"  class="form-control input-default " value="{{ $order->phone }}" id="phone" >
+                            <input type="text"  class="form-control input-default " value="{{ $order->phone }}" id="phone" disabled>
                         </div>
-                      </div>
-                      <div class="form-row">
-                        <div class="col-md-12 mt-2">
-                            <label>Wilaya*:</label>
-                            <select class="form-control" id="wilaya"  class="selectpicker" data-live-search="true" >
-                                @foreach ($wilayas as $wilaya)
-                                <option value="{{ $wilaya->wilaya }}" @if( $order->wilaya == $wilaya->wilaya ) selected @endif >{{ $wilaya->wilaya }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                      </div>
-                      <div class="form-row">
-                        <div class="col-md-12 mt-2">
-                            <label>Commune*:</label>
-                            <select class="form-control" id="commune"  class="selectpicker" data-live-search="true" >
-                               <option value="{{ $order->commune }}" selected  >{{ $order->commune }}</option>
-
-                            </select>
-                        </div>
-                      </div>
-                      <div class="form-row">
-                        <div class="col-md-12 mt-2">
+                        <div class="col-md-6 mt-2">
                             <label>Adresse*:</label>
-                            <input type="text"  class="form-control input-default " value="{{ $order->address }}" id="address" >
+                            <input type="text"  class="form-control input-default " value="{{ $order->address }}" id="address" disabled>
                         </div>
                       </div>
                       <div class="form-row">
-                        <div class="col-md-12 mt-2">
+                        <div class="col-md-6 mt-2">
+                            <label>Wilaya*:</label>
+                            <input type="text"  class="form-control input-default " value="{{ $order->wilaya }}" id="address" disabled>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <label>Commune*:</label>
+                            <input type="text"  class="form-control input-default " value="{{ $order->commune }}" id="address" disabled>
+                        </div>
+                      </div>
+
+
+                      <div class="form-row">
+                        <div class="col-md-6 mt-2">
                            <label>Statut :</label>
                            <select class="form-control" id="status"  class="selectpicker" data-live-search="true" name="status">
                             <option value="0" @if( $order->status == 0 ) selected @endif >En attente</option>
@@ -59,12 +54,13 @@
                          </select>
                         </div>
                      </div>
+                     <input type="hidden" value="{{ $order->id }}" id="order">
                     </div>
                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger light" data-dismiss="modal">Fermer</button>
-                <button type="button"  class="btn btn-primary storeAttribute">Envoyer</button>
+                <button type="button"  class="btn btn-primary storeOrder">Envoyer</button>
             </div>
         </div>
     </div>

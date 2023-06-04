@@ -106,6 +106,7 @@ $(".add-odrer-to-yalidine").click(function() {
         success: function (res) {
         $('#modal-add-order').html(res);
         $('#modal-add-order').find("#wilaya").selectpicker();
+        $('#modal-add-order').find("#commune").selectpicker();
         $("#orderModal").modal('show');
         }
     });
@@ -125,10 +126,32 @@ $("#modal-add-order").on('change','#wilaya',function(e){
                     data = data + '<option value="'+ res+ '" >'+ res+ '</option>';
                 });
                 $('#commune').html(data);
-
+                $('#commune').selectpicker('refresh');
             }
 
         });
     });
+
+
+
+
+$("#modal-add-order").on('click','.storeOrder',function(e){
+   e.preventDefault();
+   var id = $('#order').val();
+   alert(id);
+   $.ajax({
+     url: '/store-parcel/'+id,
+     type:"GET",
+     success:function(response){
+
+       $('#orderModal').modal('hide');
+
+       console.log(response);
+       location.reload();
+     }
+
+     });
+
+});
 </script>
 @endpush
