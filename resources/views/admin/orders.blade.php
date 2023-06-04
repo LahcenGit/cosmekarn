@@ -36,6 +36,7 @@
                                         <th>Adresse</th>
                                         <th>Téléphone</th>
                                         <th>Méthode de paiement</th>
+                                        <th>Code Tracking</th>
                                         <th>Statut</th>
                                         <th>Action</th>
                                     </tr>
@@ -44,15 +45,16 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>{{$order->name}}</td>
+                                            <td>{{$order->first_name}} {{ $order->last_name }}</td>
                                             <td>{{ $order->wilaya }}</td>
                                             <td>{{ $order->address }}</td>
                                             <td>{{ $order->phone }}</td>
                                             <td>{{ $order->payment_method }}</td>
+                                            <td>{{ $order->tracking_code }}</td>
                                             @if($order->status == 0)
                                             <td><span class="badge badge-warning">En attente</span></td>
                                             @elseif($order->status == 1)
-                                            <td><span class="badge badge-info">En cours de livraison</span></td>
+                                            <td><span class="badge badge-info">Livraison...</span></td>
                                             @elseif($order->status == 2)
                                             <td><span class="badge badge-success">Livré</span></td>
                                             @elseif($order->status == 3)
