@@ -81,7 +81,7 @@ class OrderController extends Controller
                     "length" => 0,
                     "weight" => 0,
                     "freeshipping"=> false,
-                    "is_stopdesk"=> true,
+                    "is_stopdesk"=> $order->is_stopdesk,
                     "stopdesk_id" => $order->stopdesk_id,
                     "has_exchange"=> 0,
                     "product_to_collect" => null
@@ -111,7 +111,7 @@ class OrderController extends Controller
         $response_array = json_decode($result,true);
         $order->tracking_code = $response_array[1]['tracking'];
         $order->save();
-        dd($result);
+
         return true;
      }
 }

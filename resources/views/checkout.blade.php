@@ -169,13 +169,13 @@
                                                 <ul class="shipping-type">
                                                     <li>
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="bureau" value="0" name="shipping"  class="custom-control-input shipping-redio" checked />
+                                                            <input type="radio" id="bureau" value="bureau" name="shipping"  class="custom-control-input shipping-redio" checked />
                                                             <label class="custom-control-label" for="bureau">bureau : <span id="bureau-cost" >0</span> da</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="domicile" value="0" name="shipping" class="custom-control-input shipping-redio" />
+                                                            <input type="radio" id="domicile" value="domicile" name="shipping" class="custom-control-input shipping-redio" />
                                                             <label class="custom-control-label"  for="domicile">à domicile : <span id="domicile-cost" >0</span>  da</label>
                                                         </div>
                                                     </li>
@@ -309,6 +309,7 @@
         var wilaya = $('#wilayas').val();
         var commune = $(this).val();
         var total_promo = '{{$total_promo}}';
+        check = $('input[name="shipping"]:checked', '.shipping-type').val();
         if(total_promo){
             var total = total_promo;
         }
@@ -322,11 +323,16 @@
 
         success: function (res) {
                 $('#bureau-cost').html(res.price_b);
-                $('#bureau').val(res.price_b);
                 $('#domicile-cost').html(res.price_a + res.supp);
-                $('#domicile').val(res.price_a + res.supp);
-                total_final = parseFloat(total) + parseFloat(res.price_b);
-                $('.total-price').html(total_final +'Da');
+                if(check == 'bureau'){
+                    total_final = parseFloat(total) + parseFloat(res.price_b);
+                    $('.total-price').html(total_final +'Da');
+                }
+                if(check == 'domicile'){
+                    total_final = parseFloat(total) + parseFloat(res.price_a) + parseFloat(res.supp) ;
+                    $('.total-price').html(total_final +'Da');
+                }
+
             }
 
         });
@@ -338,8 +344,11 @@
 
 
     $('.shipping-redio').on('click', function() {
-      var value =  $(this).val();
+      var wilaya = $('#wilayas').val();
+      var commune = $('#communes').val();
       var total_promo = '{{$total_promo}}';
+      check = $('input[name="shipping"]:checked', '.shipping-type').val();
+
         if(total_promo){
             var total = total_promo;
         }
@@ -347,10 +356,26 @@
             var total = '{{$total->sum}}';
         }
       total = parseInt(total);
-      value = parseInt(value);
 
-      value = value + total;
-      $('.total-price').text(value + ' Da');
+      $.ajax({
+			url: '/get-cost/'+wilaya+'/'+ commune ,
+			type: 'GET',
+
+        success: function (res) {
+
+                if(check == "bureau"){
+                    total = total + res.price_b;
+                    $('.total-price').text(total + ' Da');
+                }
+                if(check == "domicile"){
+                    total = total + res.price_a + res.supp;
+                    $('.total-price').text(total + ' Da');
+                }
+
+            }
+
+        });
+
     });
 
     $('#coupon-btn').on('click', function() {

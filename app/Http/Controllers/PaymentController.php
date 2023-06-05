@@ -23,7 +23,7 @@ class PaymentController extends Controller
     $cart = Cart::where('user_id',Auth::user()->id)->first();
     $total = Cartitem::where('cart_id',$cart->id)->sum('total');
     $date = Carbon::now()->format('y');
-
+    $delivery_cost = Deliverycost::where('wilaya',$request->country)->where('commune',$request->commune)->first();
     $type_promo = null;
     $total_promo = null;
     $value_promo = null;
@@ -121,24 +121,39 @@ class PaymentController extends Controller
     $order->address = $request->address;
     $order->phone = $request->phone;
     $order->note = $request->ordernote;
-    $order->is_stopdesk = true;
-    $order->stopdesk_id= $request->center;
     $order->payment_method = $request->paymentmethod;
 
     $order->total = $total;
 
     if($total_promo){
-        if($request->shipping){
-           $total_f = $total_promo + $request->shipping;
+        if($request->shipping == "bureau"){
+           $total_f = $total_promo + $delivery_cost->price_b;
+           $order->delivery_cost =  $delivery_cost->price_b;
+           $order->is_stopdesk = true;
+           $order->stopdesk_id= $request->center;
+        }
+        if($request->shipping == "domicile"){
+            $total_f = $total_promo + $delivery_cost->price_a + $delivery_cost->supp;
+            $order->delivery_cost =  $delivery_cost->price_a + $delivery_cost->supp;
+            $order->is_stopdesk = false;
         }
      }
     else{
-        $total_f = $total + $request->shipping;
+        if($request->shipping == "bureau"){
+            $total_f = $total + $delivery_cost->price_b;
+            $order->delivery_cost =  $delivery_cost->price_b;
+            $order->is_stopdesk = true;
+            $order->stopdesk_id= $request->center;
+         }
+         if($request->shipping == "domicile"){
+             $total_f = $total + $delivery_cost->price_a + $delivery_cost->supp;
+             $order->delivery_cost =  $delivery_cost->price_a + $delivery_cost->supp;
+             $order->is_stopdesk = false;
+         }
     }
-    $order->total_f = 2000;
+    $order->total_f = $total_f;
     $order->value = $value_promo;
-    $order->delivery_cost =  $request->shipping;
-    if($request->paymentmethod == 'EDAHABIA' || $request->paymentmethod == 'CIB'){
+     if($request->paymentmethod == 'EDAHABIA' || $request->paymentmethod == 'CIB'){
 
         $configurations = [
             'user_id' => Auth::user()->id, // (optional) This is the user ID to be added as a foreign key, it's optional, if it's not provided its value will be NULL
