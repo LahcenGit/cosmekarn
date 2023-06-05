@@ -102,6 +102,14 @@
                                     </select>
                                 </div>
 
+
+                                <div class="single-input-item">
+                                    <label for="centers" class="required">centres</label>
+                                    <select name="center" class="nice-select" id="centers">
+                                         <option value="select">selectionner...</option>
+                                    </select>
+                                </div>
+
                                 <div class="single-input-item">
                                     <label for="street-address" class="required mt-20">Adresse</label>
                                     <input type="text" id="street-address" placeholder="Yaghmoracen Benziane N°981" name="address" required />
@@ -161,14 +169,14 @@
                                                 <ul class="shipping-type">
                                                     <li>
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="bureau" name="shipping"  class="custom-control-input shipping-redio" checked />
+                                                            <input type="radio" id="bureau" value="0" name="shipping"  class="custom-control-input shipping-redio" checked />
                                                             <label class="custom-control-label" for="bureau">bureau : <span id="bureau-cost" >0</span> da</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="domicile"  name="shipping" class="custom-control-input shipping-redio" />
-                                                            <label class="custom-control-label" for="domicile">à domicile : <span id="domicile-cost" >0</span>  da</label>
+                                                            <input type="radio" id="domicile" value="0" name="shipping" class="custom-control-input shipping-redio" />
+                                                            <label class="custom-control-label"  for="domicile">à domicile : <span id="domicile-cost" >0</span>  da</label>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -265,6 +273,7 @@
     $( "#wilayas" ).change(function() {
         var name = $(this).val();
         var data ="";
+        var datacenter ="";
         $.ajax({
 			url: '/get-communes/'+name ,
 			type: 'GET',
@@ -278,7 +287,22 @@
             }
 
         });
+
+        $.ajax({
+			url: '/get-centers/'+name ,
+			type: 'GET',
+
+        success: function (center) {
+                $.each(center, function(i, center) {
+                    datacenter = datacenter + '<option value="'+ center.center_id+ '" >'+ center.name+ '</option>';
+                });
+                $('#centers').html(datacenter);
+                $('#centers').niceSelect('update');
+            }
+
+        });
     });
+
 
 
     $( "#communes" ).change(function() {

@@ -91,9 +91,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //yallidine
 
+
+//besoin d'api
+Route::get('/retrive', [App\Http\Controllers\TrackingController::class, 'retrivedata']);
+
+
 Route::get('/tracking', [App\Http\Controllers\TrackingController::class, 'tracking']);
 Route::post('/tracking', [App\Http\Controllers\TrackingController::class, 'trackingResult']);
 Route::get('/store-parcel/{id}',[App\Http\Controllers\OrderController::class, 'storeOrderToYalidine']);
 //delivery coast
 Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);
+Route::get('/get-centers/{name}', [App\Http\Controllers\CheckoutController::class, 'getCenters']);
 Route::get('/get-cost/{wilaya}/{commune}', [App\Http\Controllers\CheckoutController::class, 'getCost']);

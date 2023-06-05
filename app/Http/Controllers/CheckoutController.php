@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Cartitem;
 use App\Models\Category;
+use App\Models\Center;
 use App\Models\Deliverycost;
 use App\Models\Promocart;
 use Carbon\Carbon;
@@ -125,6 +126,11 @@ class CheckoutController extends Controller
     public function getCommunes($name){
        return $communes = Deliverycost::where('wilaya',$name)->get('commune');
     }
+
+    public function getCenters($name){
+       return $centers = Center::where('wilaya_name',$name)->get();
+    }
+
     public function getCost($wilaya,$commune){
         return  $cost = Deliverycost::where('wilaya',$wilaya)->where('commune',$commune)->first();
     }

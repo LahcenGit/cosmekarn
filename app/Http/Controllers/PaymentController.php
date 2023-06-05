@@ -121,8 +121,9 @@ class PaymentController extends Controller
     $order->address = $request->address;
     $order->phone = $request->phone;
     $order->note = $request->ordernote;
+    $order->is_stopdesk = true;
+    $order->stopdesk_id= $request->center;
     $order->payment_method = $request->paymentmethod;
-
 
     $order->total = $total;
 
@@ -134,7 +135,7 @@ class PaymentController extends Controller
     else{
         $total_f = $total + $request->shipping;
     }
-    $order->total_f = $total_f;
+    $order->total_f = 2000;
     $order->value = $value_promo;
     $order->delivery_cost =  $request->shipping;
     if($request->paymentmethod == 'EDAHABIA' || $request->paymentmethod == 'CIB'){
