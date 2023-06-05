@@ -469,5 +469,6 @@
 @stack('modal-cart-details-scripts')
 @stack('order-detail-scripts')
 @stack('modal-add-order-scripts')
+@stack('get-commune-script')
 </body>
 </html>

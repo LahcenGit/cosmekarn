@@ -107,8 +107,6 @@ $(".add-odrer-to-yalidine").click(function() {
         type: "GET",
         success: function (res) {
         $('#modal-add-order').html(res);
-        $('#modal-add-order').find("#wilaya").selectpicker();
-        $('#modal-add-order').find("#commune").selectpicker();
         $("#orderModal").modal('show');
         }
     });
