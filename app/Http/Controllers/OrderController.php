@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Center;
 use App\Models\Deliverycost;
 use App\Models\Order;
 use App\Models\Orderline;
@@ -24,32 +25,47 @@ class OrderController extends Controller
         $wilayas =Deliverycost::select('*')->groupBy('wilaya')->get();
         $communes = Deliverycost::where('wilaya',$order->wilaya)->pluck('commune');
         $orderlines = Orderline::where('order_id',$id)->get();
-
         $products = Productline::orderBy('created_at','asc')->with('attributeLine')->get();
-
-        return view('admin.edit-order',compact('order','wilayas','communes','orderlines','products'));
+        $centers = Center::where('wilaya_name',$order->wilaya)->get();
+        return view('admin.edit-order',compact('order','wilayas','communes','orderlines','products','centers'));
         }
 
     public function update(Request $request , $id){
         $order = Order::find($id);
+        $orderlines = Orderline::where('order_id',$id)->get();
+        foreach($orderlines as $orderline){
+            $orderline->delete();
+        }
         $type_promo = null;
         $total_promo = null;
         $value_promo = null;
         $currentDate = Carbon::now()->format('Y-m-d');
         $total = 0;
-        for($i=0; $i<count($request->products) ; $i++){
-            array_push($panierProduits , $request->product[$i]);
-            $productline = Productline::where('id',$request->product[$i]->id)->first();
+        $delivery_cost = Deliverycost::where('wilaya',$request->wilaya)->where('commune',$request->commune)->first();
+        $panierProduits = [];
+       for($i=0; $i<count($request->products) ; $i++){
+            $productline = Productline::where('id',$request->products[$i])->first();// calculate total
+            array_push($panierProduits , $productline->product_id); //push id product
+             // store order line
+                $orderline = new Orderline();
+                $orderline->order_id = $id;
+                $orderline->productline_id = $request->products[$i];
+                $orderline->qte = $request->qte[$i];
+
             if($productline->promo_price){
                 $total = $total + $productline->promo_price * $request->qte[$i];
-
+                $orderline->price = $productline->promo_price;
+                $orderline->total = $productline->promo_price * $request->qte[$i];
             }
             else{
                 $total = $total + $productline->price * $request->qte[$i];
+                $orderline->price = $productline->price;
+                $orderline->total = $productline->price * $request->qte[$i];
             }
 
-
+               $orderline->save();
         }
+
         //promo panier explicite
         $carts_promo_explicite = Promocart::whereDate('date_debut', '<=', $currentDate)
                         ->whereDate('date_fin', '>=', $currentDate)
@@ -63,17 +79,18 @@ class OrderController extends Controller
 
             }
 
-            if ($panierProduits->isNotEmpty() && $promoProducts->isNotEmpty() && $panierProduits->intersect($promoProducts)->count() === $promoProducts->count()) {
+            if (!empty($panierProduits) && $promoProducts->isNotEmpty() && count(array_intersect($panierProduits, $promoProducts->toArray())) === $promoProducts->count()) {
+
                 $has_promo = true ;
                 $type_promo = $promo->format ;
                 $value_promo = $promo->value ;
 
                 if($type_promo  =='0'){ //fix
-                    $total_promo = $total->sum - $value_promo ;
+                    $total_promo = $total - $value_promo ;
 
                 }
                 else{//pourcentage
-                    $total_promo = $total->sum - ($total*$value_promo)/100 ;
+                    $total_promo = $total - ($total*$value_promo)/100 ;
                 }
             }
             else{//promo panier implicite
@@ -125,14 +142,47 @@ class OrderController extends Controller
                 }
 
         }
+        if($total_promo){
+            if($request->shipping == "bureau"){
+               $total_f = $total_promo + $delivery_cost->price_b;
+               $order->delivery_cost =  $delivery_cost->price_b;
+               $order->is_stopdesk = true;
+               $order->stopdesk_id= $request->center;
+            }
+            if($request->shipping == "domicile"){
+                $total_f = $total_promo + $delivery_cost->price_a + $delivery_cost->supp;
+                $order->delivery_cost =  $delivery_cost->price_a + $delivery_cost->supp;
+                $order->is_stopdesk = false;
+            }
+         }
+        else{
+            if($request->shipping == "bureau"){
+                $total_f = $total + $delivery_cost->price_b;
+                $order->delivery_cost =  $delivery_cost->price_b;
+                $order->is_stopdesk = true;
+                $order->stopdesk_id= $request->center;
+
+             }
+             if($request->shipping == "domicile"){
+                 $total_f = $total + $delivery_cost->price_a + $delivery_cost->supp;
+                 $order->delivery_cost =  $delivery_cost->price_a + $delivery_cost->supp;
+                 $order->is_stopdesk = false;
+                 $order->stopdesk_id = NULL;
+
+             }
+        }
 
         $order->first_name = $request->first_name;
         $order->last_name = $request->last_name;
-        $order->status = 0 ;
         $order->wilaya = $request->wilaya;
         $order->commune = $request->commune;
         $order->address = $request->address;
         $order->phone = $request->phone;
+        $order->total = $total;
+        $order->total_f = $total_f;
+        $order->value = $value_promo;
+        $order->save();
+
         return redirect('admin/orders');
     }
 

@@ -16,6 +16,9 @@
                 </ol>
             </div>
         </div>
+        <form action="{{url('admin/orders/'.$order->id)}}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PUT">
+            @csrf
         <div class="row ">
             <div class="col-xl-12 col-lg-12">
                 <div class="card">
@@ -24,27 +27,26 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-                            <form action="{{url('admin/orders/'.$order->id)}}" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="_method" value="PUT">
-                                @csrf
+
+
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <label>Nom*:</label>
-                                        <input type="text"  class="form-control input-default " value="{{ $order->first_name }}" id="name"  >
+                                        <input type="text"  class="form-control input-default " value="{{ $order->first_name }}" name="first_name"  >
                                     </div>
                                     <div class="col-md-6">
                                         <label>Prenom*:</label>
-                                        <input type="text"  class="form-control input-default " value="{{ $order->last_name }}" id="name" >
+                                        <input type="text"  class="form-control input-default " value="{{ $order->last_name }}" name="last_name" >
                                     </div>
                                   </div>
                                   <div class="form-row">
                                     <div class="col-md-6 mt-2">
                                         <label>Téléphone*:</label>
-                                        <input type="text"  class="form-control input-default " value="{{ $order->phone }}" id="phone" >
+                                        <input type="text"  class="form-control input-default " value="{{ $order->phone }}" name="phone" >
                                     </div>
                                     <div class="col-md-6 mt-2">
                                         <label>Adresse*:</label>
-                                        <input type="text"  class="form-control input-default " value="{{ $order->address }}" id="address" >
+                                        <input type="text"  class="form-control input-default " value="{{ $order->address }}" name="address" >
                                     </div>
                                   </div>
                                   <div class="form-row">
@@ -69,24 +71,22 @@
 
                                   <div class="form-row">
                                     <div class="col-md-6 mt-2">
-                                        <label>Produits*:</label>
-                                        <select class="form-control"  class="selectpicker" data-live-search="true" name="product[]" multiple>
-                                            @foreach($orderlines as $orderline)
-                                            <option value="{{ $orderline->productline_id }}"  selected >{{ $orderline->productline->product->designation }} @if( $orderline->productline->attributeLine) {{ $orderline->productline->attributeLine->value }} @endif</option>
+                                        <label>Centres *:</label>
+                                        <select class="form-control"  class="selectpicker" data-live-search="true" id="center" name="center" >
+                                            @foreach($centers  as $center)
+                                            <option value="{{ $center->center_id }}" @if($center->center_id == $order->stopdesk_id) selected @endif>{{ $center->name }}</option>
                                             @endforeach
-                                            @foreach($products as $product)
-                                            <option value="{{ $product->productline_id }}">{{ $product->product->designation }} @if($product->attributeLine){{ $product->attributeLine->value }} @endif</option>
-                                            @endforeach
+
                                         </select>
                                     </div>
                                     <div class="col-md-6 mt-2">
                                         <label>Livraison :</label> <br>
                                           <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="bureau" @if($order->is_stopdesk) checked  @endif>
+                                            <input class="form-check-input" type="radio" name="shipping" id="inlineRadio1" value="bureau" @if($order->is_stopdesk) checked  @endif>
                                             <label class="form-check-label" for="inlineRadio1">Au bureau</label>
                                           </div>
                                           <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="domicile" @if($order->is_stopdesk == NULL)  checked @endif>
+                                            <input class="form-check-input" type="radio" name="shipping" id="inlineRadio2" value="domicile" @if($order->is_stopdesk == NULL)  checked @endif>
                                             <label class="form-check-label" for="inlineRadio2">A domicile</label>
                                           </div>
                                     </div>
@@ -100,7 +100,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Détails commande </h4>
+                        <h4 class="card-title">Détail commande </h4>
                     </div>
 
                     <div class="card-body " id="variation" >
@@ -119,7 +119,7 @@
                                             <tr>
                                                 <td style="width: 30%">
                                                     <div class="input-group">
-                                                        <select name="product[]" id="select-product" title="produit..."  data-size="5" data-live-search="true"  class="selectpicker form-control">
+                                                        <select name="products[]" id="select-product" title="produit..."  data-size="5" data-live-search="true"  class="selectpicker form-control">
                                                             @foreach ($products as $line)
                                                             <option value="{{$line->id}}" @if($orderline->productline_id == $line->id) selected @endif>{{$line->product->designation }} &nbsp; - &nbsp; @if($line->attributeLine){{ $line->attributeLine->value }} @endif</option>
                                                             @endforeach
@@ -174,6 +174,7 @@
     $("#wilayas").on('change',function(e){
         var name = $(this).val();
         var data ="";
+        var datacenter ="";
         $.ajax({
 			url: '/admin/get-communes/'+name ,
 			type: 'GET',
@@ -188,6 +189,19 @@
             }
 
         });
+        $.ajax({
+			url: '/get-centers/'+name ,
+			type: 'GET',
+
+        success: function (center) {
+                $.each(center, function(i, center) {
+                    datacenter = datacenter + '<option value="'+ center.center_id+ '" >'+ center.name+ '</option>';
+                });
+                $('#center').html(datacenter);
+                $('#center').selectpicker('refresh');
+            }
+
+        });
     });
 </script>
 
@@ -199,7 +213,7 @@ $(document).on('click', '#add-product', function (){
         $html = '<tr class="tradded">'+
                  '<td style="width: 30%">'+
                     '<div class="input-group">'+
-                       ' <select name="product[]" title="produit..."  data-live-search="true"  class="selectpicker form-control">'+
+                       ' <select name="products[]" title="produit..."  data-live-search="true"  class="selectpicker form-control">'+
                            data +
                         '</select>'+
                     '</div>'+
