@@ -23,7 +23,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Table des commandes</h4>
-                        <a href="{{url('/admin/orders/create')}}" type="button"  class="btn btn-primary mt-3">Ajouter</a>
+                        <a href="{{url('/admin/add-order-step-one')}}" type="button"  class="btn btn-primary mt-3">Ajouter</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

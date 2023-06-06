@@ -63,6 +63,9 @@ Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
 Route::post('/add-attribute', [App\Http\Controllers\ProductController::class, 'addAttribute']);
 Route::get('/admin/get-communes/{name}', [App\Http\Controllers\OrderController::class, 'getCommunes']);
+Route::get('/admin/add-order-step-one', [App\Http\Controllers\OrderController::class, 'addOrderStepOne']);
+Route::post('/admin/add-order-step-two', [App\Http\Controllers\OrderController::class, 'addOrderStepTwo']);
+
 //front route
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
 Route::get('/show-modal-detail-product/{id}', [App\Http\Controllers\ProductController::class, 'showModalDetailProduct']);

@@ -470,5 +470,6 @@
 @stack('order-detail-scripts')
 @stack('modal-add-order-scripts')
 @stack('get-commune-script')
+@stack('add-order-script')
 </body>
 </html>
