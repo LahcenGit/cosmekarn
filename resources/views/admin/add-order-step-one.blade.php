@@ -29,40 +29,71 @@
                     <div class="card-body">
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
-                                        <select name="professional" id="select-pro" title="selectionner un client..."  data-live-search="true"  class="selectpicker form-control">
-                                            @foreach($customers as $customer)
-                                                <option value="{{$customer->id}}"> {{$customer->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        <label>Nom* :</label>
+                                        <input class="form-control @error('first_name') is-invalid @enderror" name="first_name" placeholder="Nom" required>
+                                            @error('first_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                     </div>
                                     <div class="form-group col-md-4">
-                                       <a href="#" class="btn btn-primary btn-sm"> Ajouter client </a>
+                                        <label>Prenom* :</label>
+                                        <input class="form-control @error('last_name') is-invalid @enderror" name="last_name" placeholder="Prenom" required>
+                                        @error('last_name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-4">
-                                       <b> Information sur le client :</b> <br>
-                                       <span id="pro-entreprise">... </span> ,  <span id="pro-type">...</span>
+                                        <label>Adresse* :</label>
+                                        <input class="form-control @error('address') is-invalid @enderror" name="address" placeholder="Adresse" required>
+                                        @error('address')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="form-row mt-3">
+                                <div class="form-row mt-2">
                                     <div class="form-group col-md-4">
-                                        <select name="wilaya" id="wilaya" title="selectionner la wilaya..."  data-live-search="true"  class="selectpicker form-control">
+                                        <label>Wilaya* :</label>
+                                        <select name="wilaya" id="wilaya" title="selectionner la wilaya..."  data-live-search="true"  class="selectpicker form-control @error('wilaya') is-invalid @enderror" required>
                                             @foreach($wilayas as $wilaya)
                                                 <option value="{{$wilaya->wilaya}}"> {{$wilaya->wilaya}}</option>
                                             @endforeach
+                                            @error('wilaya')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <select name="commune" id="commune" title="selectionner la commune..."  data-live-search="true"  class="selectpicker form-control">
+                                        <label>Commune* :</label>
+                                        <select name="commune" id="commune" title="selectionner la commune..."  data-live-search="true"  class="selectpicker form-control @error('commune') is-invalid @enderror" required>
 
                                         </select>
+                                        @error('commune')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <select name="center" id="center" title="selectionner le centre de livraison..."  data-live-search="true"  class="selectpicker form-control">
+                                        <label>Centre : </label>
+                                        <select name="center" id="center" title="selectionner le centre de livraison..."  data-live-search="true"  class="selectpicker form-control @error('center') is-invalid @enderror">
 
                                         </select>
+                                        @error('center')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="form-row mt-3">
+                                <div class="form-row mt-2">
                                     <div class="col-md-6 mt-2">
                                         <label>Livraison :</label> <br>
                                         <div class="form-check form-check-inline">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CalculateTotal;
 use App\Models\Center;
 use App\Models\Deliverycost;
 use App\Models\Order;
@@ -12,6 +13,7 @@ use App\Models\Promocart;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -284,6 +286,24 @@ class OrderController extends Controller
         $delivery_cost = Deliverycost::where('wilaya',$request->wilaya)->where('commune',$request->commune)->first();
         $panierProduits = [];
         $ids = $request->product;
+        $firstName = $request->input('first_name');
+        $lastName = $request->input('last_name');
+        $address = $request->input('address');
+        $wilaya = $request->input('wilaya');
+        $commune = $request->input('commune');
+        $center = $request->input('center');
+
+        // Enregistrez les détails du client dans une session
+        session()->put('customer', [
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'address' => $address,
+            'wilaya' => $wilaya,
+            'commune' => $commune,
+            'center' => $center,
+        ]);
+        $customer = session('customer');
+
         $products = Productline::whereIn('id', $ids)->get()->sortBy(function ($item) use ($ids) {
             return array_search($item->id, $ids);
         });
@@ -401,7 +421,51 @@ class OrderController extends Controller
              }
         }
 
-        return view('admin.add-order-step-two',compact('products','qte','total_promo','total','total_f','delivery_cost','value_promo'));
+        return view('admin.add-order-step-two',compact('products','qte','total_promo','total','total_f','delivery_cost','value_promo','customer'));
+     }
+
+     public function storeOrder(Request $request){
+        $products = $request->product;
+        $qte = $request->qte;
+        $wilaya = $request->wialya;
+        $commune = $request->commune;
+        $shipping = $request->shipping;
+        $resultatsCalcul = CalculateTotal::calculerTotal($products , $wilaya , $commune , $shipping , $qte);
+
+        //store order
+        $order = new Order();
+        $order->user_id = Auth::user()->id;
+        $order->first_name = $request->first_name;
+        $order->last_name = $request->last_name;
+        $order->status = 0 ;
+        $order->wilaya = $wilaya;
+        $order->commune = $commune;
+        $order->address = $request->address;
+        $order->phone = $request->phone;
+        $order->payment_method = 'cash';
+        $order->total = $resultatsCalcul['total'];
+        $order->total_f =  $resultatsCalcul['total_f'];
+        $order->delivery_cost = $resultatsCalcul['delivery_cost'];
+        $order->save();
+
+        for($i=0 ; $i<count($products) ;$i++){
+            $orderline = new Orderline();
+            $orderline->order_id = $order->id;
+            $orderline->productline_id = $products[$i];
+            $orderline->qte = $qte[$i];
+            $productline = Productline::where('id',$request->product[$i])->first();
+            if($productline->promo_price){
+                $orderline->price = $productline->promo_price;
+                $orderline->total = $productline->promo_price * $request->qte[$i];
+            }
+            else{
+                $orderline->price = $productline->price;
+                $orderline->total = $productline->price * $request->qte[$i];
+            }
+
+               $orderline->save();
+        }
+        return redirect('admin/orders');
      }
 
 }
