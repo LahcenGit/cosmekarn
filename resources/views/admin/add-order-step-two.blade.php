@@ -66,6 +66,7 @@
                                 <input type="hidden" value="{{ $customer['wilaya']}}" name="wilaya">
                                 <input type="hidden" value="{{ $customer['commune']}}" name="commune">
                                 <input type="hidden" value="{{ $customer['center']}}" name="center">
+                                <input type="hidden" value="{{ $customer['phone']}}" name="phone">
                                 <input type="hidden" value="{{ $shipping}}" name="shipping">
                             </table>
 

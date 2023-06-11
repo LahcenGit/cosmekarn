@@ -39,153 +39,36 @@ class OrderController extends Controller
         foreach($orderlines as $orderline){
             $orderline->delete();
         }
-        $type_promo = null;
-        $total_promo = null;
-        $value_promo = null;
-        $currentDate = Carbon::now()->format('Y-m-d');
-        $total = 0;
-        $delivery_cost = Deliverycost::where('wilaya',$request->wilaya)->where('commune',$request->commune)->first();
-        $panierProduits = [];
-       for($i=0; $i<count($request->products) ; $i++){
-            $productline = Productline::where('id',$request->products[$i])->first();// calculate total
-            array_push($panierProduits , $productline->product_id); //push id product
-             // store order line
-                $orderline = new Orderline();
-                $orderline->order_id = $id;
-                $orderline->productline_id = $request->products[$i];
-                $orderline->qte = $request->qte[$i];
-
-            if($productline->promo_price){
-                $total = $total + $productline->promo_price * $request->qte[$i];
-                $orderline->price = $productline->promo_price;
-                $orderline->total = $productline->promo_price * $request->qte[$i];
-            }
-            else{
-                $total = $total + $productline->price * $request->qte[$i];
-                $orderline->price = $productline->price;
-                $orderline->total = $productline->price * $request->qte[$i];
-            }
-
-               $orderline->save();
-        }
-
-        //promo panier explicite
-        $carts_promo_explicite = Promocart::whereDate('date_debut', '<=', $currentDate)
-                        ->whereDate('date_fin', '>=', $currentDate)
-                        ->where('type',1)
-                        ->get();
-
-        if($carts_promo_explicite){
-            $promoProducts = collect([]);
-            foreach ($carts_promo_explicite as $promo) {
-                $promoProducts = $promoProducts->merge(json_decode($promo->product));
-
-            }
-
-            if (!empty($panierProduits) && $promoProducts->isNotEmpty() && count(array_intersect($panierProduits, $promoProducts->toArray())) === $promoProducts->count()) {
-
-                $has_promo = true ;
-                $type_promo = $promo->format ;
-                $value_promo = $promo->value ;
-
-                if($type_promo  =='0'){ //fix
-                    $total_promo = $total - $value_promo ;
-
-                }
-                else{//pourcentage
-                    $total_promo = $total - ($total*$value_promo)/100 ;
-                }
-            }
-            else{//promo panier implicite
-                $cart_promo_implicite = Promocart::whereDate('date_debut', '<=', $currentDate)
-                ->whereDate('date_fin', '>=', $currentDate)
-                ->where('mt_panier', '<=', $total)
-                ->where('type',0)
-                ->orderByDesc('mt_panier')
-                ->first();
-               if($cart_promo_implicite){
-                $has_promo = true ;
-                $type_promo = $cart_promo_implicite->format ;
-                $value_promo = $cart_promo_implicite->value ;
-
-                if($cart_promo_implicite->type == '0'){//implicite
-                    if($type_promo  =='0'){ //fix
-                        $total_promo = $total - $value_promo ;
-
-                    }
-                    else{//pourcentage
-                        $total_promo = $total - ($total*$value_promo)/100 ;
-                    }
-                }
-                }
-
-            }
-        }
-        else{
-            $cart_promo_implicite = Promocart::whereDate('date_debut', '<=', $currentDate)
-                ->whereDate('date_fin', '>=', $currentDate)
-                ->where('mt_panier', '<=', $total->sum)
-                ->where('type',0)
-                ->orderByDesc('mt_panier')
-                ->first();
-               if($cart_promo_implicite){
-                $has_promo = true ;
-                $type_promo = $cart_promo_implicite->format ;
-                $value_promo = $cart_promo_implicite->value ;
-
-                if($cart_promo_implicite->type == '0'){//implicite
-                    if($type_promo  =='0'){ //fix
-                        $total_promo = $total->sum - $value_promo ;
-
-                    }
-                    else{//pourcentage
-                        $total_promo = $total->sum - ($total*$value_promo)/100 ;
-                    }
-                }
-                }
-
-        }
-        if($total_promo){
-            if($request->shipping == "bureau"){
-               $total_f = $total_promo + $delivery_cost->price_b;
-               $order->delivery_cost =  $delivery_cost->price_b;
-               $order->is_stopdesk = true;
-               $order->stopdesk_id= $request->center;
-            }
-            if($request->shipping == "domicile"){
-                $total_f = $total_promo + $delivery_cost->price_a + $delivery_cost->supp;
-                $order->delivery_cost =  $delivery_cost->price_a + $delivery_cost->supp;
-                $order->is_stopdesk = false;
-            }
-         }
-        else{
-            if($request->shipping == "bureau"){
-                $total_f = $total + $delivery_cost->price_b;
-                $order->delivery_cost =  $delivery_cost->price_b;
-                $order->is_stopdesk = true;
-                $order->stopdesk_id= $request->center;
-
-             }
-             if($request->shipping == "domicile"){
-                 $total_f = $total + $delivery_cost->price_a + $delivery_cost->supp;
-                 $order->delivery_cost =  $delivery_cost->price_a + $delivery_cost->supp;
-                 $order->is_stopdesk = false;
-                 $order->stopdesk_id = NULL;
-
-             }
-        }
-
+        $resultatsCalcul = (new CalculateTotalController)->calculerTotal($request->products ,$request->wilaya ,$request->commune , $request->shipping , $request->qte);
         $order->first_name = $request->first_name;
         $order->last_name = $request->last_name;
         $order->wilaya = $request->wilaya;
         $order->commune = $request->commune;
         $order->address = $request->address;
         $order->phone = $request->phone;
-        $order->total = $total;
-        $order->total_f = $total_f;
-        $order->value = $value_promo;
+        $order->total = $resultatsCalcul['total'];
+        $order->total_f =  $resultatsCalcul['total_f'];
+        $order->delivery_cost = $resultatsCalcul['delivery_cost'];
+        $order->value = $resultatsCalcul['value'];
         $order->save();
 
+        for($i=0 ; $i<count($request->products) ;$i++){
+            $orderline = new Orderline();
+            $orderline->order_id = $order->id;
+            $orderline->productline_id = $request->products[$i];
+            $orderline->qte = $request->qte[$i];
+            $productline = Productline::where('id',$request->products[$i])->first();
+            if($productline->promo_price){
+                $orderline->price = $productline->promo_price;
+                $orderline->total = $productline->promo_price * $request->qte[$i];
+            }
+            else{
+                $orderline->price = $productline->price;
+                $orderline->total = $productline->price * $request->qte[$i];
+            }
+
+               $orderline->save();
+        }
         return redirect('admin/orders');
     }
 
@@ -278,13 +161,7 @@ class OrderController extends Controller
      }
 
      public function addOrderSteptwo(Request $request){
-        $type_promo = null;
-        $total_promo = null;
-        $value_promo = null;
-        $currentDate = Carbon::now()->format('Y-m-d');
-        $total = 0;
-        $delivery_cost = Deliverycost::where('wilaya',$request->wilaya)->where('commune',$request->commune)->first();
-        $panierProduits = [];
+
         $ids = $request->product;
         $firstName = $request->input('first_name');
         $lastName = $request->input('last_name');
@@ -292,7 +169,7 @@ class OrderController extends Controller
         $wilaya = $request->input('wilaya');
         $commune = $request->input('commune');
         $center = $request->input('center');
-
+        $phone = $request->input('phone');
         // Enregistrez les détails du client dans une session
         session()->put('customer', [
             'first_name' => $firstName,
@@ -301,126 +178,22 @@ class OrderController extends Controller
             'wilaya' => $wilaya,
             'commune' => $commune,
             'center' => $center,
+            'phone' => $phone,
         ]);
         $customer = session('customer');
 
         $products = Productline::whereIn('id', $ids)->get()->sortBy(function ($item) use ($ids) {
-            return array_search($item->id, $ids);
+            return array_search($item, $ids);
         });
+        $ids = $products->pluck('id');
         $qte = $request->qte;
-
-       for($i=0; $i<count($request->product) ; $i++){
-            $productline = Productline::where('id',$request->product[$i])->first();// calculate total
-            array_push($panierProduits , $productline->product_id); //push id product
-
-            if($productline->promo_price != NULL){
-                $total = $total + $productline->promo_price * $request->qte[$i];
-
-            }
-            else{
-                $total = $total + $productline->price * $request->qte[$i];
-            }
-
-
-        }
-
-        //promo panier explicite
-        $carts_promo_explicite = Promocart::whereDate('date_debut', '<=', $currentDate)
-                        ->whereDate('date_fin', '>=', $currentDate)
-                        ->where('type',1)
-                        ->get();
-
-        if($carts_promo_explicite){
-            $promoProducts = collect([]);
-            foreach ($carts_promo_explicite as $promo) {
-                $promoProducts = $promoProducts->merge(json_decode($promo->product));
-
-            }
-
-            if (!empty($panierProduits) && $promoProducts->isNotEmpty() && count(array_intersect($panierProduits, $promoProducts->toArray())) === $promoProducts->count()) {
-
-                $has_promo = true ;
-                $type_promo = $promo->format ;
-                $value_promo = $promo->value ;
-
-                if($type_promo  =='0'){ //fix
-                    $total_promo = $total - $value_promo ;
-
-                }
-                else{//pourcentage
-                    $total_promo = $total - ($total*$value_promo)/100 ;
-                }
-            }
-            else{//promo panier implicite
-                $cart_promo_implicite = Promocart::whereDate('date_debut', '<=', $currentDate)
-                                                    ->whereDate('date_fin', '>=', $currentDate)
-                                                    ->where('mt_panier', '<=', $total)
-                                                    ->where('type',0)
-                                                    ->orderByDesc('mt_panier')
-                                                    ->first();
-               if($cart_promo_implicite){
-                $has_promo = true ;
-                $type_promo = $cart_promo_implicite->format ;
-                $value_promo = $cart_promo_implicite->value ;
-
-                if($cart_promo_implicite->type == '0'){//implicite
-                    if($type_promo  =='0'){ //fix
-                        $total_promo = $total - $value_promo ;
-
-                    }
-                    else{//pourcentage
-                        $total_promo = $total - ($total*$value_promo)/100 ;
-                    }
-                }
-                }
-
-            }
-        }
-        else{
-            $cart_promo_implicite = Promocart::whereDate('date_debut', '<=', $currentDate)
-                                                ->whereDate('date_fin', '>=', $currentDate)
-                                                ->where('mt_panier', '<=', $total->sum)
-                                                ->where('type',0)
-                                                ->orderByDesc('mt_panier')
-                                                ->first();
-               if($cart_promo_implicite){
-                $has_promo = true ;
-                $type_promo = $cart_promo_implicite->format ;
-                $value_promo = $cart_promo_implicite->value ;
-
-                if($cart_promo_implicite->type == '0'){//implicite
-                    if($type_promo  =='0'){ //fix
-                        $total_promo = $total->sum - $value_promo ;
-
-                    }
-                    else{//pourcentage
-                        $total_promo = $total->sum - ($total*$value_promo)/100 ;
-                    }
-                }
-                }
-
-        }
-        if($total_promo){
-            if($request->shipping == "bureau"){
-               $total_f = $total_promo + $delivery_cost->price_b;
-               $delivery_cost = $delivery_cost->price_b;
-            }
-            if($request->shipping == "domicile"){
-                $total_f = $total_promo + $delivery_cost->price_a + $delivery_cost->supp;
-                $delivery_cost = $delivery_cost->price_a + $delivery_cost->supp;
-            }
-         }
-        else{
-            if($request->shipping == "bureau"){
-                $total_f = $total + $delivery_cost->price_b;
-                $delivery_cost = $delivery_cost->price_b;
-            }
-             if($request->shipping == "domicile"){
-                 $total_f = $total + $delivery_cost->price_a + $delivery_cost->supp;
-                 $delivery_cost = $delivery_cost->price_a + $delivery_cost->supp;
-             }
-        }
         $shipping = $request->shipping;
+        $resultatsCalcul = (new CalculateTotalController)->calculerTotal($ids , $wilaya , $commune , $shipping , $qte);
+        $total_promo = $resultatsCalcul['total'];
+        $total = $resultatsCalcul['total'];
+        $total_f = $resultatsCalcul['total_f'];
+        $delivery_cost = $resultatsCalcul['delivery_cost'];
+        $value_promo = $resultatsCalcul['value'];
         return view('admin.add-order-step-two',compact('products','qte','total_promo','total','total_f','delivery_cost','value_promo','customer','shipping'));
      }
 
@@ -441,7 +214,7 @@ class OrderController extends Controller
         $order->wilaya = $wilaya;
         $order->commune = $commune;
         $order->address = $request->address;
-        $order->phone = 054154;
+        $order->phone = $request->phone;
         $order->payment_method = 'cash';
         $order->total = $resultatsCalcul['total'];
         $order->total_f =  $resultatsCalcul['total_f'];
@@ -454,6 +227,9 @@ class OrderController extends Controller
             $order->is_stopdesk = false;
         }
         $order->value = $resultatsCalcul['value'];
+        $date = Carbon::now()->format('y');
+        $order->code = 'ck'.'-'.$date.'-'.$order->id;
+
         $order->save();
 
         for($i=0 ; $i<count($products) ;$i++){

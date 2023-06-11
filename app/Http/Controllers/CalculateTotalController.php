@@ -22,8 +22,10 @@ class CalculateTotalController extends Controller
         $total_f = 0;
         $delivery_cost = Deliverycost::where('wilaya',$wilaya)->where('commune',$commune)->first();
         $panierProduits = [];
+
         for($i=0; $i<count($products) ; $i++){
             $productline = Productline::where('id',$products[$i])->first();// calculate total
+
             array_push($panierProduits , $productline->product_id); //push id product
 
             if($productline->promo_price != NULL){

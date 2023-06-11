@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-body">
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label>Nom* :</label>
                                         <input class="form-control @error('first_name') is-invalid @enderror" name="first_name" placeholder="Nom" required>
                                             @error('first_name')
@@ -37,7 +37,7 @@
                                             </span>
                                             @enderror
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label>Prenom* :</label>
                                         <input class="form-control @error('last_name') is-invalid @enderror" name="last_name" placeholder="Prenom" required>
                                         @error('last_name')
@@ -46,7 +46,16 @@
                                         </span>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
+                                        <label>Téléphone* :</label>
+                                        <input class="form-control @error('phone') is-invalid @enderror" name="phone" placeholder="xx xx xx xx" required>
+                                        @error('phone')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-3">
                                         <label>Adresse* :</label>
                                         <input class="form-control @error('address') is-invalid @enderror" name="address" placeholder="Adresse" required>
                                         @error('address')
@@ -57,7 +66,7 @@
                                     </div>
                                 </div>
                                 <div class="form-row mt-2">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label>Wilaya* :</label>
                                         <select name="wilaya" id="wilaya" title="selectionner la wilaya..."  data-live-search="true"  class="selectpicker form-control @error('wilaya') is-invalid @enderror" required>
                                             @foreach($wilayas as $wilaya)
@@ -70,7 +79,7 @@
                                             @enderror
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label>Commune* :</label>
                                         <select name="commune" id="commune" title="selectionner la commune..."  data-live-search="true"  class="selectpicker form-control @error('commune') is-invalid @enderror" required>
 
@@ -81,7 +90,7 @@
                                         </span>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label>Centre : </label>
                                         <select name="center" id="center" title="selectionner le centre de livraison..."  data-live-search="true"  class="selectpicker form-control @error('center') is-invalid @enderror">
 
@@ -92,9 +101,7 @@
                                         </span>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="form-row mt-2">
-                                    <div class="col-md-6 mt-2">
+                                    <div class="col-md-3 mt-2">
                                         <label>Livraison :</label> <br>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="shipping" id="inlineRadio1" value="bureau" checked  >
@@ -106,6 +113,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                     </div>
                 </div>
             </div>
