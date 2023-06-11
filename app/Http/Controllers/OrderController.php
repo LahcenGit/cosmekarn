@@ -14,7 +14,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\CalculateTotalController;
 class OrderController extends Controller
 {
     //
@@ -420,17 +420,17 @@ class OrderController extends Controller
                  $delivery_cost = $delivery_cost->price_a + $delivery_cost->supp;
              }
         }
-
-        return view('admin.add-order-step-two',compact('products','qte','total_promo','total','total_f','delivery_cost','value_promo','customer'));
+        $shipping = $request->shipping;
+        return view('admin.add-order-step-two',compact('products','qte','total_promo','total','total_f','delivery_cost','value_promo','customer','shipping'));
      }
 
      public function storeOrder(Request $request){
         $products = $request->product;
         $qte = $request->qte;
-        $wilaya = $request->wialya;
+        $wilaya = $request->wilaya;
         $commune = $request->commune;
         $shipping = $request->shipping;
-        $resultatsCalcul = CalculateTotal::calculerTotal($products , $wilaya , $commune , $shipping , $qte);
+        $resultatsCalcul = (new CalculateTotalController)->calculerTotal($products , $wilaya , $commune , $shipping , $qte);
 
         //store order
         $order = new Order();
@@ -441,11 +441,19 @@ class OrderController extends Controller
         $order->wilaya = $wilaya;
         $order->commune = $commune;
         $order->address = $request->address;
-        $order->phone = $request->phone;
+        $order->phone = 054154;
         $order->payment_method = 'cash';
         $order->total = $resultatsCalcul['total'];
         $order->total_f =  $resultatsCalcul['total_f'];
         $order->delivery_cost = $resultatsCalcul['delivery_cost'];
+        if($shipping == 'bureau'){
+            $order->is_stopdesk = true;
+            $order->stopdesk_id = $request->center;
+        }
+        else{
+            $order->is_stopdesk = false;
+        }
+        $order->value = $resultatsCalcul['value'];
         $order->save();
 
         for($i=0 ; $i<count($products) ;$i++){

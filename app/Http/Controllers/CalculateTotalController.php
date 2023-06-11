@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Http\Controllers;
 
 use App\Models\Deliverycost;
 use App\Models\Productline;
@@ -8,9 +8,10 @@ use App\Models\Promocart;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class CalculateTotal
+class CalculateTotalController extends Controller
 {
-    public static function calculerTotal($products , $wilaya , $commune , $shipping , $qte )
+    //
+    public function calculerTotal($products , $wilaya , $commune , $shipping , $qte )
     {
         // Effectuez le calcul du total des produits selon la logique souhaitée
         $type_promo = null;
@@ -18,6 +19,7 @@ class CalculateTotal
         $value_promo = null;
         $currentDate = Carbon::now()->format('Y-m-d');
         $total = 0;
+        $total_f = 0;
         $delivery_cost = Deliverycost::where('wilaya',$wilaya)->where('commune',$commune)->first();
         $panierProduits = [];
         for($i=0; $i<count($products) ; $i++){
@@ -135,6 +137,7 @@ class CalculateTotal
             'total' => $total,
             'total_f' => $total_f,
             'delivery_cost' => $delivery_cost,
+            'value' => $value_promo,
         ];
     }
 }
