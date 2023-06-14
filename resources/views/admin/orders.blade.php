@@ -68,7 +68,7 @@
                                                     <a href="{{ asset('admin/order-detail/'.$order->id) }}" class="btn btn-primary shadow btn-xs sharp mr-1 order-details"><i class="fas fa-eye"></i></a>
                                                     <button data-id="{{ $order->id }}" class="btn btn-success shadow btn-xs sharp mr-1 add-odrer-to-yalidine"><i class="fas fa-plus"></i></button>
                                                     <a href="{{url('admin/orders/'.$order->id.'/edit')}}" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                                    <a href="#" class="btn btn-warning shadow btn-xs sharp mr-1 edit-status"><i class="fas fa-pencil-alt"></i></a>
+                                                    <a href="#" data-id="{{ $order->id }}" class="btn btn-warning shadow btn-xs sharp mr-1 edit-status"><i class="fas fa-pencil-alt"></i></a>
                                                     <form action="{{url('admin/orders/'.$order->id)}}" method="post">
                                                         {{csrf_field()}}
                                                         {{method_field('DELETE')}}
@@ -92,6 +92,9 @@
 <div id="modal-add-order">
 
 </div>
+<div id="modal-edit-status-order">
+
+</div>
 @endsection
 
 @push('modal-add-order-scripts')
@@ -101,7 +104,7 @@
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
-$(".add-odrer-to-yalidine").click(function() {
+$("body").on('click','.add-odrer-to-yalidine',function() {
   var id = $(this).data('id');
  $.ajax({
         url: '/add-order-to-yalidine/'+id ,
@@ -139,7 +142,7 @@ $("#modal-add-order").on('change','#wilaya',function(e){
 $("#modal-add-order").on('click','.storeOrder',function(e){
    e.preventDefault();
    var id = $('#order').val();
-   alert(id);
+
    $.ajax({
      url: '/store-parcel/'+id,
      type:"GET",
@@ -152,6 +155,42 @@ $("#modal-add-order").on('click','.storeOrder',function(e){
      }
 
      });
+
+});
+
+$("body").on('click','.edit-status',function() {
+  var id = $(this).data('id');
+ $.ajax({
+        url: '/edit-status-order/'+id ,
+        type: "GET",
+        success: function (res) {
+        $('#modal-edit-status-order').html(res);
+        $("#editStatusModal").modal('show');
+        }
+    });
+
+});
+
+$("#modal-edit-status-order").on('click','.editStatus',function(e){
+   e.preventDefault();
+   let status = $('#status').val();
+   let order =  $('#order').val();
+   $.ajax({
+            type:"Post",
+            url: '/update-status',
+            data:{
+              "_token": "{{ csrf_token() }}",
+              status:status,
+              order:order,
+            },
+            success:function(res){
+             $('#editStatusModal').modal('hide');
+             console.log(res);
+             location.reload();
+            },
+
+        });
+
 
 });
 </script>

@@ -258,4 +258,17 @@ class OrderController extends Controller
         return redirect('admin/orders');
      }
 
+
+     public function editStatus($id){
+        $order = Order::find($id);
+        return view('admin.modal-edit-status-order',compact('order'));
+     }
+
+     public function updateStatus(Request $request){
+        $order = Order::find($request->order);
+        $order->status = $request->status;
+        $order->save();
+        return $order;
+     }
+
 }

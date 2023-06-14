@@ -66,7 +66,8 @@ Route::get('/admin/get-communes/{name}', [App\Http\Controllers\OrderController::
 Route::get('/admin/add-order-step-one', [App\Http\Controllers\OrderController::class, 'addOrderStepOne']);
 Route::post('/admin/add-order-step-two', [App\Http\Controllers\OrderController::class, 'addOrderStepTwo']);
 Route::post('/admin/store-order', [App\Http\Controllers\OrderController::class, 'storeOrder']);
-
+Route::get('/edit-status-order/{id}', [App\Http\Controllers\OrderController::class, 'editStatus']);
+Route::post('/update-status', [App\Http\Controllers\OrderController::class, 'updateStatus']);
 //front route
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
 Route::get('/show-modal-detail-product/{id}', [App\Http\Controllers\ProductController::class, 'showModalDetailProduct']);
