@@ -28,13 +28,21 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Type* :</label>
-                                    <select class="form-control select-type" id="sel1"  class="selectpicker" data-live-search="true" name="type" required>
+                                    <select class="form-control select-date" id="sel1"  class="selectpicker" data-live-search="true" name="type" required>
                                         <option value="" disabled selected>Selectionner...</option>
                                         <option value="A">Aujord'hui</option>
                                         <option value="M">Moi Actuel</option>
                                         <option value="S">Semaine Actuelle</option>
-                                        <option value="d">date personnalisé</option>
+                                        <option value="P">Personnalisé</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="form-row mt-3 date-section" style="display:none">
+                                <div class="form-group col-md-3">
+                                    <input type="date" class="form-control input-default date" value="{{$date}}" name="datedebut" >
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="date" class="form-control input-default date" value="{{$date}}" name="datefin" >
                                 </div>
                             </div>
                              <button type="submit"  class="btn btn-primary mt-3">Générer rapport</button>
@@ -47,11 +55,24 @@
 </div>
 @endsection
 
+@push('report-scripts')
+<script>
 
-
-
-
-
+    if($('.select-date').val() == 'P'){
+		$('.date-section').show();
+	}
+	$('.select-date').on('change', function() {
+		if(this.value == 'P'){
+			$('.date-section').show();
+			$('.date').prop('required',true);
+		}
+		else{
+			$('.date-section').attr('style', 'display: none !important');
+			$('.date').prop('required',false);
+		}
+	});
+</script>
+@endpush
 
 
 
