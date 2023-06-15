@@ -14,6 +14,10 @@ class DeliverycostController extends Controller
     }
 
     public function updateDeliveryCost($id , $price_b , $price_a){
-        $delivery_cost = Deliverycost::
-    }
+        $delivery_cost = Deliverycost::find($id);
+        $delivery_cost->price_b = $price_b;
+        $delivery_cost->price_a = $price_a;
+        $delivery_cost->save();
+        return $delivery_cost;
+        }
 }

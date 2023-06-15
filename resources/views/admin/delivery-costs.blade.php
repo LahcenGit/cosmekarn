@@ -60,7 +60,7 @@
                                         <td>
 
                                             <div class="d-flex">
-                                                <button data-id="{{ $delivery_cost->id }}" class="btn btn-success shadow btn-xs sharp check-price" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-check"></i></button>
+                                                <button data-id="{{ $delivery_cost->id }}" class="btn btn-success shadow btn-xs sharp check-price" ><i class="fa fa-check"></i></button>
                                             </div>
                                             </form>
                                         </td>
@@ -82,7 +82,7 @@
 @push('check-delivery-cost-script')
 
 <script>
-    $( ".check-price" ).click(function() {
+ $("body").on('click','.check-price',function() {
 
         var id = $(this).data('id');
         var price_b = $('#price_b_'+id).val();
@@ -92,7 +92,7 @@
 			type: 'GET',
 
         success: function (res) {
-            toastr.success("Statut modifié avec succès", "Succès", {
+            toastr.success("Prix modifié avec succès", "Succès", {
                     timeOut: 5e3,
                     closeButton: !0,
                     debug: !1,

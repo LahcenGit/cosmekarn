@@ -19,6 +19,7 @@
         <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('dashboard/uploader/pe-icon-7-stroke.css')}}">
         <link rel="stylesheet" href="{{asset('dashboard/uploader/drop_uploader.css')}}">
+        <link rel="stylesheet" href="{{asset('dashboard/vendor/toastr/css/toastr.min.css')}}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" referrerpolicy="no-referrer" />
 
         <link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
@@ -378,6 +379,7 @@
     <script src="{{asset('dashboard/js/plugins-init/summernote-init.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/fontawesome.min.js" referrerpolicy="no-referrer"></script>
 
+    <script src="{{asset('dashboard/vendor/toastr/js/toastr.min.js')}}"></script>
     <!--Validate jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 
