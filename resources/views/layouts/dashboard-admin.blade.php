@@ -471,5 +471,6 @@
 @stack('modal-add-order-scripts')
 @stack('get-commune-script')
 @stack('add-order-script')
+@stack('check-delivery-cost-script')
 </body>
 </html>

@@ -16,6 +16,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminCommentController;
 use App\Http\Controllers\PromopackController;
 use App\Http\Controllers\PromocartController;
+use App\Http\Controllers\DeliverycostController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -77,7 +78,10 @@ Route::get('/login-register', [App\Http\Controllers\Auth\LoginController::class,
 Route::resource('/carts',CartController::class);
 Route::resource('/',HomeController::class);
 Route::resource('/admin/comments',AdminCommentController::class)->middleware('can:admin');
+Route::resource('/admin/delivery-costs',DeliverycostController::class)->middleware('can:admin');
 Route::resource('/admin',AdminController::class)->middleware('can:admin');
+Route::get('/update-delivery-cost/{id}/{price_b}/{price_a}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
+
 
 //payment
 Route::post('/redirection', [App\Http\Controllers\PaymentController::class, 'redirectionPayment']);
