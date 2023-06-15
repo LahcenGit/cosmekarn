@@ -273,7 +273,7 @@
 							<span class="nav-text">Livraison</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Tous</a></li>
+                            <li><a href="{{ asset('/admin/delivery-costs') }}">Tous</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
