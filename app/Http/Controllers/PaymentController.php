@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Cartitem;
+use App\Models\Category;
 use App\Models\Deliverycost;
 use App\Models\Order;
 use App\Models\Orderline;
@@ -198,7 +199,8 @@ class PaymentController extends Controller
     }
 
     else{
-        return redirect('/success-order');
+        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
+        return view('success-order',compact('categories'));
     }
 
    }

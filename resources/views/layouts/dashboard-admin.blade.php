@@ -297,7 +297,7 @@
 							<span class="nav-text">Rapports</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Tous</a></li>
+                            <li><a href="{{ asset('admin/generate-report') }}">Rapport quantitatif</a></li>
                         </ul>
                     </li>
                     <li><a class="ai-icon" href="{{ asset('admin/comments') }}" aria-expanded="false">

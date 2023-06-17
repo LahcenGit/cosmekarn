@@ -40,6 +40,19 @@ class ReportController extends Controller
                             ->groupBy('orderlines.productline_id', 'products.designation' ,'attributelines.value')
                             ->get();
         }
+        if($request->type == 'S'){
+            $startDate = now()->startOfWeek()->format('Y-m-d'); // Date de début de la semaine actuelle
+            $endDate = now()->endOfWeek()->format('Y-m-d');
+            $report = Order::join('orderlines', 'orders.id', '=', 'orderlines.order_id')
+                            ->join('productlines', 'orderlines.productline_id', '=', 'productlines.id')
+                            ->join('products', 'productlines.product_id', '=', 'products.id')
+                            ->join('attributelines', 'productlines.attributeline_id', '=', 'attributelines.id')
+                            ->select('orderlines.productline_id', 'products.designation', 'attributelines.value', DB::raw('SUM(orderlines.qte) as total_qte'))
+                            ->where('orders.status', 2)
+                            ->whereBetween('orders.created_at', [$startDate, $endDate]) // Filtrer par la période de la semaine actuelle
+                            ->groupBy('orderlines.productline_id', 'products.designation', 'attributelines.value')
+                            ->get();
+        }
         if($request->type == 'P'){
             $report = Order::join('orderlines', 'orders.id', '=', 'orderlines.order_id')
                             ->join('productlines', 'orderlines.productline_id', '=', 'productlines.id')

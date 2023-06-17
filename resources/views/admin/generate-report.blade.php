@@ -27,7 +27,7 @@
                     <div class="card-body">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label>Type* :</label>
+                                    <label>Date* :</label>
                                     <select class="form-control select-date" id="sel1"  class="selectpicker" data-live-search="true" name="type" required>
                                         <option value="" disabled selected>Selectionner...</option>
                                         <option value="A">Aujord'hui</option>
