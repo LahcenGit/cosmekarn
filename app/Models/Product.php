@@ -23,6 +23,10 @@ class Product extends Model
     {
         return $this->hasMany(Productline::class);
     }
+    public function mark()
+    {
+        return $this->belongsTo(Mark::class);
+    }
 
     public function getPrice(){
         $price = Productline::where('product_id',$this->id)->min('price');

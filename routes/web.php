@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminCommentController;
 use App\Http\Controllers\PromopackController;
 use App\Http\Controllers\PromocartController;
 use App\Http\Controllers\DeliverycostController;
+use App\Http\Controllers\MarkController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -56,6 +57,7 @@ Route::resource('/admin/customers',AdminCustomerController::class);
 Route::resource('/admin/pack-promo',PromopackController::class);
 Route::resource('/admin/cart-promo',PromocartController::class);
 Route::resource('/admin/payments',AdminPaymentController::class);
+Route::resource('/admin/marks',MarkController::class);
 Route::get('pack-details/{id}', [PromopackController::class, 'packDetail']);
 Route::get('cart-details/{id}', [PromocartController::class, 'cartDetail']);
 Route::get('order-details/{id}', [OrderController::class, 'orderDetails']);

@@ -9,6 +9,7 @@ use App\Models\Cartitem;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Image;
+use App\Models\Mark;
 use App\Models\Product;
 use App\Models\Productcategory;
 use App\Models\Productline;
@@ -34,7 +35,8 @@ class ProductController extends Controller
                                 ->get();
         $products = Product::all();
         $attributes = Attribute::all();
-        return view('admin.add-product',compact('categories','products','attributes'));
+        $marks = Mark::orderBy('created_at','desc')->get();
+        return view('admin.add-product',compact('categories','products','attributes','marks'));
     }
 
     public function store(Request $request){

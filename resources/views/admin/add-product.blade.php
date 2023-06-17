@@ -33,7 +33,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Désignation*:</label>
-                                        <input type="text"  class="form-control input-default " 
+                                        <input type="text"  class="form-control input-default "
                                           value="{{old('designation')}}" name="designation" id="designation" placeholder="designation" >
                                     </div>
                                     <div class="form-group col-md-6">
@@ -107,6 +107,16 @@
                                             <option value="4">Prochainement</option>
                                         </select>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label>La marque*:</label>
+                                        <select id="inputState" class="default-select form-control wide" name="mark">
+                                            @foreach($marks as $mark)
+                                            <option value="{{ $mark->id }}">{{ $mark->designation }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Date:</label>
                                         <input type="date"  class="form-control input-default @error('date') is-invalid @enderror" value="{{old('date')}}" name="date" >
@@ -211,7 +221,7 @@
                         <input type="checkbox" class="form-check-input" id="check" value="oui" name="check" >
                         <h4 class="card-title">Variants ?</h4>
                     </div>
-                    
+
                     <div class="card-body " id="variation" style="display: none;">
                         <div class="text-center">
                             <a style="cursor: pointer" class="btn btn-success add-attribute " style=" background-color: #006e40; border-color:#006e40;"> <span style="color:#fff!important;">Gérer les attributs</span> </a>
@@ -241,7 +251,7 @@
                                                     </select>
                                                 </td>
 
-                                                
+
                                                 <td style="width: 15%">
                                                     <select  id="select-value" class="default-select form-control wide " name="values[0]"  >
                                                     </select>
@@ -272,11 +282,11 @@
                                                 </td>
                                             </tr>
 
-                                        
+
                                     </tbody>
                                 </table>
                              </div>
-                       
+
                         </div>
                     </div>
                 </div>
@@ -313,7 +323,7 @@
                     required: true,
                     maxlength: 1
                  },
-                 
+
             },
             messages: {
                 designation: {
@@ -326,12 +336,12 @@
         });
     });
  </script>
- 
+
 <script>
 
    $( "#check" ).prop( "checked", false );
    $("#check").on('change',function(){
-   
+
     if(this.checked) {
         $("#variation").css("display", "block");
         $("#select-content").prop('required',true);
@@ -356,7 +366,7 @@
     });
 
     $("#select-content-individuel").change(function() {
-       
+
         $('#select-value-individuel').prop('disabled', false);
         var id = $(this).val();
         var data ="";
@@ -377,7 +387,7 @@
         });
     });
     $("#select-content").change(function() {
-       
+
 
         var id = $(this).val();
         var data ="";
@@ -421,7 +431,7 @@
 		});
 
 	});
-	
+
 </script>
 @endpush
 

@@ -248,7 +248,7 @@
                                             </figure>
                                             <div class="product-caption text-center">
                                                 <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">Eclipse</a></p>
+                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
                                                 </div>
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
@@ -258,9 +258,9 @@
                                                                     <a  width="30px" height="30px"  style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                                 </li>
                                                             @else
-                                                               
+
                                                             @endif
-                                                            
+
                                                         @endif
                                                     @endforeach
                                                 </ul>
@@ -312,7 +312,7 @@
                                             </figure>
                                             <div class="product-caption text-center">
                                                 <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">Eclipse</a></p>
+                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
                                                 </div>
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
@@ -370,7 +370,7 @@
                                             </figure>
                                             <div class="product-caption text-center">
                                                 <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">Eclipse</a></p>
+                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
                                                 </div>
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
@@ -428,7 +428,7 @@
                                             </figure>
                                             <div class="product-caption text-center">
                                                 <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">Eclipse</a></p>
+                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
                                                 </div>
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
@@ -573,7 +573,7 @@
                             </figure>
                             <div class="product-caption text-center">
                                 <div class="product-identity">
-                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">Eclipse</a></p>
+                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
                                 </div>
                                 <ul class="color-categories">
                                     @foreach($product->productlines as $item)
