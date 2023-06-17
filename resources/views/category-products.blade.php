@@ -118,14 +118,32 @@
                         <!-- start pagination area -->
                         <div class="paginatoin-area text-center">
                             <ul class="pagination-box">
-                                <li><a class="previous" href="#"><i class="pe-7s-angle-left"></i></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a class="next" href="#"><i class="pe-7s-angle-right"></i></a></li>
+                                <!-- Lien précédent -->
+                                @if ($products->currentPage() > 1)
+                                    <li>
+                                        <a class="previous" href="{{ $products->previousPageUrl() }}">
+                                            <i class="pe-7s-angle-left"></i>
+                                        </a>
+                                    </li>
+                                @endif
+                               <!-- Liens de pagination numérotés -->
+                                @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+                                    <li class="{{ $page == $products->currentPage() ? 'active' : '' }}">
+                                        <a href="{{ $url }}">{{ $page }}</a>
+                                    </li>
+                                @endforeach
+
+                                <!-- Lien suivant -->
+                                @if ($products->hasMorePages())
+                                    <li>
+                                        <a class="next" href="{{ $products->nextPageUrl() }}">
+                                            <i class="pe-7s-angle-right"></i>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
-                        <!-- end pagination area -->
+                      <!-- end pagination area -->
                     </div>
                 </div>
                 <!-- shop main wrapper end -->

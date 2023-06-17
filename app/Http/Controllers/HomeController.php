@@ -71,7 +71,7 @@ class HomeController extends Controller
 
     public function categoryProducts($id){
         $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
-        $products = Productcategory::where('category_id',$id)->get();
+        $products = Productcategory::where('category_id',$id)->paginate(16);
         $count_products = Productcategory::where('category_id',$id)->count();
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
