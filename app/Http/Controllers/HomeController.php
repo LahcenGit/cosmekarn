@@ -7,6 +7,7 @@ use App\Models\Cartitem;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Productcategory;
+use App\Models\Promopack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use TheHocineSaad\LaravelChargilyEPay\Models\Epay_Invoice;
@@ -17,7 +18,10 @@ class HomeController extends Controller
     public function index(){
         $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
 
-        $products = Product::all();
+        $products = Product::whereNotIn('id', function ($query) {
+                             $query->select('product_id')->from('promopacks');
+        })->get();
+        $promopacks = Promopack::orderBy('created_at','desc')->get();
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
             $cartitems = $cart->cartitems;
@@ -39,7 +43,7 @@ class HomeController extends Controller
             $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('welcome',compact('products','cartitems','nbr_cartitem','total','categories'));
+        return view('welcome',compact('products','cartitems','nbr_cartitem','total','categories','promopacks'));
 
     }
     public function about(){

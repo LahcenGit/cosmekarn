@@ -53,9 +53,11 @@
 
                         <div class="col-lg-7">
                             <div class="product-details-des">
+                                @if($product->mark)
                                 <div class="manufacturer-name">
                                     <a href="product-details.html">{{ $product->mark->designation }}</a>
                                 </div>
+                                @endif
                                 <h3 class="product-name">{{ $product->designation }}</h3>
                                 <div class="ratings d-flex">
                                     <span><i class="fa fa-star-o"></i></span>

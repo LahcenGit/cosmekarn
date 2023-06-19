@@ -29,7 +29,7 @@
 
                     <div class="d-flex justify-content-between" >
                         <div >
-                            <img src="{{asset('assets/images/logo-report.png')}}"> <br>
+
                             <p> <b>Site Web :</b>  www.cosmekarn.dz <br>
                                   <b>  Tél :</b> 0560 09 90 33
                                 </p>
@@ -38,7 +38,7 @@
 
                         <div class="infos-client" style="width: 350px;">
                             <h3 >Bon de livraison N° {{$order->code}} </h3> <br>
-                            <p ><b> Nom :</b> {{$order->name}}<br>
+                            <p ><b> Nom :</b> Benmouloud lahcene<br>
                             <b> Tél: </b> {{$order->phone}}  <br>
                             <b> Adresse:</b> {{$order->address}} <br>
                              <b> Wilaya:</b>  {{ucfirst($order->wilaya)}}<br>

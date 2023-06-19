@@ -7,13 +7,13 @@
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
                     <h4>Bonjour, Bienvenue!</h4>
-                    <span>Panier promo</span>
+                    <span>Promos panier</span>
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/admin')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active"><a href="{{url('/admin/cart-promo')}}">Panier promo</a></li>
+                    <li class="breadcrumb-item active"><a href="{{url('/admin/cart-promo')}}">Promos panier</a></li>
                 </ol>
             </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Table des carts promo</h4>
+                        <h4 class="card-title">Promos panier</h4>
                         <a href="{{url('/admin/cart-promo/create')}}" type="button"  class="btn btn-primary mt-3">Ajouter</a>
                     </div>
                     <div class="card-body">

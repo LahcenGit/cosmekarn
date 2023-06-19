@@ -247,9 +247,11 @@
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
-                                                <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
-                                                </div>
+                                                @if($product->mark)
+                                                    <div class="product-identity">
+                                                        <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
+                                                    </div>
+                                                @endif
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
@@ -311,9 +313,11 @@
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
-                                                <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
-                                                </div>
+                                                @if($product->mark)
+                                                    <div class="product-identity">
+                                                        <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
+                                                    </div>
+                                                @endif
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
@@ -369,9 +373,11 @@
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
-                                                <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
-                                                </div>
+                                                @if($product->mark)
+                                                    <div class="product-identity">
+                                                        <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
+                                                    </div>
+                                                @endif
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
@@ -427,9 +433,11 @@
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
-                                                <div class="product-identity">
-                                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
-                                                </div>
+                                                @if($product->mark)
+                                                    <div class="product-identity">
+                                                        <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
+                                                    </div>
+                                                @endif
                                                 <ul class="color-categories">
                                                     @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
@@ -453,6 +461,83 @@
                                             </div>
                                         </div>
                                     <!-- product item end -->
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <!-- product tab content end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- product area end -->
+    <!-- product area start -->
+    <section class="product-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- section title start -->
+                    <div class="section-title text-center">
+                        <h2 class="title">Promotion</h2>
+                        <p class="sub-title">Une variété de packs promotionnels vous attend !</p>
+                    </div>
+                    <!-- section title start -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-container">
+
+
+                        <!-- product tab content start -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="tab1">
+                                <div class="product-carousel-4 slick-row-10 slick-arrow-style">
+                                    <!-- product item start -->
+                                    @foreach($promopacks as $promopack)
+                                        <div class="product-item">
+                                            <figure class="product-thumb">
+                                                <a href="{{ asset('product/'.$promopack->product->slug) }}">
+                                                    @if($product->images[0])
+                                                    <img class="pri-img" src="{{asset('storage/images/products/'.$promopack->product->images[0]->lien)}}" alt="product">
+                                                    <img class="sec-img" src="{{asset('storage/images/products/'.$promopack->product->images[0]->lien)}}" alt="product">
+                                                    @endif
+                                                </a>
+                                                <div class="product-badge">
+                                                    <div class="product-label new">
+                                                        <span>new</span>
+                                                    </div>
+                                                    <div class="product-label discount">
+                                                        <span>10%</span>
+                                                    </div>
+                                                </div>
+                                                <div class="button-group">
+                                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
+
+
+                                                </div>
+                                                <div class="cart-hover">
+                                                    <a href="{{ asset('product/'.$promopack->product->slug) }}" class="btn btn-cart">Voir le produit</a>
+                                                </div>
+                                            </figure>
+                                            <div class="product-caption text-center">
+
+                                                <h6 class="product-name">
+                                                    <a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a>
+                                                </h6>
+                                                <div class="price-box">
+                                                    @if($promopack->price_promo)
+                                                    <span class="price-regular">{{number_format($promopack->price_promo)}} Da</span>
+                                                    <span class="price-old"><del>{{number_format($promopack->price)}} Da</del></span>
+                                                    @else
+                                                    <span class="price-regular">{{number_format($promopack->price)}} Da</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- product item end -->
+
                                     @endforeach
                                 </div>
                             </div>
@@ -572,9 +657,11 @@
                                 </div>
                             </figure>
                             <div class="product-caption text-center">
-                                <div class="product-identity">
-                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
-                                </div>
+                                @if($product->mark)
+                                    <div class="product-identity">
+                                        <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
+                                    </div>
+                                @endif
                                 <ul class="color-categories">
                                     @foreach($product->productlines as $item)
                                         @if($item->attribute_id)

@@ -147,7 +147,10 @@ class OrderController extends Controller
         curl_close($ch);
         $order->status = 1;
         $response_array = json_decode($result,true);
-        $order->tracking_code = $response_array[1]['tracking'];
+        $values = array_values( $response_array);
+        $firstElement = $values[0];
+        $trackingCode = $firstElement['tracking'];
+        $order->tracking_code = $trackingCode;
         $order->save();
 
         return true;
