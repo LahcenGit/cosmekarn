@@ -14,7 +14,9 @@ class PromocartController extends Controller
         return view('admin.carts-promo',compact('carts_promo'));
     }
     public function create(){
-        $products = Product::orderBy('created_at','desc')->get();
+        $products = Product::orderBy('created_at','desc')->whereNotIn('id', function ($query) {
+            $query->select('product_id')->from('promopacks');
+            })->get();
         return view('admin.add-cart-promo',compact('products'));
     }
 
@@ -38,10 +40,14 @@ class PromocartController extends Controller
                array_push($array, $product);
 
             }
-            $products = Product::whereNotIn('id',$jsonData)->get();
+            $products = Product::orderBy('created_at','desc')->whereNotIn('id',$jsonData)->whereNotIn('id', function ($query) {
+                                $query->select('product_id')->from('promopacks');
+                                })->get();
         }
         else{
-            $products = Product::orderBy('created_at','desc')->get();
+            $products = Product::orderBy('created_at','desc')->whereNotIn('id', function ($query) {
+                $query->select('product_id')->from('promopacks');
+                })->get();
             $array = null;
         }
 
