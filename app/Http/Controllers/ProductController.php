@@ -267,7 +267,12 @@ class ProductController extends Controller
         // 3 new products
         $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
         $category = Productcategory::where('product_id',$product->id)->first();
-        $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
+        if($category){
+            $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
+        }
+       else{
+        $related_products = NULL;
+       }
 
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();

@@ -524,7 +524,7 @@
                                             <div class="product-caption text-center">
 
                                                 <h6 class="product-name">
-                                                    <a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a>
+                                                    <a href="{{ asset('product/'.$promopack->product->slug) }}">{{ $promopack->designation }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     @if($promopack->price_promo)

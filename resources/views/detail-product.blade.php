@@ -287,6 +287,7 @@
             <div class="col-12">
                 <div class="product-carousel-4 slick-row-10 slick-arrow-style">
                     <!-- product item start -->
+                    @if($related_products)
                     @foreach($related_products as $related_product)
                         <div class="product-item">
                             <figure class="product-thumb">
@@ -340,7 +341,7 @@
                         </div>
 
                     @endforeach
-
+                    @endif
                 </div>
             </div>
         </div>

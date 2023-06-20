@@ -74,6 +74,7 @@ class HomeController extends Controller
     }
 
     public function categoryProducts($id){
+        $category = Category::find($id);
         $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
         $products = Productcategory::where('category_id',$id)->paginate(16);
         $count_products = Productcategory::where('category_id',$id)->count();
@@ -98,7 +99,7 @@ class HomeController extends Controller
             $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('category-products',compact('products','categories','cartitems','nbr_cartitem','total','count_products'));
+        return view('category-products',compact('products','categories','cartitems','nbr_cartitem','total','count_products','category'));
     }
 
 }
