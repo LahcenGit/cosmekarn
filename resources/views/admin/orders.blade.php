@@ -45,7 +45,7 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>{{$order->first_name}} {{ $order->last_name }}</td>
+                                            <td>Benmouloud lahcene</td>
                                             <td>{{ $order->wilaya }}</td>
                                             <td>{{ $order->address }}</td>
                                             <td>{{ $order->phone }}</td>
@@ -66,7 +66,9 @@
 
                                                 <div class="d-flex">
                                                     <a href="{{ asset('admin/order-detail/'.$order->id) }}" class="btn btn-primary shadow btn-xs sharp mr-1 order-details"><i class="fas fa-eye"></i></a>
+                                                    @if($order->status == 0)
                                                     <button data-id="{{ $order->id }}" class="btn btn-success shadow btn-xs sharp mr-1 add-odrer-to-yalidine"><i class="fas fa-plus"></i></button>
+                                                    @endif
                                                     <a href="{{url('admin/orders/'.$order->id.'/edit')}}" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fas fa-pencil-alt"></i></a>
                                                     <a href="#" data-id="{{ $order->id }}" class="btn btn-warning shadow btn-xs sharp mr-1 edit-status"><i class="fas fa-pencil-alt"></i></a>
                                                     <form action="{{url('admin/orders/'.$order->id)}}" method="post">

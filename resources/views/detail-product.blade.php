@@ -53,9 +53,11 @@
 
                         <div class="col-lg-7">
                             <div class="product-details-des">
+                                @if($product->mark)
                                 <div class="manufacturer-name">
-                                    <a href="product-details.html">Eclipse</a>
+                                    <a href="product-details.html">{{ $product->mark->designation }}</a>
                                 </div>
+                                @endif
                                 <h3 class="product-name">{{ $product->designation }}</h3>
                                 <div class="ratings d-flex">
                                     <span><i class="fa fa-star-o"></i></span>
@@ -285,6 +287,7 @@
             <div class="col-12">
                 <div class="product-carousel-4 slick-row-10 slick-arrow-style">
                     <!-- product item start -->
+                    @if($related_products)
                     @foreach($related_products as $related_product)
                         <div class="product-item">
                             <figure class="product-thumb">
@@ -312,7 +315,7 @@
                             </figure>
                             <div class="product-caption text-center">
                                 <div class="product-identity">
-                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$related_product->product->slug) }}">Eclipse</a></p>
+                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$related_product->product->slug) }}">{{ $related_product->product->mark->designation }}</a></p>
                                 </div>
                                 <ul class="color-categories">
                                     @foreach($related_product->product->productlines as $item)
@@ -338,7 +341,7 @@
                         </div>
 
                     @endforeach
-
+                    @endif
                 </div>
             </div>
         </div>

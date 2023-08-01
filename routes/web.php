@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminCommentController;
 use App\Http\Controllers\PromopackController;
 use App\Http\Controllers\PromocartController;
 use App\Http\Controllers\DeliverycostController;
+use App\Http\Controllers\MarkController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -56,6 +57,7 @@ Route::resource('/admin/customers',AdminCustomerController::class);
 Route::resource('/admin/pack-promo',PromopackController::class);
 Route::resource('/admin/cart-promo',PromocartController::class);
 Route::resource('/admin/payments',AdminPaymentController::class);
+Route::resource('/admin/marks',MarkController::class);
 Route::get('pack-details/{id}', [PromopackController::class, 'packDetail']);
 Route::get('cart-details/{id}', [PromocartController::class, 'cartDetail']);
 Route::get('order-details/{id}', [OrderController::class, 'orderDetails']);
@@ -69,6 +71,10 @@ Route::post('/admin/add-order-step-two', [App\Http\Controllers\OrderController::
 Route::post('/admin/store-order', [App\Http\Controllers\OrderController::class, 'storeOrder']);
 Route::get('/edit-status-order/{id}', [App\Http\Controllers\OrderController::class, 'editStatus']);
 Route::post('/update-status', [App\Http\Controllers\OrderController::class, 'updateStatus']);
+Route::get('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'index']);
+Route::post('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'generateReport']);
+
+
 //front route
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
 Route::get('/show-modal-detail-product/{id}', [App\Http\Controllers\ProductController::class, 'showModalDetailProduct']);
@@ -80,8 +86,8 @@ Route::resource('/',HomeController::class);
 Route::resource('/admin/comments',AdminCommentController::class)->middleware('can:admin');
 Route::resource('/admin/delivery-costs',DeliverycostController::class)->middleware('can:admin');
 Route::get('/update-delivery-cost/{id}/{price_b}/{price_a}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
-Route::get('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'index']);
-Route::post('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'generateReport']);
+Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
+
 Route::resource('/admin',AdminController::class)->middleware('can:admin');
 
 

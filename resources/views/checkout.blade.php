@@ -12,7 +12,7 @@
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="shop.html">shop</a></li>
+                                <li class="breadcrumb-item"><a href="#">shop</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">checkout</li>
                             </ul>
                         </nav>
@@ -132,7 +132,7 @@
                 <!-- Order Summary Details -->
                 <div class="col-lg-6">
                     <div class="order-summary-details">
-                        <h5 class="checkout-title">Détails de lacommande</h5>
+                        <h5 class="checkout-title">Détails de la commande</h5>
                         <div class="order-summary-content">
                             <!-- Order Summary Table -->
                             <div class="order-summary-table table-responsive text-center">
@@ -146,7 +146,7 @@
                                     <tbody>
                                         @foreach($cartitems as $cartitem)
                                             <tr>
-                                                <td><a href="product-details.html">{{ $cartitem->productline->product->designation }}<strong> × {{ $cartitem->qte }}</strong></a>
+                                                <td><a href="{{ asset('product/'. $cartitem->productline->product->slug) }}">{{ $cartitem->productline->product->designation }}<strong> × {{ $cartitem->qte }}</strong></a>
                                                 </td>
                                                 <td>{{ number_format($cartitem->total) }} Da</td>
                                             </tr>

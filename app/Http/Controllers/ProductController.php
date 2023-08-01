@@ -9,6 +9,7 @@ use App\Models\Cartitem;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Image;
+use App\Models\Mark;
 use App\Models\Product;
 use App\Models\Productcategory;
 use App\Models\Productline;
@@ -35,7 +36,8 @@ class ProductController extends Controller
                                 ->get();
         $products = Product::all();
         $attributes = Attribute::all();
-        return view('admin.add-product',compact('categories','products','attributes'));
+        $marks = Mark::orderBy('created_at','desc')->get();
+        return view('admin.add-product',compact('categories','products','attributes','marks'));
     }
     
     
@@ -304,7 +306,12 @@ class ProductController extends Controller
         // 3 new products
         $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
         $category = Productcategory::where('product_id',$product->id)->first();
-        $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
+        if($category){
+            $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
+        }
+       else{
+        $related_products = NULL;
+       }
 
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();

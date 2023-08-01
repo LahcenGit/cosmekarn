@@ -43,10 +43,10 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             @else
-            
+
             <div class="member-area-from-wrap">
                 <div class="row d-flex justify-content-center">
                     <!-- Login Content Start -->
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 @endforeach
-                
+
             </div>
 
             @endif

@@ -19,7 +19,9 @@ class PromopackController extends Controller
         return view('admin.packs-promo',compact('packs_promo'));
     }
     public function create(){
-        $products = Product::orderBy('created_at','desc')->get();
+        $products = Product::orderBy('created_at','desc')->whereNotIn('id', function ($query) {
+            $query->select('product_id')->from('promopacks');
+            })->get();
         return view('admin.add-promopack',compact('products'));
     }
 
@@ -89,7 +91,9 @@ class PromopackController extends Controller
         foreach($packlines as $packline){
            array_push($array , $packline->product_id);
         }
-        $products = Product::whereNotIn('id',$array)->orderBy('created_at','desc')->get();
+        $products = Product::orderBy('created_at','desc')->whereNotIn('id',$array)->orderBy('created_at','desc')->whereNotIn('id', function ($query) {
+                            $query->select('product_id')->from('promopacks');
+                            })->get();
          return view('admin.edit-pack-promo',compact('products','packlines','pack_promo'));
     }
 

@@ -13,18 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('marks', function (Blueprint $table) {
             $table->id();
             $table->string('designation');
-            $table->unsignedBigInteger('mark_id')->nullable();
-            $table->longText('short_description')->nullable();
-            $table->longText('long_description')->nullable();
-            $table->tinyInteger('is_brouillon');
-            $table->string('note')->nullable();
-            $table->integer('point')->nullable();
             $table->string('slug')->nullable();
             $table->tinyInteger('flug')->nullable();
-            $table->foreign('mark_id')->references('id')->on('marks')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -36,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('marks');
     }
 };

@@ -30,7 +30,7 @@
             <div class="col-xl-5 col-lg-5">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Ajouter catégorie</h4>
+                        <h4 class="card-title">Les catégorie</h4>
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
