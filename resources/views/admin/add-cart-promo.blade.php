@@ -65,8 +65,8 @@
                                         @enderror
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label>Montant panier* :</label>
-                                    <input type="text" id="mt-panier"  class="form-control input-default control-number @error('mt_panier') is-invalid @enderror" value="{{old('mt_panier')}}" name="mt_panier" placeholder="0" >
+                                    <label>Montant minimum panier* :</label>
+                                    <input type="text" id="mt-panier"  class="form-control input-default control-number @error('mt_panier') is-invalid @enderror" value="{{old('mt_panier')}}" name="mt_panier" placeholder="0" required>
                                         @error('mt_panier')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -121,11 +121,11 @@ $(".select-type").change(function() {
     $(".product").css({display: "block"});
 
     // Add the "required" attribute
-    inputField.prop('required', true);
+    inputField.prop('required', false);
   }
   else{
     $(".product").css({display: "none"});
-    inputField.prop('required', false);
+    inputField.prop('required', true);
   }
 
 });
