@@ -38,7 +38,7 @@
 
                         <div class="infos-client" style="width: 350px;">
                             <h3 >Bon de livraison N° {{$order->code}} </h3> <br>
-                            <p ><b> Nom :</b> Benmouloud lahcene<br>
+                            <p ><b> Nom :</b> {{ $order->first_name }} {{ $order->last_name }}<br>
                             <b> Tél: </b> {{$order->phone}}  <br>
                             <b> Adresse:</b> {{$order->address}} <br>
                              <b> Wilaya:</b>  {{ucfirst($order->wilaya)}}<br>
@@ -65,7 +65,7 @@
                             @foreach ($orderlines as $orderline)
                                 <tr>
                                     <th scope="row">{{$loop->iteration}}</th>
-                                    <td>{{$orderline->productline->product->designation}} {{ $orderline->productline->attributeLine->value }}</td>
+                                    <td>{{$orderline->productline->product->designation}} @if($orderline->productline->attributeLine){{ $orderline->productline->attributeLine->value }}@endif</td>
                                     <td>{{$orderline->price}}</td>
                                     <td>{{$orderline->qte}}</td>
                                     <td>{{$orderline->total}} Da</td>

@@ -45,7 +45,7 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>Benmouloud lahcene</td>
+                                            <td>{{ $order->first_name }} {{ $order->last_name }}</td>
                                             <td>{{ $order->wilaya }}</td>
                                             <td>{{ $order->address }}</td>
                                             <td>{{ $order->phone }}</td>

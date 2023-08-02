@@ -105,11 +105,11 @@ class CalculateTotalController extends Controller
 
                 if($cart_promo_implicite->type == '0'){//implicite
                     if($type_promo  =='0'){ //fix
-                        $total_promo = $total->sum - $value_promo ;
+                        $total_promo = $total - $value_promo ;
 
                     }
                     else{//pourcentage
-                        $total_promo = $total->sum - ($total*$value_promo)/100 ;
+                        $total_promo = $total - ($total*$value_promo)/100 ;
                     }
                 }
                 }

@@ -64,7 +64,9 @@ class CheckoutController extends Controller
 
                 }
                 else{//pourcentage
-                    $total_promo = $total->sum - ($total*$value_promo)/100 ;
+
+
+                    $total_promo = (float)$total->sum - ((float)$total->sum*(float)$value_promo)/100 ;
                 }
             }
             else{//promo panier implicite
@@ -85,7 +87,8 @@ class CheckoutController extends Controller
 
                     }
                     else{//pourcentage
-                        $total_promo = $total->sum - ($total*$value_promo)/100 ;
+
+                        $total_promo = (float)$total->sum - ((float)$total->sum*(float)$value_promo)/100 ;
                     }
                 }
                 }
@@ -110,7 +113,7 @@ class CheckoutController extends Controller
 
                     }
                     else{//pourcentage
-                        $total_promo = $total->sum - ($total*$value_promo)/100 ;
+                        $total_promo = (float)$total->sum - ((float)$total->sum*(float)$value_promo)/100 ;
                     }
                 }
                 }

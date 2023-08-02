@@ -215,7 +215,7 @@
                                         <li>
                                             <div class="timeline-panel">
 												<div class="media mr-2">
-													<img alt="image" width="50" src="{{asset('Dashboard/images/avatar/1.jpg')}}">
+													<img alt="image" width="50" src="{{asset('dashboard/images/avatar/1.jpg')}}">
 												</div>
                                                 <div class="media-body">
 													<h5 class="mb-1 text-white">{{$top_customer->user->name}}</h5>
