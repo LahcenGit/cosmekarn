@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -38,10 +39,10 @@ class ProductController extends Controller
         $marks = Mark::orderBy('created_at','desc')->get();
         return view('admin.add-product',compact('categories','products','attributes','marks'));
     }
+    
+    
 
     public function store(Request $request){
-
-
         $product = new Product();
         $product->designation = $request->designation;
         $product->short_description = $request->short_description;
@@ -170,6 +171,44 @@ class ProductController extends Controller
         }
         return redirect('admin/products');
     }
+
+
+
+    public function edit($id){
+        
+        $array_checked = array();
+        $product = Product::find($id);
+        $categories = Category::whereNull('parent_id')
+                                ->with('childrenCategories')
+                                ->orderby('description', 'asc')
+                                ->get();
+        $categories_checked = Productcategory::where('product_id', $product->id)->get();
+        //make an arrray to checked category 
+        foreach($categories_checked as $checked){
+           
+            array_push($array_checked,$checked->category_id);
+        }
+        $array_checked = json_encode($array_checked);
+        $images = Image::where('product_id', $id)->where('type',2)->get();
+
+
+
+        $image_preload_p = Image::where('product_id', $id)->where('type',1)
+        ->select('id', DB::raw("concat('https://www.licbplus.com.dz/newsite/public/storage/images/products/', lien) as src"))
+        ->get();
+
+        $images_preload = Image::where('product_id', $id)->where('type',2)
+        ->select('id', DB::raw("concat('https://www.licbplus.com.dz/newsite/public/storage/images/products/', lien) as src"))
+        ->get();
+
+        $all_productlines = Productline::all();
+        $attributes = Attribute::all();
+       // $marks = Mark::all();
+        $productlines = Productline::where('product_id',$id)->get();
+           
+        return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked','images_preload','image_preload_p'));
+    }
+
 
 
     public function getAttribute($id){
