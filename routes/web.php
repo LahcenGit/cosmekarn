@@ -87,6 +87,7 @@ Route::resource('/admin/comments',AdminCommentController::class)->middleware('ca
 Route::resource('/admin/delivery-costs',DeliverycostController::class)->middleware('can:admin');
 Route::get('/update-delivery-cost/{id}/{price_b}/{price_a}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
 Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
+Route::get('/get-qte/{id}', [App\Http\Controllers\ProductController::class, 'getQte']);
 
 Route::resource('/admin',AdminController::class)->middleware('can:admin');
 

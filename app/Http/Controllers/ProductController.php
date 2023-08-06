@@ -13,6 +13,7 @@ use App\Models\Mark;
 use App\Models\Product;
 use App\Models\Productcategory;
 use App\Models\Productline;
+use App\Models\Promopack;
 use App\Models\Relatedproduct;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -39,8 +40,8 @@ class ProductController extends Controller
         $marks = Mark::orderBy('created_at','desc')->get();
         return view('admin.add-product',compact('categories','products','attributes','marks'));
     }
-    
-    
+
+
 
     public function store(Request $request){
         $product = new Product();
@@ -175,7 +176,7 @@ class ProductController extends Controller
 
 
     public function edit($id){
-        
+
         $array_checked = array();
         $product = Product::find($id);
         $categories = Category::whereNull('parent_id')
@@ -183,9 +184,9 @@ class ProductController extends Controller
                                 ->orderby('description', 'asc')
                                 ->get();
         $categories_checked = Productcategory::where('product_id', $product->id)->get();
-        //make an arrray to checked category 
+        //make an arrray to checked category
         foreach($categories_checked as $checked){
-           
+
             array_push($array_checked,$checked->category_id);
         }
         $array_checked = json_encode($array_checked);
@@ -205,7 +206,7 @@ class ProductController extends Controller
         $attributes = Attribute::all();
        // $marks = Mark::all();
         $productlines = Productline::where('product_id',$id)->get();
-           
+
         return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked','images_preload','image_preload_p'));
     }
 
@@ -339,7 +340,14 @@ class ProductController extends Controller
         if(Auth::user()){
             $nbr_comment = Comment::where('product_id',$product->id)->where('user_id',Auth::user()->id)->count();
         }
-        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes','cartitems','nbr_cartitem','total','comments','count_comment','nbr_comment'));
+
+        $id_product = $product->id;
+
+        $packsContainingProduct = Promopack::whereHas('packPromoLines', function ($query) use ($id_product) {
+            $query->where('product_id', $id_product);
+        })->get();
+
+        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes','cartitems','nbr_cartitem','total','comments','count_comment','nbr_comment','packsContainingProduct'));
     }
 
 
@@ -357,6 +365,11 @@ class ProductController extends Controller
             "productlines" => $productlines
           );
         return $data;
+    }
+
+    public function getQte($id){
+     $productline = Productline::find($id);
+     return $productline;
     }
 
 }

@@ -66,7 +66,7 @@
                                     <span><i class="fa fa-star-o"></i></span>
                                     <span><i class="fa fa-star-o"></i></span>
                                     <div class="pro-review">
-                                        <span>1 Commentaire(s)</span>
+                                        <span>{{  $count_comment }} Commentaire(s)</span>
                                     </div>
                                 </div>
                                 <div class="price-box">
@@ -92,8 +92,8 @@
 
                                 @endif
                                 <div class="availability">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>200 dans le stock</span>
+                                    <i id="availability-icon" class="fa fa-check-circle"></i>
+                                    <span id="qte">{{ $product_line->qte }} dans le stock</span>
                                 </div>
                                 <p class="pro-desc">{{$product->short_description}}</p>
 
@@ -345,12 +345,70 @@
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 <!-- related products area end -->
 
 
+<section class="related-products section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- section title start -->
+                <div class="section-title text-center">
+                    <h2 class="title">Promotion</h2>
+                    <p class="sub-title">Une variété de packs promotionnels vous attend !</p>
+                </div>
+                <!-- section title start -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="product-carousel-4 slick-row-10 slick-arrow-style">
+                    <!-- product item start -->
+                    @if($packsContainingProduct)
+                    @foreach($packsContainingProduct as $packContainingProduct)
+                        <div class="product-item">
+                            <figure class="product-thumb">
+                                <a href="{{ asset('product/'.$packContainingProduct->product->slug) }}">
+                                    @if($first_image)
+                                    <img class="pri-img" src="{{asset('storage/images/products/'.$packContainingProduct->product->images[0]->lien)}}" alt="product">
+                                    <img class="sec-img" src="{{asset('storage/images/products/'.$packContainingProduct->product->images[0]->lien)}}" alt="product">
+                                    @endif
+                                </a>
+                                <div class="product-badge">
+                                    <div class="product-label new">
+                                        <span>new</span>
+                                    </div>
+                                    <div class="product-label discount">
+                                        <span>10%</span>
+                                    </div>
+                                </div>
+                                <div class="button-group">
+                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
+                                </div>
+                                <div class="cart-hover">
+                                    <a href="{{ asset('product/'.$packContainingProduct->product->slug) }}" class="btn btn-cart">Voir le produit</a>
+                                </div>
+                            </figure>
+                            <div class="product-caption text-center">
+                                <h6 class="product-name">
+                                    <a href="{{ asset('product/'.$packContainingProduct->product->slug) }}">{{ $packContainingProduct->product->designation }}</a>
+                                </h6>
+
+                            </div>
+                        </div>
+
+                    @endforeach
+                    @endif
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
 
 </main>
 
@@ -376,6 +434,11 @@
 
 
 <script>
+     $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
     $(".select-icon").click(function() {
         $('.color-categories li').removeAttr('class');
         var title = $(this).attr('title');
@@ -383,6 +446,23 @@
         id = $(this).attr('id');
         $("#li-"+id).addClass("selected-icon");
         $('#related-img-'+id).trigger('click');
+
+        $.ajax(
+                {
+                    url: '/get-qte/'+id,
+                    type: "GET",
+                    success: function (res) {
+                        if(res.qte > 0){
+                            $("#availability-icon").removeClass("fa-times-circle").addClass("fa-check-circle");
+                            $("#qte").text(res.qte + " dans le stock");
+                        }
+                        else{
+                            $("#availability-icon").removeClass("fa-check-circle").addClass("fa-times-circle");
+                            $("#qte").text("Repture");
+                        }
+
+                    }
+                });
     });
 </script>
 @endpush

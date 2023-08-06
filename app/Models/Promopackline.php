@@ -11,4 +11,7 @@ class Promopackline extends Model
     public function product(){
         return $this->belongsTo(Product::class,'product_id');
     }
+    public function packpromo(){
+        return $this->belongsTo(Promopack::class,'promopack_id');
+    }
 }

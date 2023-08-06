@@ -245,6 +245,7 @@
                                             <tr>
                                                 <td style="width: 15%">
                                                     <select  id="select-content"  class="default-select form-control wide "  name="as[0]"  >
+                                                        <option disabled selected>Sélectionner...</option>
                                                         @foreach($attributes as $a)
                                                         <option value="{{$a->id}}">{{$a->value}}</option>
                                                         @endforeach
@@ -254,6 +255,7 @@
 
                                                 <td style="width: 15%">
                                                     <select  id="select-value" class="default-select form-control wide " name="values[0]"  >
+                                                        <option disabled selected>Sélectionner...</option>
                                                     </select>
                                                 </td>
                                                 <td style="width:  10%">
@@ -450,6 +452,7 @@
                     '</td>'+
                     '<td style="width: 15%">'+
                         '<select   id="select-attr'+i+'" class="default-select form-control wide " name="values['+i+']">'+
+                            '<option disabled selected>Sélectionner...</option>'+
                         '</select>'+
                     '</td>'+
                     '<td style="width:  10%">'+
