@@ -271,6 +271,7 @@
 <!-- page main wrapper end -->
 
 <!-- related products area start -->
+@if($related_products != NULL)
 <section class="related-products section-padding">
     <div class="container">
         <div class="row">
@@ -287,7 +288,7 @@
             <div class="col-12">
                 <div class="product-carousel-4 slick-row-10 slick-arrow-style">
                     <!-- product item start -->
-                    @if($related_products)
+
                     @foreach($related_products as $related_product)
                         <div class="product-item">
                             <figure class="product-thumb">
@@ -341,16 +342,17 @@
                         </div>
 
                     @endforeach
-                    @endif
+
                 </div>
             </div>
         </div>
 
     </div>
 </section>
+@endif
 <!-- related products area end -->
 
-
+@if(isset($packsContainingProduct))
 <section class="related-products section-padding">
     <div class="container">
         <div class="row">
@@ -367,7 +369,7 @@
             <div class="col-12">
                 <div class="product-carousel-4 slick-row-10 slick-arrow-style">
                     <!-- product item start -->
-                    @if($packsContainingProduct)
+
                     @foreach($packsContainingProduct as $packContainingProduct)
                         <div class="product-item">
                             <figure class="product-thumb">
@@ -402,14 +404,14 @@
                         </div>
 
                     @endforeach
-                    @endif
+
                 </div>
             </div>
         </div>
 
     </div>
 </section>
-
+@endif
 </main>
 
 <!-- Scroll to top start -->
