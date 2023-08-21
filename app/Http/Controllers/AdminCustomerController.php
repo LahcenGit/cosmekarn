@@ -9,6 +9,10 @@ use TheHocineSaad\LaravelAlgereography\Models\Wilaya;
 class AdminCustomerController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         $customers = User::where('type','customer')->get();
         return view('admin.customers',compact('customers'));

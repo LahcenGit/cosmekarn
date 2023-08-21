@@ -18,6 +18,10 @@ use App\Http\Controllers\CalculateTotalController;
 class OrderController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         $orders = Order::all()->reverse();
         return view('admin.orders',compact('orders'));

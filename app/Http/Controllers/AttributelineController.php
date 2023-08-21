@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 class AttributelineController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function edit($id){
         $attributeline = Attributeline::find($id);
         $attributes = Attribute::all();

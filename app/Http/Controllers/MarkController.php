@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 class MarkController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         $marks = Mark::orderBy('created_at','desc')->get();
         return view('admin.mark',compact('marks'));

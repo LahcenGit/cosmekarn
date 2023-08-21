@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 class AdminCommentController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         $comments = Comment::orderBy('created_at','desc')->get();
         return view('admin.comments',compact('comments'));

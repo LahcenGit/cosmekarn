@@ -25,6 +25,10 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
      $products = Product::all();
      return view('admin.products',compact('products'));

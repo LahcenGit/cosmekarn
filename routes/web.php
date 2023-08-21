@@ -47,6 +47,7 @@ Route::get('/success-order', function () {
 });
 
 //admin route
+Route::middleware(['auth', 'can:admin'])->group(function () {
 Route::resource('/admin/categories',CategoryController::class);
 Route::resource('/admin/attributes',AttributeController::class);
 Route::resource('/admin/attributelines',AttributelineController::class);
@@ -73,7 +74,8 @@ Route::get('/edit-status-order/{id}', [App\Http\Controllers\OrderController::cla
 Route::post('/update-status', [App\Http\Controllers\OrderController::class, 'updateStatus']);
 Route::get('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'index']);
 Route::post('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'generateReport']);
-
+Route::resource('/admin',AdminController::class);
+});
 
 //front route
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
@@ -88,22 +90,18 @@ Route::resource('/admin/delivery-costs',DeliverycostController::class)->middlewa
 Route::get('/update-delivery-cost/{id}/{price_b}/{price_a}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
 Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
 Route::get('/get-qte/{id}', [App\Http\Controllers\ProductController::class, 'getQte']);
-
-Route::resource('/admin',AdminController::class)->middleware('can:admin');
-
-
+Route::get('/about', [App\Http\Controllers\HomeController::class, 'about']);
 
 
 //payment
 Route::post('/redirection', [App\Http\Controllers\PaymentController::class, 'redirectionPayment']);
 Route::post('/webhook', [App\Http\Controllers\PaymentController::class, 'webhook']);
 
-Auth::routes();
-
 //customer
+Route::middleware(['auth', 'can:customer'])->group(function () {
 Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index']);
 Route::get('/customer/order/{id}', [App\Http\Controllers\CustomerController::class, 'orderDetail']);
-Route::get('/about', [App\Http\Controllers\HomeController::class, 'about']);
+});
 
 Route::resource('/comment',CommentController::class);
 Route::resource('/contact',ContactController::class);
@@ -114,8 +112,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //besoin d'api
 Route::get('/retrive', [App\Http\Controllers\TrackingController::class, 'retrivedata']);
-
-
 Route::get('/tracking', [App\Http\Controllers\TrackingController::class, 'tracking']);
 Route::post('/tracking', [App\Http\Controllers\TrackingController::class, 'trackingResult']);
 Route::get('/store-parcel/{id}',[App\Http\Controllers\OrderController::class, 'storeOrderToYalidine']);

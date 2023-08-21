@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 class DeliverycostController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         $delivery_costs = Deliverycost::all();
         return view('admin.delivery-costs',compact('delivery_costs'));
