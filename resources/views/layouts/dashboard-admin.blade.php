@@ -247,6 +247,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{{asset('admin/pack-promo')}}">Pack promo</a></li>
                             <li><a href="{{asset('admin/cart-promo')}}">Promo panier</a></li>
+                            <li><a href="{{asset('admin/coupons')}}">Code coupon</a></li>
                         </ul>
                     </li>
                     <li><a class="ai-icon" href="{{ asset('admin/orders') }}" aria-expanded="false">

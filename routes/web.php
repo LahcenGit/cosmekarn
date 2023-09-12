@@ -18,6 +18,8 @@ use App\Http\Controllers\PromopackController;
 use App\Http\Controllers\PromocartController;
 use App\Http\Controllers\DeliverycostController;
 use App\Http\Controllers\MarkController;
+use App\Http\Controllers\CouponcodeController;
+use App\Models\Couponcode;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -59,6 +61,7 @@ Route::resource('/admin/pack-promo',PromopackController::class);
 Route::resource('/admin/cart-promo',PromocartController::class);
 Route::resource('/admin/payments',AdminPaymentController::class);
 Route::resource('/admin/marks',MarkController::class);
+Route::resource('/admin/coupons',CouponcodeController::class);
 Route::get('pack-details/{id}', [PromopackController::class, 'packDetail']);
 Route::get('cart-details/{id}', [PromocartController::class, 'cartDetail']);
 Route::get('order-details/{id}', [OrderController::class, 'orderDetails']);
@@ -75,6 +78,7 @@ Route::post('/update-status', [App\Http\Controllers\OrderController::class, 'upd
 Route::get('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'index']);
 Route::post('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'generateReport']);
 Route::resource('/admin',AdminController::class);
+
 });
 
 //front route
@@ -119,3 +123,4 @@ Route::get('/store-parcel/{id}',[App\Http\Controllers\OrderController::class, 's
 Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);
 Route::get('/get-centers/{name}', [App\Http\Controllers\CheckoutController::class, 'getCenters']);
 Route::get('/get-cost/{wilaya}/{commune}', [App\Http\Controllers\CheckoutController::class, 'getCost']);
+Auth::routes();
