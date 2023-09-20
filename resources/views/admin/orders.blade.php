@@ -69,8 +69,9 @@
                                                     @if($order->status == 0)
                                                     <button data-id="{{ $order->id }}" class="btn btn-success shadow btn-xs sharp mr-1 add-odrer-to-yalidine"><i class="fas fa-plus"></i></button>
                                                     @endif
+                                                    <a href="#" data-id="{{ $order->id }}" class="btn btn-info shadow btn-xs sharp mr-1 edit-status"><i class="fab fa-digital-ocean"></i></a>
                                                     <a href="{{url('admin/orders/'.$order->id.'/edit')}}" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                                    <a href="#" data-id="{{ $order->id }}" class="btn btn-warning shadow btn-xs sharp mr-1 edit-status"><i class="fas fa-pencil-alt"></i></a>
+                      
                                                     <form action="{{url('admin/orders/'.$order->id)}}" method="post">
                                                         {{csrf_field()}}
                                                         {{method_field('DELETE')}}
