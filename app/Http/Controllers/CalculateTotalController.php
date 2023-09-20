@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cartitem;
+use App\Models\Couponcode;
 use App\Models\Deliverycost;
+use App\Models\Product;
 use App\Models\Productline;
 use App\Models\Promocart;
 use Carbon\Carbon;
@@ -11,7 +14,7 @@ use Illuminate\Http\Request;
 class CalculateTotalController extends Controller
 {
     //
-    public function calculerTotal($products , $wilaya , $commune , $shipping , $qte )
+    public function calculerTotal($products , $wilaya , $commune , $shipping , $qte ,$coupon)
     {
         // Effectuez le calcul du total des produits selon la logique souhaitée
         $type_promo = null;
@@ -25,7 +28,6 @@ class CalculateTotalController extends Controller
 
         for($i=0; $i<count($products) ; $i++){
             $productline = Productline::where('id',$products[$i])->first();// calculate total
-
             array_push($panierProduits , $productline->product_id); //push id product
 
             if($productline->promo_price != NULL){
@@ -35,8 +37,78 @@ class CalculateTotalController extends Controller
             else{
                 $total = $total + $productline->price * $qte[$i];
             }
+        }
 
 
+        // test code coupon
+        $code = Couponcode::where('code',$coupon)->first();
+        if($code){
+            $date_expiration = Carbon::parse($code->expiration_date );
+        }
+        // Récupérez les catégories des produits dans le panier
+        $cart_product_categories = Product::join('productcategories', 'products.id', '=', 'productcategories.product_id')
+                                        ->whereIn('product_id', $products)
+                                        ->distinct()
+                                        ->pluck('category_id')
+                                        ->toArray();
+
+        $date_now = Carbon::now();
+        if($code && $date_expiration->gt($date_now) && $code->usage_limit_code > 0){
+            $coupon_categories = json_decode($code->categories);
+            // Vérifiez si toutes les catégories des produits dans le panier correspondent aux catégories du coupon
+            $all_categories_match = array_diff($cart_product_categories, $coupon_categories);
+
+            if ($code->minimum_spend !== null) {
+            if ($total >= $code->minimum_spend) {
+                if($code->categories !== null && $all_categories_match){
+                    if($code->type =='0'){ //fix
+                        $total_promo = $total - $code->value ;
+
+                    }
+                    else{//pourcentage
+
+                        $total_promo =  $total - ( $total * $code->value)/100 ;
+
+                    }
+                }
+                else{
+                    if($code->type =='0'){ //fix
+                        $total_promo = $total - $code->value ;
+
+                    }
+                    else{//pourcentage
+
+                        $total_promo =  $total - ( $total * $code->value)/100 ;
+
+                    }
+                }
+                }
+
+            }
+            else{
+                if($code->categories !== null && $all_categories_match){
+                    if($code->type =='0'){ //fix
+                        $total_promo = $total_promo - $code->value ;
+
+                    }
+                    else{//pourcentage
+
+                        $total_promo =  $total - ( $total * $code->value)/100 ;
+
+                    }
+                }
+                else{
+                    if($code->type =='0'){ //fix
+                        $total_promo = $total - $code->value ;
+
+                    }
+                    else{//pourcentage
+
+                        $total_promo =  $total - ( $total * $code->value)/100 ;
+
+                    }
+                }
+            }
         }
 
         //promo panier explicite
@@ -135,6 +207,7 @@ class CalculateTotalController extends Controller
                  $delivery_cost = $delivery_cost->price_a + $delivery_cost->supp;
              }
         }
+
         return [
             'total' => $total,
             'total_f' => $total_f,

@@ -1,7 +1,5 @@
 @extends('layouts.front')
 @section('content')
-
-
 <main>
     <!-- breadcrumb area start -->
     <div class="breadcrumb-area">
@@ -41,9 +39,11 @@
                                 <div class="card-body">
                                     <div class="cart-update-option">
                                         <div class="apply-coupon-wrapper">
-                                            <input type="text" name="coupon" placeholder="Entrer votre code" />
+                                            <input type="text" name="coupon" placeholder="Entrer votre code" id="coupon-input" />
                                             <button type="button" id="coupon-btn" class="btn btn-sqr">Valider</button>
                                         </div>
+                                    </div>
+                                    <div id="show_error_msg" >
                                     </div>
                                 </div>
                             </div>
@@ -145,11 +145,12 @@
                                     </thead>
                                     <tbody>
                                         @foreach($cartitems as $cartitem)
-                                            <tr>
+                                            <tr data-cart-id="{{ $cartitem->cart_id }}">
                                                 <td><a href="{{ asset('product/'. $cartitem->productline->product->slug) }}">{{ $cartitem->productline->product->designation }}<strong> × {{ $cartitem->qte }}</strong></a>
                                                 </td>
                                                 <td>{{ number_format($cartitem->total) }} Da</td>
                                             </tr>
+
                                         @endforeach
                                     </tbody>
                                     <tfoot>
@@ -241,15 +242,11 @@
                                     <button  class="btn btn-sqr btn-submit">Commander</button>
 
                                 </div>
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </form>
@@ -308,14 +305,18 @@
     $( "#communes" ).change(function() {
         var wilaya = $('#wilayas').val();
         var commune = $(this).val();
-        var total_promo = '{{$total_promo}}';
         check = $('input[name="shipping"]:checked', '.shipping-type').val();
-        if(total_promo){
+        /*
+        var total_promo = '{{$total_promo}}';
+         if(total_promo){
             var total = total_promo;
         }
         else{
             var total = '{{$total->sum}}';
-        }
+        }*/
+        var totalText = $('.total-price').text();
+        var total = parseFloat(totalText.match(/[0-9,]+/)[0].replace(',', ''));
+
         var total_final;
        $.ajax({
 			url: '/get-cost/'+wilaya+'/'+ commune ,
@@ -325,11 +326,11 @@
                 $('#bureau-cost').html(res.price_b);
                 $('#domicile-cost').html(res.price_a + res.supp);
                 if(check == 'bureau'){
-                    total_final = parseFloat(total) + parseFloat(res.price_b);
+                    total_final = total + parseFloat(res.price_b);
                     $('.total-price').html(total_final +'Da');
                 }
                 if(check == 'domicile'){
-                    total_final = parseFloat(total) + parseFloat(res.price_a) + parseFloat(res.supp) ;
+                    total_final = total + parseFloat(res.price_a) + parseFloat(res.supp) ;
                     $('.total-price').html(total_final +'Da');
                 }
 
@@ -346,18 +347,18 @@
     $('.shipping-redio').on('click', function() {
       var wilaya = $('#wilayas').val();
       var commune = $('#communes').val();
-      var total_promo = '{{$total_promo}}';
+      var totalText = $('.total-price').text();
+      var total = parseFloat(totalText.match(/[0-9,]+/)[0].replace(',', ''));
       check = $('input[name="shipping"]:checked', '.shipping-type').val();
-
-        if(total_promo){
+       /*
+        var total_promo = '{{$total_promo}}';
+         if(total_promo){
             var total = total_promo;
         }
         else{
             var total = '{{$total->sum}}';
-        }
-      total = parseInt(total);
-
-      $.ajax({
+        }*/
+     $.ajax({
 			url: '/get-cost/'+wilaya+'/'+ commune ,
 			type: 'GET',
 
@@ -379,12 +380,25 @@
     });
 
     $('#coupon-btn').on('click', function() {
-        if($('input[name=coupon]').val() == 'cosmekarn100'){
-            $('.total-price').text(100 + ' Da');
-        }
-        else{
-            alert('coupon incorrect');
-        }
+        var code_coupon = $('input[name=coupon]').val();
+        var totalText = $('.total-price').text();
+        var total_value = parseFloat(totalText.match(/[0-9,]+/)[0].replace(',', ''));
+        var cart_id = $("tbody tr:first").data("cart-id");
+
+        $.ajax({
+			url: '/code-coupon/'+code_coupon +'/'+total_value+'/'+cart_id,
+			type: 'GET',
+
+        success: function (res) {
+             if(res == 'error'){
+                $('#show_error_msg').html('<div class="alert alert-danger flash-alert mt-2" id="form-danger" role="alert"> Code coupon invalide !</div>');
+             }
+             else{
+                $('.total-price').text(res + ' Da');
+             }
+           }
+
+        });
 
     });
     $( ".btn-submit" ).click(function(e) {

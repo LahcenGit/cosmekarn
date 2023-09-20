@@ -18,6 +18,7 @@ class CouponcodeController extends Controller
         $products = Product::orderBy('created_at','desc')->get();
         $categories = Category::where('parent_id',null)->orderBy('created_at','desc')->get();
         $value = null;
+
         return view('admin.add-coupon-code',compact('products','categories','value'));
     }
 
@@ -34,18 +35,26 @@ class CouponcodeController extends Controller
         $coupon->free_delivery = $request->free_delivery;
         $coupon->individual_use = $request->individual_use;
         $coupon->usage_limit_code = $request->usage_limit_code;
-        if($request->products){
+        /*if($request->products){
             $coupon->products = json_encode($request['products']);
         }
         if($request->exclude_products){
             $coupon->exclude_products = json_encode($request['exclude_products']);
-        }
+        }*/
         if($request->categories){
             $coupon->categories = json_encode($request['categories']);
+            foreach($request->categories as $category_id){
+                $category = Category::find($category_id);
+                if ($category) {
+                    // Accédez aux sous-catégories de la catégorie
+                    $child_categories_ids = $category->childCategories->pluck('id')->toArray();
+                    $coupon->categories = json_encode($child_categories_ids);
+                }
+            }
         }
-        if($request->exclude_categories){
+        /*if($request->exclude_categories){
             $coupon->exclude_categories = json_encode($request['exclude_categories']);
-        }
+        }*/
         $coupon->save();
         return redirect('admin/coupons');
     }

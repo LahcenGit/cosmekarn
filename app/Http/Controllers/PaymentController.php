@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Cartitem;
 use App\Models\Category;
+use App\Models\Couponcode;
 use App\Models\Deliverycost;
 use App\Models\Order;
 use App\Models\Orderline;
+use App\Models\Product;
 use App\Models\Promocart;
 use App\Models\User;
 use Carbon\Carbon;
@@ -19,8 +21,6 @@ use TheHocineSaad\LaravelChargilyEPay\Epay_Webhook;
 class PaymentController extends Controller
 {
     public function redirectionPayment(Request $request){
-
-
     $cart = Cart::where('user_id',Auth::user()->id)->first();
     $total = Cartitem::where('cart_id',$cart->id)->sum('total');
     $date = Carbon::now()->format('y');
@@ -30,88 +30,15 @@ class PaymentController extends Controller
     $value_promo = null;
     $currentDate = Carbon::now()->format('Y-m-d');
     $panierProduits = Cartitem::join('productlines', 'cartitems.productline_id', '=', 'productlines.id')
-                                ->select('productlines.product_id')
-                                ->where('cart_id',$request->cart_id)
-                                ->pluck('productlines.product_id');
+                                ->select('productlines.id')
+                                ->where('cart_id',$cart->id)
+                                ->pluck('productlines.id');
 
-    //promo panier explicite
-    $carts_promo_explicite = Promocart::whereDate('date_debut', '<=', $currentDate)
-                    ->whereDate('date_fin', '>=', $currentDate)
-                    ->where('type',1)
-                    ->get();
-
-    if($carts_promo_explicite){
-        $promoProducts = collect([]);
-        foreach ($carts_promo_explicite as $promo) {
-            $promoProducts = $promoProducts->merge(json_decode($promo->product));
-
-        }
-
-        if ($panierProduits->isNotEmpty() && $promoProducts->isNotEmpty() &&$panierProduits->intersect($promoProducts)->count() === $promoProducts->count()) {
-            $has_promo = true ;
-            $type_promo = $promo->format ;
-            $value_promo = $promo->value ;
-
-            if($type_promo  =='0'){ //fix
-                $total_promo = $total->sum - $value_promo ;
-
-            }
-            else{//pourcentage
-                $total_promo = $total->sum - ($total*$value_promo)/100 ;
-            }
-        }
-        else{//promo panier implicite
-            $cart_promo_implicite = Promocart::whereDate('date_debut', '<=', $currentDate)
-            ->whereDate('date_fin', '>=', $currentDate)
-            ->where('mt_panier', '<=', $total)
-            ->where('type',0)
-            ->orderByDesc('mt_panier')
-            ->first();
-           if($cart_promo_implicite){
-            $has_promo = true ;
-            $type_promo = $cart_promo_implicite->format ;
-            $value_promo = $cart_promo_implicite->value ;
-
-            if($cart_promo_implicite->type == '0'){//implicite
-                if($type_promo  =='0'){ //fix
-                    $total_promo = $total - $value_promo ;
-
-                }
-                else{//pourcentage
-                    $total_promo = $total - ($total*$value_promo)/100 ;
-                }
-            }
-            }
-
-        }
-    }
-    else{
-        $cart_promo_implicite = Promocart::whereDate('date_debut', '<=', $currentDate)
-            ->whereDate('date_fin', '>=', $currentDate)
-            ->where('mt_panier', '<=', $total->sum)
-            ->where('type',0)
-            ->orderByDesc('mt_panier')
-            ->first();
-           if($cart_promo_implicite){
-            $has_promo = true ;
-            $type_promo = $cart_promo_implicite->format ;
-            $value_promo = $cart_promo_implicite->value ;
-
-            if($cart_promo_implicite->type == '0'){//implicite
-                if($type_promo  =='0'){ //fix
-                    $total_promo = $total->sum - $value_promo ;
-
-                }
-                else{//pourcentage
-                    $total_promo = $total->sum - ($total*$value_promo)/100 ;
-                }
-            }
-            }
-
-    }
-
+    $qte = Cartitem::select('qte')
+                    ->where('cart_id',$cart->id)
+                    ->pluck('qte');
+    $resultatsCalcul = (new CalculateTotalController)->calculerTotal($panierProduits ,$request->country ,$request->commune , $request->shipping , $qte ,$request->coupon);
     $name = $request->first_name.' '.$request->last_name;
-
     $order = new Order();
     $order->user_id = Auth::user()->id;
     $order->first_name = $request->first_name;
@@ -123,37 +50,10 @@ class PaymentController extends Controller
     $order->phone = $request->phone;
     $order->note = $request->ordernote;
     $order->payment_method = $request->paymentmethod;
-
-    $order->total = $total;
-
-    if($total_promo){
-        if($request->shipping == "bureau"){
-           $total_f = $total_promo + $delivery_cost->price_b;
-           $order->delivery_cost =  $delivery_cost->price_b;
-           $order->is_stopdesk = true;
-           $order->stopdesk_id= $request->center;
-        }
-        if($request->shipping == "domicile"){
-            $total_f = $total_promo + $delivery_cost->price_a + $delivery_cost->supp;
-            $order->delivery_cost =  $delivery_cost->price_a + $delivery_cost->supp;
-            $order->is_stopdesk = false;
-        }
-     }
-    else{
-        if($request->shipping == "bureau"){
-            $total_f = $total + $delivery_cost->price_b;
-            $order->delivery_cost =  $delivery_cost->price_b;
-            $order->is_stopdesk = true;
-            $order->stopdesk_id= $request->center;
-         }
-         if($request->shipping == "domicile"){
-             $total_f = $total + $delivery_cost->price_a + $delivery_cost->supp;
-             $order->delivery_cost =  $delivery_cost->price_a + $delivery_cost->supp;
-             $order->is_stopdesk = false;
-         }
-    }
-    $order->total_f = $total_f;
-    $order->value = $value_promo;
+    $order->total = $resultatsCalcul['total'];
+    $order->total_f =  $resultatsCalcul['total_f'];
+    $order->delivery_cost = $resultatsCalcul['delivery_cost'];
+    $order->value = $resultatsCalcul['value'];
      if($request->paymentmethod == 'EDAHABIA' || $request->paymentmethod == 'CIB'){
 
         $configurations = [
@@ -162,7 +62,7 @@ class PaymentController extends Controller
             'payment' => [
              'client_name' => $name , // Client name
              'client_email' => $request->email, // This is where client receives payment receipt after confirmation
-                'amount' => $total_f, // Must be = or > than 75
+                'amount' =>  $resultatsCalcul['total_f'], // Must be = or > than 75
                 'discount' => 0, // This is discount percentage, between 0 and 99
                 'description' => 'payment for product', // This is the payment description
             ]

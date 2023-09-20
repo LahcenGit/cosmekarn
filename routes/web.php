@@ -95,6 +95,7 @@ Route::get('/update-delivery-cost/{id}/{price_b}/{price_a}', [App\Http\Controlle
 Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
 Route::get('/get-qte/{id}', [App\Http\Controllers\ProductController::class, 'getQte']);
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about']);
+Route::get('/code-coupon/{code_coupon}/{total_value}/{cart_id}', [App\Http\Controllers\CheckoutController::class, 'testCode']);
 
 
 //payment

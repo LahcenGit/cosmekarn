@@ -110,7 +110,7 @@
                                     </div>
                                     <div id="bordered_no-gutter_collapseTwo" class="collapse accordion__body" data-parent="#accordion-four">
                                         <div class="accordion__body--text">
-                                            <div class="form-group row">
+                                           {{-- <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Dépense minimale </label>
                                                 <div class="col-sm-9">
                                                     <input type="text"  class="form-control input-default @error('minimum_spend') is-invalid @enderror" value="{{old('minimum_spend')}}" name="minimum_spend" placeholder="dépense minimale">
@@ -121,6 +121,7 @@
                                                         @enderror
                                                 </div>
                                             </div>
+                                            --}}
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Dépense maximum </label>
                                                 <div class="col-sm-9">
@@ -132,6 +133,7 @@
                                                         @enderror
                                                 </div>
                                             </div>
+                                            {{--
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Produits</label>
                                                 <div class="col-sm-9">
@@ -143,6 +145,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Exclure le produits</label>
                                                 <div class="col-sm-9">
@@ -154,43 +157,45 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            --}}
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Catégories</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="categories[]" multiple>
                                                         <option value="" disabled >Selectionner...</option>
                                                         @foreach($categories as $category)
-                                                            @if($value)
-                                                                <option value="{{$category->id}}" @if ($value == $category->id ) selected @endif >{{$category->designation}}</option>
-                                                                @foreach($category->childCategories as $sub)
+                                                            <option value="{{$category->id}}">{{$category->designation}}</option>
+                                                                {{--  @foreach($category->childCategories as $sub)
 
-                                                                <option  value="{{$sub->id}}" @if ($value == $sub->id ) selected @endif> &nbsp &nbsp{{$sub->designation}}</option>
-                                                                @foreach($sub->childCategories as $subsub)
-                                                                    <option value="{{$subsub->id}}"  @if ($value == $subsub->id ) selected @endif>  &nbsp  &nbsp  &nbsp &nbsp{{$subsub->designation}}</option>
+                                                                    <option  value="{{$sub->id}}" @if ($value == $sub->id ) selected @endif> &nbsp &nbsp{{$sub->designation}}</option>
+                                                                    @foreach($sub->childCategories as $subsub)
+                                                                        <option value="{{$subsub->id}}"  @if ($value == $subsub->id ) selected @endif>  &nbsp  &nbsp  &nbsp &nbsp{{$subsub->designation}}</option>
 
 
-                                                                @foreach($subsub->childCategories as $subsubsub)
-                                                                <option value="{{$subsubsub->id}}"  @if ($value == $subsubsub->id ) selected @endif>  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp{{$subsubsub->designation}}</option>
-                                                                @endforeach
-                                                                @endforeach
-                                                                @endforeach
-                                                            @else
-                                                                <option value="{{$category->id}}" @if (old('category') == $category->id ) selected @endif >{{$category->designation}}</option>
-                                                                @foreach($category->childCategories as $sub)
+                                                                    @foreach($subsub->childCategories as $subsubsub)
+                                                                    <option value="{{$subsubsub->id}}"  @if ($value == $subsubsub->id ) selected @endif>  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp{{$subsubsub->designation}}</option>
+                                                                    @endforeach
+                                                                    @endforeach
+                                                                    @endforeach
+                                                                @else
+                                                                    <option value="{{$category->id}}" @if (old('category') == $category->id ) selected @endif >{{$category->designation}}</option>
+                                                                    @foreach($category->childCategories as $sub)
 
-                                                                <option  value="{{$sub->id}}" @if (old('category') == $sub->id ) selected @endif> &nbsp &nbsp{{$sub->designation}}</option>
-                                                                @foreach($sub->childCategories as $subsub)
-                                                                    <option value="{{$subsub->id}}"  @if (old('category') == $subsub->id ) selected @endif>  &nbsp  &nbsp  &nbsp &nbsp{{$subsub->designation}}</option>
-                                                                @foreach($subsub->childCategories as $subsubsub)
-                                                                <option value="{{$subsubsub->id}}"  @if (old('category') == $subsubsub->id ) selected @endif>  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp{{$subsubsub->designation}}</option>
-                                                                @endforeach
-                                                                @endforeach
-                                                                @endforeach
-                                                            @endif
+                                                                    <option  value="{{$sub->id}}" @if (old('category') == $sub->id ) selected @endif> &nbsp &nbsp{{$sub->designation}}</option>
+                                                                    @foreach($sub->childCategories as $subsub)
+                                                                        <option value="{{$subsub->id}}"  @if (old('category') == $subsub->id ) selected @endif>  &nbsp  &nbsp  &nbsp &nbsp{{$subsub->designation}}</option>
+                                                                    @foreach($subsub->childCategories as $subsubsub)
+                                                                    <option value="{{$subsubsub->id}}"  @if (old('category') == $subsubsub->id ) selected @endif>  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp{{$subsubsub->designation}}</option>
+                                                                    @endforeach
+                                                                    @endforeach
+                                                                    @endforeach
+                                                                    --}}
+
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
+                                            {{--
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Exclure le catégories</label>
                                                 <div class="col-sm-9">
@@ -228,6 +233,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            --}}
                                         </div>
                                     </div>
                                 </div>

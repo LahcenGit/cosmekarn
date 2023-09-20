@@ -6,7 +6,9 @@ use App\Models\Cart;
 use App\Models\Cartitem;
 use App\Models\Category;
 use App\Models\Center;
+use App\Models\Couponcode;
 use App\Models\Deliverycost;
+use App\Models\Product;
 use App\Models\Promocart;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -136,5 +138,89 @@ class CheckoutController extends Controller
 
     public function getCost($wilaya,$commune){
         return  $cost = Deliverycost::where('wilaya',$wilaya)->where('commune',$commune)->first();
+    }
+
+
+    public function testCode($code_coupon , $total_value , $cart_id){
+     $code = Couponcode::where('code',$code_coupon)->first();
+     if($code){
+        $date_expiration = Carbon::parse($code->expiration_date );
+     }
+
+     //Récupérez les produits du panier
+     $cart_product_ids = Cartitem::join('productlines', 'cartitems.productline_id', '=', 'productlines.id')
+                                    ->select('productlines.product_id')
+                                    ->where('cart_id',$cart_id)
+                                    ->pluck('productlines.product_id');
+    // Récupérez les catégories des produits dans le panier
+    $cart_product_categories = Product::join('productcategories', 'products.id', '=', 'productcategories.product_id')
+                                    ->whereIn('product_id', $cart_product_ids)
+                                    ->distinct()
+                                    ->pluck('category_id')
+                                    ->toArray();
+
+     $date = Carbon::now();
+     if($code && $date_expiration->gt($date) && $code->usage_limit_code > 0){
+        $coupon_categories = json_decode($code->categories);
+        // Vérifiez si toutes les catégories des produits dans le panier correspondent aux catégories du coupon
+        $all_categories_match = array_diff($cart_product_categories, $coupon_categories);
+
+        if ($code->minimum_spend !== null) {
+           if ($total_value >= $code->minimum_spend) {
+               if($code->categories !== null && $all_categories_match){
+                if($code->type =='0'){ //fix
+                    $total_promo = $total_value - $code->value ;
+                    return number_format($total_promo);
+                }
+                else{//pourcentage
+
+                    $total_promo =  $total_value - ( $total_value * $code->value)/100 ;
+                    return number_format($total_promo);
+                }
+               }
+               else{
+                if($code->type =='0'){ //fix
+                    $total_promo = $total_value - $code->value ;
+                    return number_format($total_promo);
+                }
+                else{//pourcentage
+
+                    $total_promo =  $total_value - ( $total_value * $code->value)/100 ;
+                    return number_format($total_promo);
+                }
+               }
+            }
+            else {
+                  return 'error';
+            }
+        }
+        else{
+            if($code->categories !== null && $all_categories_match){
+                if($code->type =='0'){ //fix
+                    $total_promo = $total_value - $code->value ;
+                    return number_format($total_promo);
+                }
+                else{//pourcentage
+
+                    $total_promo =  $total_value - ( $total_value * $code->value)/100 ;
+                    return number_format($total_promo);
+                }
+            }
+            else{
+                if($code->type =='0'){ //fix
+                    $total_promo = $total_value - $code->value ;
+                    return number_format($total_promo);
+                }
+                else{//pourcentage
+
+                    $total_promo =  $total_value - ( $total_value * $code->value)/100 ;
+                    return number_format($total_promo);
+                }
+            }
+        }
+     }
+     else{
+        return 'error';
+     }
     }
 }
