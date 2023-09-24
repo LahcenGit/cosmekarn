@@ -25,7 +25,7 @@
             <div class="col-xl-9 col-lg-9">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Ajouter pack promo</h4>
+                        <h4 class="card-title">Editer promo panier</h4>
                     </div>
                     <div class="card-body">
                             <div class="form-row">
@@ -67,9 +67,9 @@
                                 <div class="form-group col-md-4">
                                     <label>Format:</label>
                                     <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="format">
-                                        <option value=0>Nothing selected</option>
-                                        <option value="0" @if (old('type') == 0 ) selected @endif >Fix</option>
-                                        <option value="1" @if (old('type') == 1  ) selected @endif >Pourcentage</option>
+                                        <option >Nothing selected</option>
+                                        <option value="0" @if ($cart_promo->format == 0 ) selected @endif >Fix</option>
+                                        <option value="1" @if ($cart_promo->format == 1  ) selected @endif >Pourcentage</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
