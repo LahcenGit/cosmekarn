@@ -93,7 +93,7 @@
                                 @endif
                                 <div class="availability">
                                     <i id="availability-icon" class="fa fa-check-circle"></i>
-                                    <span id="qte">{{ $product_line->qte }} dans le stock</span>
+                                    <span id="qte">{{ $productLine->qte }} dans le stock</span>
                                 </div>
                                 <p class="pro-desc">{{$product->short_description}}</p>
 
@@ -148,7 +148,7 @@
 
                                     <h6 class="option-title">Qte:</h6>
                                     <div class="quantity">
-                                        <div class="pro-qty"><input type="text" class="qty-val" value="1"></div>
+                                        <div class="pro-qty"><input id="monChamp" type="text" class="qty-val" max="{{ $productLine->qte }}" min="1" value="1"></div>
                                     </div>
                                     <div class="action_link">
                                         <a class="btn btn-cart2 addToCartBtn" href="JavaScript:void(0);">Ajouter au panier</a>

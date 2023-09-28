@@ -284,7 +284,7 @@ class ProductController extends Controller
                             ->orderBy('price','asc')
                             ->get();
             //first productline
-            $product_line = Productline::where('product_id',$product->id)->first();
+            $productLine = Productline::where('product_id',$product->id)->first();
             $attributes = null;
 
             $images = $product->images;
@@ -302,7 +302,7 @@ class ProductController extends Controller
            $secondary_images = $images->where('type',2);
            $min_price = null;
            $min_price_promo = null;
-           $product_line = Productline::where('product_id',$product->id)->first();
+           $productLine = Productline::where('product_id',$product->id)->first();
            $productlines = null;
            $attributes = null;
            $product_lines = null;
@@ -352,7 +352,7 @@ class ProductController extends Controller
             $query->where('product_id', $id_product);
         })->get();
 
-        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','secondary_images','images','images_attributes','cartitems','nbr_cartitem','total','comments','count_comment','nbr_comment','packsContainingProduct'));
+        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','productLine','secondary_images','images','images_attributes','cartitems','nbr_cartitem','total','comments','count_comment','nbr_comment','packsContainingProduct'));
     }
 
 
