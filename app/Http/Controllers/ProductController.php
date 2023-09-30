@@ -264,6 +264,7 @@ class ProductController extends Controller
 
 
     public function detailProduct($slug){
+        include(app_path() . '\Functions\header.php');
         $product = Product::where('slug',$slug)->first();
         $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
         $countproductlines = Productline::where('product_id',$product->id)->count();
@@ -318,27 +319,6 @@ class ProductController extends Controller
        else{
         $related_products = NULL;
        }
-
-        if(Auth::user()){
-            $cart = Cart::where('user_id',Auth::user()->id)->first();
-            $cartitems = $cart->cartitems;
-
-            if($cartitems ){
-                $nbr_cartitem = $cart->cartitems->count();
-                $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-            }
-            else{
-                $cartitems = null;
-                $nbr_cartitem = 0;
-                $total = 0;
-            }
-        }
-        else{
-            $cart= session('cart_id');
-            $cartitems = Cartitem::where('cart_id',$cart)->get();
-            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        }
         $comments = Comment::where('product_id',$product->id)->get();
         $count_comment = Comment::where('product_id',$product->id)->count();
         $nbr_comment = 0;
@@ -352,7 +332,7 @@ class ProductController extends Controller
             $query->where('product_id', $id_product);
         })->get();
 
-        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','productLine','secondary_images','images','images_attributes','cartitems','nbr_cartitem','total','comments','count_comment','nbr_comment','packsContainingProduct'));
+        return view('detail-product',compact('product','product_lines','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','productLine','secondary_images','images','images_attributes','cartitems','nbr_cartitem','total','comments','count_comment','nbr_comment','packsContainingProduct','favoritelines','nbr_favoritelines'));
     }
 
 

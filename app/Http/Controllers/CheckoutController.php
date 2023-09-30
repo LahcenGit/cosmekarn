@@ -8,10 +8,13 @@ use App\Models\Category;
 use App\Models\Center;
 use App\Models\Couponcode;
 use App\Models\Deliverycost;
+use App\Models\Favorite;
+use App\Models\Favoriteline;
 use App\Models\Product;
 use App\Models\Promocart;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use TheHocineSaad\LaravelAlgereography\Models\Wilaya;
 
 class CheckoutController extends Controller
@@ -21,14 +24,18 @@ class CheckoutController extends Controller
         $this->middleware('auth');
     }
 
-
-
     public function index(Request $request){
 
         $cart = Cart::find($request->cart_id);
         $cartitems = Cartitem::where('cart_id',$request->cart_id)->get();
         $nbr_cartitem = $cartitems->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$request->cart_id)->first();
+
+        $favorite = Favorite::where('user_id',Auth::user()->id)->first();
+        $favorite_id = $favorite->id;
+        $favoritelines = Favoriteline::where('favorite_id',$favorite->id)->get();
+        $nbr_favoritelines = Favoriteline::where('favorite_id',$favorite->id)->count();
+
         $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
         $wilayas = Deliverycost::select('*')->groupBy('wilaya')->get();
 
@@ -123,7 +130,7 @@ class CheckoutController extends Controller
         }
 
 
-         return view('checkout',compact('cartitems','nbr_cartitem','total','wilayas','categories','type_promo','total_promo','value_promo','has_promo'));
+         return view('checkout',compact('cartitems','nbr_cartitem','total','wilayas','categories','type_promo','total_promo','value_promo','has_promo','favoritelines','nbr_favoritelines'));
 
     }
 

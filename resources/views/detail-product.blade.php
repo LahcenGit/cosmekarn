@@ -92,8 +92,12 @@
 
                                 @endif
                                 <div class="availability">
+                                    @if($productLine->qte >0)
                                     <i id="availability-icon" class="fa fa-check-circle"></i>
-                                    <span id="qte">{{ $productLine->qte }} dans le stock</span>
+                                    @else
+                                    <i id="availability-icon" class="fa fa-times-circle"></i>
+                                    @endif
+                                    <span id="qte">@if($productLine->qte >0){{ $productLine->qte }} dans le stock @else Repture @endif</span>
                                 </div>
                                 <p class="pro-desc">{{$product->short_description}}</p>
 
@@ -610,38 +614,43 @@
                    }
 
                     $.ajax({
-                            url: '/favorites',
+                            url: '/favorite',
                             type: "POST",
                             data:{
                                 'id' : id,
                             },
                             success: function (res) {
-                                toastr.success('Produit ajouté avec success');
-                                $(".nbr_product_favorite").text(res.nbr_favorite);
-                                if(res.qtes > 0){
+
+                               if(res.qtes > 0){
                                     alert("Le produit existe déja dans votre panier");
+                                }
+                                else{
+                                    toastr.success('Produit ajouté avec success');
+                                    $(".nbr_product_favorite").text(res.nbr_favorite);
                                 }
                             }
                     });
                          }
-                         else{
-                            var id = res.productlines.id;
+                    else{
+                        var id = res.productlines.id;
 
-                            $.ajax({
-                            url: '/favorites',
-                            type: "POST",
-                            data:{
-                                'id' : id,
+                        $.ajax({
+                        url: '/favorites',
+                        type: "POST",
+                        data:{
+                            'id' : id,
 
-                            },
-                            success: function (res) {
+                        },
+                        success: function (res) {
+                            if(res.qtes > 0){
+                                alert("Le produit existe déja dans votre panier");
+                            }
+                            else{
                                 toastr.success('Produit ajouté avec success');
                                 $(".nbr_product_favorite").text(res.nbr_favorite);
-                                if(res.qtes > 0){
-                                    alert("Le produit existe déja dans votre panier");
-                                }
                             }
-                            });
+                        }
+                        });
                          }
                }
             });

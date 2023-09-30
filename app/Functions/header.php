@@ -25,12 +25,11 @@ if(Auth::user()){
 
     $favorite = Favorite::where('user_id',Auth::user()->id)->first();
     $favorite_id = $favorite->id;
-    if($favorite){
-    $favoritelines = $favorite->favoritelines;
-    $nbr_favoritelines = $favorite->favoritelines->count();
+    $favoritelines = Favoriteline::where('favorite_id',$favorite->id)->get();
+    $nbr_favoritelines = Favoriteline::where('favorite_id',$favorite->id)->count();
     $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
-    return view('favorite',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total'));
-    }
+
+
 }
 else{
     $cart_id = session('cart_id');

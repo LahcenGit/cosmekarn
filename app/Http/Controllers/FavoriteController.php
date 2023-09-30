@@ -50,7 +50,7 @@ class FavoriteController extends Controller
         else{
          $favorite = session()->get('favorite_id');
             if($favorite){
-                $product_exist = Favoriteline::where('productline_id',$request->input('id'))->where('favorite_id',$favorite)->first();
+                $product_exist = Favoriteline::where('productline_id',$request->input('id'))->where('favorite_id',$favorite->id)->first();
                     if($product_exist){
                         $data = array(
                         'qtes' => 1,
@@ -88,5 +88,43 @@ class FavoriteController extends Controller
 
         }
         }
+  }
+
+  public function destroy($id){
+    $favoriteline = Favoriteline::find($id);
+    if(Auth::user()){
+        $favorite = Favorite::where('user_id',Auth::user()->id)->first();
+          if($favoriteline) {
+                if($favoriteline->favorite_id == $favorite->id){
+                    $favoriteline->delete();
+                    $nbr_favoriteline = $favorite->favoriteline->count();
+                    return $nbr_favoriteline;
+                }
+                else{
+                    abort(404, 'Page not found');
+                }
+           }
+           else{
+            abort(404, 'Page not found');
+           }
+    }
+    else{
+        $favorite= session('favorite_id');
+        if($favoriteline){
+            if($favoriteline->favorite_id == $favorite->id){
+                $favoriteline->delete();
+                $nbr_favoriteline = Favoriteline::where('favorite_id',$favorite->id)->count();
+                return $nbr_favoriteline;
+            }
+            else{
+                abort(404, 'Page not found');
+            }
+      }
+
+      else{
+        abort(404, 'Page not found');
+    }
+
+    }
   }
 }
