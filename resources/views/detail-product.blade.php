@@ -159,12 +159,14 @@
                                     <a style="cursor: pointer" data-bs-toggle="tooltip" title="Wishlist"><i
                                             class="pe-7s-like"></i>Favoris</a>
                                 </div>
-                                <div class="like-icon">
-                                    <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
-                                    <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
-                                    <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
-                                    <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
-                                </div>
+                                 <!--
+                                    <div class="like-icon">
+                                        <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
+                                        <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
+                                        <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
+                                        <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
+                                    </div>
+                                -->
                             </div>
                         </div>
                     </div>

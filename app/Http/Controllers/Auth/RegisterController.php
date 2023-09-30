@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Favorite;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -84,7 +85,10 @@ class RegisterController extends Controller
             $cart = new Cart();
             $user->cart()->save($cart);
         }
+        $favorite = new Favorite();
+        $favorite->user_id = $user->id;
+        $favorite->save();
+        return $user;
 
-       return $user;
     }
 }

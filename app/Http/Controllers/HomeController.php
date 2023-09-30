@@ -17,10 +17,13 @@ class HomeController extends Controller
     //
     public function index(){
         $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
-
         $products = Product::whereNotIn('id', function ($query) {
                              $query->select('product_id')->from('promopacks');
         })->get();
+        $randomProducts = Product::whereNotIn('id', function ($query) {
+                                    $query->select('product_id')->from('promopacks');
+         })->inRandomOrder()->take(4)->get();
+
         $promopacks = Promopack::orderBy('created_at','desc')->get();
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
@@ -43,7 +46,7 @@ class HomeController extends Controller
             $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('welcome',compact('products','cartitems','nbr_cartitem','total','categories','promopacks'));
+        return view('welcome',compact('products','cartitems','nbr_cartitem','total','categories','promopacks','randomProducts'));
 
     }
     public function about(){
