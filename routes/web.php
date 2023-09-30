@@ -98,7 +98,7 @@ Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::clas
 Route::get('/get-qte/{id}', [App\Http\Controllers\ProductController::class, 'getQte']);
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about']);
 Route::get('/code-coupon/{code_coupon}/{total_value}/{cart_id}', [App\Http\Controllers\CheckoutController::class, 'testCode']);
-
+Route::get('/search', [App\Http\Controllers\SearchController::class, 'search']);
 
 //payment
 Route::post('/redirection', [App\Http\Controllers\PaymentController::class, 'redirectionPayment']);
