@@ -156,7 +156,7 @@
                                 </div>
                                 <div class="useful-links">
 
-                                    <a style="cursor: pointer" data-bs-toggle="tooltip" title="Wishlist"><i
+                                    <a style="cursor: pointer" class="addToFavoriteBtn" data-bs-toggle="tooltip" title="Wishlist"><i
                                             class="pe-7s-like"></i>Favoris</a>
                                 </div>
                                  <!--
@@ -504,11 +504,10 @@
                                 'qte' :qte,
                             },
                             success: function (res) {
-                                toastr.success('Produit ajouté avec success');
-                                $(".nbr_product").text(res.nbr_cart);
+                               $(".nbr_product").text(res.nbr_cart);
 
                                 if(res.qtes == 0){
-
+                                    toastr.success('Produit ajouté avec success');
                                     var $path = '{{asset("storage/images/products/")}}';
 
                                     $data = '<li class="minicart-item" id="list-'+id+'">'+
@@ -549,11 +548,10 @@
                                 'qte' :qte,
                             },
                             success: function (res) {
-                                toastr.success('Produit ajouté avec success');
-                                $(".nbr_product").text(res.nbr_cart);
+                               $(".nbr_product").text(res.nbr_cart);
 
                                 if(res.qtes == 0){
-
+                                    toastr.success('Produit ajouté avec success');
                                     var $path = '{{asset("storage/images/products/")}}';
 
                                     $data = '<li class="minicart-item" id="list-'+id+'">'+
@@ -580,6 +578,69 @@
                                 }
                                 $(".total").text(res.total +' Da');
                                }
+                            });
+                         }
+               }
+            });
+
+});
+</script>
+@endpush
+
+@push('add-favorite-scripts')
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+    $( ".addToFavoriteBtn" ).click(function(e) {
+        e.preventDefault();
+        var product_id = $('.product_id').val();
+        $.ajax({
+                url: '/get-product/' + product_id ,
+                type: "GET",
+                success: function (res) {
+
+                if(res.countproductlines > 1){
+                    var id = $('#list-line li.selected-icon').attr('value-id');
+                    if(!id){
+                        var id = $('#list-attr a.selected-attribute').data('id');
+                   }
+
+                    $.ajax({
+                            url: '/favorites',
+                            type: "POST",
+                            data:{
+                                'id' : id,
+                            },
+                            success: function (res) {
+                                toastr.success('Produit ajouté avec success');
+                                $(".nbr_product_favorite").text(res.nbr_favorite);
+                                if(res.qtes > 0){
+                                    alert("Le produit existe déja dans votre panier");
+                                }
+                            }
+                    });
+                         }
+                         else{
+                            var id = res.productlines.id;
+
+                            $.ajax({
+                            url: '/favorites',
+                            type: "POST",
+                            data:{
+                                'id' : id,
+
+                            },
+                            success: function (res) {
+                                toastr.success('Produit ajouté avec success');
+                                $(".nbr_product_favorite").text(res.nbr_favorite);
+                                if(res.qtes > 0){
+                                    alert("Le produit existe déja dans votre panier");
+                                }
+                            }
                             });
                          }
                }

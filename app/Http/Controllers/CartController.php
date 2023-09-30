@@ -12,26 +12,10 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     //
+
     public function index(){
-        if(Auth::user()){
-            $cart = Cart::where('user_id',Auth::user()->id)->first();
-            $cart_id = $cart->id;
-            if($cart){
-            $cartitems = $cart->cartitems;
-            $nbr_cartitem = $cart->cartitems->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-            $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
-            return view('carts',compact('cartitems','nbr_cartitem','total','cart_id','categories'));
-            }
-        }
-        else{
-            $cart_id= session('cart_id');
-            $cartitems = Cartitem::where('cart_id',$cart_id)->get();
-            $nbr_cartitem = Cartitem::where('cart_id',$cart_id)->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart_id)->first();
-            $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
-            return view('carts',compact('cartitems','nbr_cartitem','total','cart_id','categories'));
-        }
+        include(app_path() . '\Functions\header.php');
+        return view('carts',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id'));
     }
 
     public function store(Request $request) {

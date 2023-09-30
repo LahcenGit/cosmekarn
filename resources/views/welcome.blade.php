@@ -630,13 +630,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="product-carousel-4_2 slick-row-10 slick-arrow-style">
-                        @foreach($randomProducts as $randomProduct)
+                        @foreach($random_popular_products as $random_popular_product)
                         <div class="product-item">
                             <figure class="product-thumb">
-                                <a href="{{ asset('product/'.$randomProduct->slug) }}">
-                                    @if($product->images[0])
-                                    <img class="pri-img" src="{{asset('storage/images/products/'.$randomProduct->images[0]->lien)}}" alt="product">
-                                    <img class="sec-img" src="{{asset('storage/images/products/'.$randomProduct->images[0]->lien)}}" alt="product">
+                                <a href="{{ asset('product/'.$random_popular_product->slug) }}">
+                                    @if($random_popular_product->images[0])
+                                    <img class="pri-img" src="{{asset('storage/images/products/'.$random_popular_product->images[0]->lien)}}" alt="product">
+                                    <img class="sec-img" src="{{asset('storage/images/products/'.$random_popular_product->images[0]->lien)}}" alt="product">
                                     @endif
                                 </a>
                                 <div class="product-badge">
@@ -653,17 +653,17 @@
 
                                 </div>
                                 <div class="cart-hover">
-                                    <a href="{{ asset('product/'.$randomProduct->slug) }}" class="btn btn-cart">Voir le produit</a>
+                                    <a href="{{ asset('product/'.$random_popular_product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                 </div>
                             </figure>
                             <div class="product-caption text-center">
-                                @if($randomProduct->mark)
+                                @if($random_popular_product->mark)
                                     <div class="product-identity">
-                                        <p class="manufacturer-name"><a href="{{ asset('product/'.$randomProduct->slug) }}">{{ $randomProduct->mark->designation }}</a></p>
+                                        <p class="manufacturer-name"><a href="{{ asset('product/'.$random_popular_product->slug) }}">{{ $random_popular_product->mark->designation }}</a></p>
                                     </div>
                                 @endif
                                 <ul class="color-categories">
-                                    @foreach($randomProduct->productlines as $item)
+                                    @foreach($random_popular_product->productlines as $item)
                                         @if($item->attribute_id)
                                             <li>
                                                 <a  style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
@@ -672,14 +672,14 @@
                                     @endforeach
                                 </ul>
                                 <h6 class="product-name">
-                                    <a href="{{ asset('product/'.$randomProduct->slug) }}">{{ $randomProduct->designation }}</a>
+                                    <a href="{{ asset('product/'.$random_popular_product->slug) }}">{{ $random_popular_product->designation }}</a>
                                 </h6>
                                 <div class="price-box">
                                     @if($product->getPricePromo())
-                                    <span class="price-regular">{{number_format($randomProduct->getPricePromo())}} Da</span>
-                                    <span class="price-old"><del>{{number_format($randomProduct->getPrice())}} Da</del></span>
+                                    <span class="price-regular">{{number_format($random_popular_product->getPricePromo())}} Da</span>
+                                    <span class="price-old"><del>{{number_format($random_popular_product->getPrice())}} Da</del></span>
                                     @else
-                                    <span class="price-regular">{{number_format($randomProduct->getPrice())}} Da</span>
+                                    <span class="price-regular">{{number_format($random_popular_product->getPrice())}} Da</span>
                                     @endif
                                 </div>
                             </div>
@@ -776,25 +776,25 @@
                         <div class="group-list-item-wrapper">
                             <div class="group-list-carousel">
                                 <!-- group list item start -->
-                            @foreach($randomProducts as $randomProduct)
+                            @foreach($random_best_selling_products as $random_best_selling_product)
                                 <div class="group-slide-item">
                                     <div class="group-item">
                                         <div class="group-item-thumb">
-                                            <a href="{{ asset('product/'.$randomProduct->slug) }}">
-                                                @if($randomProduct->images[0])
-                                                <img src="{{asset('storage/images/products/'.$randomProduct->images[0]->lien)}}" alt="">
+                                            <a href="{{ asset('product/'.$random_best_selling_product->slug) }}">
+                                                @if($random_best_selling_product->images[0])
+                                                <img src="{{asset('storage/images/products/'.$random_best_selling_product->images[0]->lien)}}" alt="">
                                                 @endif
                                             </a>
                                         </div>
                                         <div class="group-item-desc">
-                                            <h5 class="group-product-name"><a href="{{ asset('product/'.$randomProduct->slug) }}">
-                                                    {{ $randomProduct->designation }}</a></h5>
+                                            <h5 class="group-product-name"><a href="{{ asset('product/'.$random_best_selling_product->slug) }}">
+                                                    {{ $random_best_selling_product->designation }}</a></h5>
                                             <div class="price-box">
-                                                @if($randomProduct->getPricePromo())
-                                                <span class="price-regular">{{number_format($randomProduct->getPricePromo())}} Da</span>
-                                                <span class="price-old"><del>{{number_format($randomProduct->getPrice())}} Da</del></span>
+                                                @if($random_best_selling_product->getPricePromo())
+                                                <span class="price-regular">{{number_format($random_best_selling_product->getPricePromo())}} Da</span>
+                                                <span class="price-old"><del>{{number_format($random_best_selling_product->getPrice())}} Da</del></span>
                                                 @else
-                                                <span class="price-regular">{{number_format($randomProduct->getPrice())}} Da</span>
+                                                <span class="price-regular">{{number_format($random_best_selling_product->getPrice())}} Da</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -821,25 +821,25 @@
                         <div class="group-list-item-wrapper">
                             <div class="group-list-carousel">
                                 <!-- group list item start -->
-                                @foreach($randomProducts as $randomProduct)
+                                @foreach($random_products_on_sale as $random_product_on_sale)
                                     <div class="group-slide-item">
                                         <div class="group-item">
                                             <div class="group-item-thumb">
-                                                <a href="{{ asset('product/'.$randomProduct->slug) }}">
-                                                    @if($randomProduct->images[0])
-                                                    <img src="{{asset('storage/images/products/'.$randomProduct->images[0]->lien)}}" alt="">
+                                                <a href="{{ asset('product/'.$random_product_on_sale->slug) }}">
+                                                    @if($random_product_on_sale->images[0])
+                                                    <img src="{{asset('storage/images/products/'.$random_product_on_sale->images[0]->lien)}}" alt="">
                                                     @endif
                                                 </a>
                                             </div>
                                             <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="{{ asset('product/'.$randomProduct->slug) }}">
-                                                        {{ $randomProduct->designation }}</a></h5>
+                                                <h5 class="group-product-name"><a href="{{ asset('product/'.$random_product_on_sale->slug) }}">
+                                                        {{ $random_product_on_sale->designation }}</a></h5>
                                                 <div class="price-box">
-                                                    @if($randomProduct->getPricePromo())
-                                                    <span class="price-regular">{{number_format($randomProduct->getPricePromo())}} Da</span>
-                                                    <span class="price-old"><del>{{number_format($randomProduct->getPrice())}} Da</del></span>
+                                                    @if($random_product_on_sale->getPricePromo())
+                                                    <span class="price-regular">{{number_format($random_product_on_sale->getPricePromo())}} Da</span>
+                                                    <span class="price-old"><del>{{number_format($random_product_on_sale->getPrice())}} Da</del></span>
                                                     @else
-                                                    <span class="price-regular">{{number_format($randomProduct->getPrice())}} Da</span>
+                                                    <span class="price-regular">{{number_format($random_product_on_sale->getPrice())}} Da</span>
                                                     @endif
                                                 </div>
                                             </div>

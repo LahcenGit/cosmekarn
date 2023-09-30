@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Cartitem;
+use App\Models\Category;
 use App\Models\Favorite;
 use App\Models\Favoriteline;
 use App\Models\Productline;
@@ -11,6 +14,11 @@ use Illuminate\Support\Facades\Auth;
 class FavoriteController extends Controller
 {
     //
+    public function index(){
+        include(app_path() . '\Functions\header.php');
+        return view('favorite',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id'));
+
+    }
     public function store(Request $request) {
 
         if(Auth::user()){
@@ -24,12 +32,11 @@ class FavoriteController extends Controller
                     return $data;
                 }
                 else{
-                    $productline = Productline::where('id',$request->input('id'))->first();
-                    $favorite_line = new Favoriteline();
+                   $favorite_line = new Favoriteline();
                     $favorite_line->favorite_id = $favorite->id;
                     $favorite_line->productline_id = $request->input('id');
                     $favorite_line->save();
-                    $nbr_favorite = Favoriteline::where('cart_id',$favorite->id)->count();
+                    $nbr_favorite = Favoriteline::where('favorite_id',$favorite->id)->count();
                     $data = array(
                         'nbr_favorite' => $nbr_favorite,
                         'qtes' => 0,
@@ -43,21 +50,19 @@ class FavoriteController extends Controller
         else{
          $favorite = session()->get('favorite_id');
             if($favorite){
-
-                    $productline = Productline::where('id',$request->input('id'))->first();
-                    $product_exist = Favoriteline::where('productline_id',$request->input('id'))->where('favorite_id',$favorite)->first();
+                $product_exist = Favoriteline::where('productline_id',$request->input('id'))->where('favorite_id',$favorite)->first();
                     if($product_exist){
                         $data = array(
                         'qtes' => 1,
                         );
                         return $data;
                     }
-                    $productline = Productline::where('id',$request->input('id'))->first();
+
                     $favorite_line = new Favoriteline();
                     $favorite_line->favorite_id = $favorite->id;
                     $favorite_line->productline_id = $request->input('id');
                     $favorite_line->save();
-                    $nbr_favorite = Favoriteline::where('cart_id',$favorite->id)->count();
+                    $nbr_favorite = Favoriteline::where('favorite_id',$favorite->id)->count();
                     $data = array(
                         'nbr_favorite' => $nbr_favorite,
                         'qtes' => 0,
@@ -69,13 +74,11 @@ class FavoriteController extends Controller
             else{
                 $favorite = new Favorite();
                 $favorite->save();
-                $productline = Productline::where('id',$request->input('id'))->first();
-
                 $favorite_line= new Favoriteline();
                 $favorite_line->favorite_id = $favorite->id;
                 $favorite_line->productline_id = $request->input('id');
                 $favorite_line->save();
-                $nbr_favorite = Favoriteline::where('cart_id',$favorite->id)->count();
+                $nbr_favorite = Favoriteline::where('favorite_id',$favorite->id)->count();
                 $data = array(
                     'nbr_favorite' => $nbr_favorite,
                     'qtes' => 0,

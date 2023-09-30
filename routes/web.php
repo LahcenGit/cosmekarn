@@ -19,6 +19,7 @@ use App\Http\Controllers\PromocartController;
 use App\Http\Controllers\DeliverycostController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\CouponcodeController;
+use App\Http\Controllers\FavoriteController;
 use App\Models\Couponcode;
 use Illuminate\Support\Facades\Auth;
 
@@ -88,6 +89,7 @@ Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
 Route::get('/login-register', [App\Http\Controllers\Auth\LoginController::class, 'loginRegister'])->name('login-register');
 Route::resource('/carts',CartController::class);
+Route::resource('/favorite',FavoriteController::class);
 Route::resource('/',HomeController::class);
 Route::resource('/admin/comments',AdminCommentController::class)->middleware('can:admin');
 Route::resource('/admin/delivery-costs',DeliverycostController::class)->middleware('can:admin');

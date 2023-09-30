@@ -13,7 +13,7 @@ class TrackingController extends Controller
 {
     public function tracking(){
         include(app_path() . '\Functions\header.php');
-        return view('tracking',compact('cartitems','nbr_cartitem','total','categories'));
+        return view('tracking',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id'));
     }
 
 
@@ -25,9 +25,9 @@ class TrackingController extends Controller
         $api_id = "73822021614736410875"; // your api ID
         $api_token = "qUYJABlF0Sv4K4jDG2516wSGKEwsVqnCaAQ8l3W8BJbpa9sm9jODZLIxr7cM2Rz5"; // your api token
         $code = $request->codetrack;
-    
+
         $curl = curl_init();
-    
+
         curl_setopt_array($curl, array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
@@ -42,28 +42,28 @@ class TrackingController extends Controller
                 'X-API-TOKEN: '. $api_token
             ),
         ));
-    
+
         $response_json = curl_exec($curl);
         curl_close($curl);
 
-    
+
         $response_array = json_decode($response_json,true);
         $response_array = $response_array['data'];
 
 
 
-        return view('tracking-result',compact('cartitems','nbr_cartitem','total','categories','response_array','code'));
+        return view('tracking-result',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id'));
     }
-    
+
     public function retrivedata(){
 
-        
+
         $url = "https://api.yalidine.app/v1/centers/"; // the parcel's endpoint
         $api_id = "73822021614736410875"; // your api ID
         $api_token = "qUYJABlF0Sv4K4jDG2516wSGKEwsVqnCaAQ8l3W8BJbpa9sm9jODZLIxr7cM2Rz5"; // your api token
-    
+
         $curl = curl_init();
-    
+
         curl_setopt_array($curl, array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
@@ -78,7 +78,7 @@ class TrackingController extends Controller
                 'X-API-TOKEN: '. $api_token
             ),
         ));
-    
+
         $response_json = curl_exec($curl);
         curl_close($curl);
 

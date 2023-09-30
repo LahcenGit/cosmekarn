@@ -186,9 +186,9 @@
 
                                         </li>
                                         <li>
-                                            <a href="wishlist.html">
+                                            <a href="{{ asset('/favorite') }}">
                                                 <i class="pe-7s-like"></i>
-                                                <div class="notification">0</div>
+                                                <div class="notification nbr_product_favorite">{{ $nbr_favoritelines }}</div>
                                             </a>
                                         </li>
                                         <li>
@@ -585,7 +585,7 @@
 @stack('shipping-script')
 @stack('contact-scripts')
 @stack('comment-scripts')
-
+@stack('add-favorite-scripts')
 </body>
 
 </html>
