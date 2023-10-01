@@ -143,7 +143,7 @@
                         <div class="banner-content text-right">
                             <h5 class="banner-text1">Eclipse</h5>
                             <h2 class="banner-text2">FOND <span>DE TEINT</span></h2>
-                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
+                            <a href= "{{ asset('/category-products/2') }}" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -155,7 +155,7 @@
                         <div class="banner-content text-center">
                             <h5 class="banner-text1">SCHWARZKOPF</h5>
                             <h2 class="banner-text2">Crème<span>à nuancer</span></h2>
-                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
+                            <a href= "{{ asset('/category-products/2') }}" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -167,7 +167,7 @@
                         <div class="banner-content text-center">
                             <h5 class="banner-text1">EVOLUDERM</h5>
                             <h2 class="banner-text2">Gèl<span>Douche</span></h2>
-                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
+                            <a href= "{{ asset('/category-products/10') }}" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -179,7 +179,7 @@
                         <div class="banner-content text-right">
                             <h5 class="banner-text1">UDV</h5>
                             <h2 class="banner-text2">Coffret<span>UDV Star</span></h2>
-                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
+                            <a href= "{{ asset('/category-products/3') }}" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -555,7 +555,7 @@
                                     <img src="{{ asset('images/img1.png') }}" alt="product banner">
                                 </a>
                                 <div class="banner-content banner-content_style2">
-                                    <h5 class="banner-text3"><a style="cursor: pointer">Maquillage</a></h5>
+                                    <h5 class="banner-text3"><a href="{{ asset('/category-products/1') }}">Maquillage</a></h5>
                                 </div>
                             </figure>
                         </div>
@@ -567,7 +567,7 @@
                                     <img src="{{ asset('images/img2.png') }}" alt="product banner">
                                 </a>
                                 <div class="banner-content banner-content_style2">
-                                    <h5 class="banner-text3"><a style="cursor: pointer">Cheveux</a></h5>
+                                    <h5 class="banner-text3"><a href="{{ asset('/category-products/7') }}">Cheveux</a></h5>
                                 </div>
                             </figure>
                         </div>
@@ -579,7 +579,7 @@
                                     <img src="{{ asset('images/img3.png') }}" alt="product banner">
                                 </a>
                                 <div class="banner-content banner-content_style2">
-                                    <h5 class="banner-text3"><a style="cursor: pointer">Parfums</a></h5>
+                                    <h5 class="banner-text3"><a href= "{{ asset('/category-products/3') }}">Parfums</a></h5>
                                 </div>
                             </figure>
                         </div>
