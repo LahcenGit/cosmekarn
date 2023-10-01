@@ -219,15 +219,15 @@
                     <div class="col-12">
                         <div class="mobile-main-header">
                             <div class="mobile-logo">
-                                <a href="index.html">
+                                <a href="{{ asset('/') }}">
                                     <img src="{{ asset('front/assets/img/logo/logo.pn') }}g" alt="Brand Logo">
                                 </a>
                             </div>
                             <div class="mobile-menu-toggler">
                                 <div class="mini-cart-wrap">
-                                    <a href="cart.html">
+                                    <a href="{{ asset('/carts') }}">
                                         <i class="pe-7s-shopbag"></i>
-                                        <div class="notification">0</div>
+                                        <div class="notification nbr_product">{{$nbr_cartitem}}</div>
                                     </a>
                                 </div>
                                 <button class="mobile-menu-btn">
@@ -289,8 +289,8 @@
                                     </ul>
                                 </li>
 
-                                <li><a style="cursor: pointer">Qui sommes-nous ?</a></li>
-                                <li><a style="cursor: pointer">Contact</a></li>
+                                <li><a href="{{ asset('/about') }}">Qui sommes-nous ?</a></li>
+                                <li><a href="{{ asset('/contact') }}">Contact</a></li>
                             </ul>
                         </nav>
                         <!-- mobile menu navigation end -->
@@ -302,14 +302,26 @@
                            <li>
                                 <div class="dropdown mobile-top-dropdown">
                                     <a href="#" class="dropdown-toggle" id="myaccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        My Account
+                                       Mon compte
                                         <i class="fa fa-angle-down"></i>
                                     </a>
+                                    @auth
                                     <div class="dropdown-menu" aria-labelledby="myaccount">
 
-                                        <a class="dropdown-item" style="cursor: pointer"> Connexion</a>
-                                        <a class="dropdown-item" style="cursor: pointer">Inscription</a>
+                                        <a class="dropdown-item" style="cursor: pointer"> Hi ! {{strtok(Auth::user()->name, " ")}}</a>
+                                        <a class="dropdown-item"href="{{asset('/customer')}}" >Dashboard</a>
+                                        <a class="dropdown-item" style="cursor: pointer" href="{{route('logout')}}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                            <span class="ml-2">Déconnexion </span>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                            </form>
+                                        </a>
                                     </div>
+                                    @endauth
+                                    @guest
+                                    <a class="dropdown-item"href="{{asset('/login-register')}}" >Connexion</a>
+                                    @endguest
                                 </div>
                             </li>
                         </ul>
