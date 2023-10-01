@@ -78,11 +78,11 @@
                                         <span class="price-regular">{{number_format($min_price)}} Da</span>
                                         @endif
                                     @else
-                                        @if($product_line->promo_price)
-                                        <span class="price-regular">{{number_format($product_line->promo_price)}} Da</span>
-                                        <span class="price-old"><del>{{number_format($product_line->price)}} Da</del></span>
+                                        @if($productLine->promo_price)
+                                        <span class="price-regular">{{number_format($productLine->promo_price)}} Da</span>
+                                        <span class="price-old"><del>{{number_format($productLine->price)}} Da</del></span>
                                         @else
-                                        <span class="price-regular">{{number_format($product_line->price)}} Da</span>
+                                        <span class="price-regular">{{number_format($productLine->price)}} Da</span>
                                         @endif
                                     @endif
                                 </div>
@@ -631,7 +631,7 @@
                         var id = res.productlines.id;
 
                         $.ajax({
-                        url: '/favorites',
+                        url: '/favorite',
                         type: "POST",
                         data:{
                             'id' : id,
