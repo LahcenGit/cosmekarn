@@ -61,15 +61,13 @@
                                                     <div class="product-label new">
                                                         <span>new</span>
                                                     </div>
-                                                    <div class="product-label discount">
-                                                        <span>10%</span>
-                                                    </div>
+                                                    @if($product->product->productlines[0]->promo_price)
+                                                        <div class="product-label discount">
+                                                            <span>{{ number_format((($product->product->productlines[0]->price - $product->product->productlines[0]->promo_price) / $product->product->productlines[0]->price) * 100) }}%</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                <div class="button-group">
-                                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
-                                                </div>
+
                                                 <div class="cart-hover">
                                                     <a href="{{ asset('product/'.$product->product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                                 </div>

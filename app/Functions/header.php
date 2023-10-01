@@ -38,8 +38,14 @@ else{
     $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart_id)->first();
 
     $favorite = session('favorite_id');
-    $favoritelines = Favoriteline::where('favorite_id',$favorite->id)->get();
-    $nbr_favoritelines = Favoriteline::where('favorite_id',$favorite->id)->count();
+    if($favorite){
+        $favoritelines = Favoriteline::where('favorite_id',$favorite->id)->get();
+        $nbr_favoritelines = Favoriteline::where('favorite_id',$favorite->id)->count();
+    }
+    else{
+        $favoritelines = null;
+        $nbr_favoritelines = 0;
+    }
     $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
 
 }
