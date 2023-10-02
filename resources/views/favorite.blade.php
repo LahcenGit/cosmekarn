@@ -26,35 +26,44 @@
             <!-- Wishlist Page Content Start -->
             <div class="section-bg-color">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <!-- Wishlist Table Area -->
-                        <div class="cart-table table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="pro-thumbnail">Photo</th>
-                                        <th class="pro-title">Produit</th>
-                                        <th class="pro-price">Prix</th>
-                                        <th class="pro-quantity">État de stock</th>
-                                        <th class="pro-subtotal">Ajouter au panier</th>
-                                        <th class="pro-remove">Supprimer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($favoritelines as $favoriteline )
-                                        <tr id="item-{{$favoriteline->id}}">
-                                            <td class="pro-thumbnail"><a href="{{ asset('product/'.$favoriteline->productline->product->slug) }}"><img class="img-fluid" src="{{asset('storage/images/products/'.$favoriteline->productline->product->images[0]->lien)}}" alt="Product" /></a></td>
-                                            <td class="pro-title"><a href="{{ asset('product/'.$favoriteline->productline->product->slug) }}">{{ $favoriteline->productline->product->designation }} @if($favoriteline->productline->attributeLine) - {{ $favoriteline->productline->attributeLine->value }}@endif</a></td>
-                                            <td class="pro-price"><span>@if($favoriteline->productline->promo_price){{ number_format($favoriteline->productline->promo_price) }} @else{{ number_format($favoriteline->productline->price) }}@endif  Da</span></td>
-                                            <td class="pro-quantity">@if($favoriteline->productline->qte > 0)<span class="text-success">En stock</span> @else <span class="text-danger">Repture</span>@endif</td>
-                                            <td class="pro-subtotal"><a href="#" class="btn btn-sqr addToCartBtn"  data-id="{{$favoriteline->productline->id}}">Ajouter au panier</a></td>
-                                            <td class="pro-remove"><a href="#"data-id="{{$favoriteline->id}}" class="delete-item"><i class="fa fa-trash-o"></i></a></td>
+                    @if($favoritelines !== null)
+                        <div class="col-lg-12">
+                            <!-- Wishlist Table Area -->
+                            <div class="cart-table table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="pro-thumbnail">Photo</th>
+                                            <th class="pro-title">Produit</th>
+                                            <th class="pro-price">Prix</th>
+                                            <th class="pro-quantity">État de stock</th>
+                                            <th class="pro-subtotal">Ajouter au panier</th>
+                                            <th class="pro-remove">Supprimer</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($favoritelines as $favoriteline )
+                                            <tr id="item-{{$favoriteline->id}}">
+                                                <td class="pro-thumbnail"><a href="{{ asset('product/'.$favoriteline->productline->product->slug) }}"><img class="img-fluid" src="{{asset('storage/images/products/'.$favoriteline->productline->product->images[0]->lien)}}" alt="Product" /></a></td>
+                                                <td class="pro-title"><a href="{{ asset('product/'.$favoriteline->productline->product->slug) }}">{{ $favoriteline->productline->product->designation }} @if($favoriteline->productline->attributeLine) - {{ $favoriteline->productline->attributeLine->value }}@endif</a></td>
+                                                <td class="pro-price"><span>@if($favoriteline->productline->promo_price){{ number_format($favoriteline->productline->promo_price) }} @else{{ number_format($favoriteline->productline->price) }}@endif  Da</span></td>
+                                                <td class="pro-quantity">@if($favoriteline->productline->qte > 0)<span class="text-success">En stock</span> @else <span class="text-danger">Repture</span>@endif</td>
+                                                <td class="pro-subtotal"><a href="#" class="btn btn-sqr addToCartBtn"  data-id="{{$favoriteline->productline->id}}">Ajouter au panier</a></td>
+                                                <td class="pro-remove"><a href="#"data-id="{{$favoriteline->id}}" class="delete-item"><i class="fa fa-trash-o"></i></a></td>
+                                            </tr>
                                         @endforeach
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @else
+                    <div class="col-lg-12">
+                        <div class="alert alert-success-cosmekarn text-center" role="alert">
+                        <p class="mt-3" style="font-size: 15px;">La liste de favoris est vide. Veuillez ajouter des éléments aux favoris. </p>
+                            <a  href="{{url('/')}}" type="button" style="margin-top:20px;" class="btn btn-cart2">Page d'acceuil</a>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
             <!-- Wishlist Page Content End -->

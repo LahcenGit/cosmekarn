@@ -46,6 +46,7 @@ else{
         $favoritelines = null;
         $nbr_favoritelines = 0;
     }
+
     $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
 
 }

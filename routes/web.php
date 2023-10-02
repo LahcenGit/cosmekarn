@@ -20,6 +20,7 @@ use App\Http\Controllers\DeliverycostController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\CouponcodeController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\NewsletterController;
 use App\Models\Couponcode;
 use Illuminate\Support\Facades\Auth;
 
@@ -99,7 +100,7 @@ Route::get('/get-qte/{id}', [App\Http\Controllers\ProductController::class, 'get
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about']);
 Route::get('/code-coupon/{code_coupon}/{total_value}/{cart_id}', [App\Http\Controllers\CheckoutController::class, 'testCode']);
 Route::get('/search', [App\Http\Controllers\SearchController::class, 'search']);
-
+Route::resource('/newsletter',NewsletterController::class);
 //payment
 Route::post('/redirection', [App\Http\Controllers\PaymentController::class, 'redirectionPayment']);
 Route::post('/webhook', [App\Http\Controllers\PaymentController::class, 'webhook']);

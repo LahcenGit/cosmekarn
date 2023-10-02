@@ -354,6 +354,7 @@
     </header>
     <!-- end Header Area -->
     @yield('content')
+
     <!-- footer area start -->
     <footer class="footer-widget-area">
         <div class="footer-top section-padding">
@@ -417,8 +418,8 @@
                         <div class="newsletter-wrapper">
                             <h6 class="widget-title-text">Newsletter</h6>
                             <form class="newsletter-inner" id="mc-form">
-                                <input type="email" class="news-field" id="mc-email" autocomplete="off" placeholder="Taper votre email">
-                                <button class="news-btn" id="mc-submit">Envoyer</button>
+                                <input type="email" class="news-field" id="email" autocomplete="off" placeholder="Taper votre email" required>
+                                <button class="news-btn btn-newsletter" id="mc-submit">Envoyer</button>
                             </form>
                             <!-- mail-chimp-alerts Start -->
                             <div class="mailchimp-alerts">
@@ -587,7 +588,32 @@
     });
     </script>
 
+<script>
+    $( ".btn-newsletter" ).click(function(e) {
 
+        e.preventDefault();
+        let email = $('#email').val();
+
+        $.ajax({
+              type:"Post",
+              url: '/newsletter',
+              data:{
+                "_token": "{{ csrf_token() }}",
+                email:email,
+              },
+              success:function(response){
+                if(response == true){
+                    toastr.success('Inscription réussite!  Vous allez reçevoir toutes nos actualités');
+                }
+                else{
+                    toastr.error('Echec Inscription! Ce email existe déja');
+                }
+              },
+
+              });
+    });
+
+</script>
 
 @stack('select-icon-script')
 @stack('select-icon-indice')
