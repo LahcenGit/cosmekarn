@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="{{asset('dashboard/uploader/drop_uploader.css')}}">
         <link rel="stylesheet" href="{{asset('dashboard/vendor/toastr/css/toastr.min.css')}}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{asset('plugins/image-master/image-uploader.min.css')}}">
 
         <link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
 
@@ -399,6 +400,10 @@
     <!-- Toastr -->
 
     <script src="{{asset('/print/printThis.js')}}"></script>
+    
+    <script src="{{asset('plugins/image-master/image-uploader.min.js')}}"></script>
+
+
 
 	<script>
 	(function($) {

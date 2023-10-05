@@ -22,6 +22,9 @@
         <form action="{{url('admin/products')}}" method="POST" id="addProduct" enctype="multipart/form-data">
         @csrf
 
+        <input type="hidden" id="preloaded-images" value="{{ $images_preload }}">
+        <input type="hidden" id="preloaded-image-p" value="{{ $image_preload_p }}">
+
         <div class="row ">
             <div class="col-xl-9 col-lg-9">
                 <div class="card">
@@ -161,10 +164,7 @@
                         <h4 class="card-title">Photo principale</h4>
                     </div>
                     <div class="card-body">
-                        <div class="basic-form custom_file_input">
-                            <div class="input-group mb-3">
-                                <input type="file" class="file" id="photoPrincipale" name="photoPrincipale" accept="image/*" >
-                            </div>
+                        <div class="input-photoPrincipale">
                         </div>
                 </div>
                 </div>
@@ -194,11 +194,8 @@
                         <h4 class="card-title">Photos</h4>
                     </div>
                     <div class="card-body">
-                            <div class="basic-form custom_file_input">
-                                    <div class="input-group mb-3">
-                                            <input type="file" class="file" name="photos[]" accept="image/*" multiple >
-                                    </div>
-                            </div>
+                        <div class="input-photos-pre">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -303,6 +300,37 @@
 @endsection
 
 @push('show-variation-scripts')
+
+<script>
+
+    var images =  JSON.parse($('#preloaded-images').val()); 
+    var image_p =  JSON.parse($('#preloaded-image-p').val()); 
+
+    let preloaded_p = image_p;
+    let preloaded = images;
+    
+
+
+	$('.input-photoPrincipale').imageUploader({
+		preloaded: preloaded_p,
+		imagesInputName: 'photoPrincipale',
+        preloadedInputName: 'old',
+		maxSize: 2 * 1024 * 1024,
+		maxFiles: 1
+	});
+
+
+	$('.input-photos-pre').imageUploader({
+		preloaded: preloaded,
+		imagesInputName: 'photos',
+        preloadedInputName: 'old',
+		maxSize: 2 * 1024 * 1024,
+		maxFiles: 10
+	});
+
+	
+
+</script>
 
 <script>
     $(document).ready(function() {

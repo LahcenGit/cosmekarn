@@ -171,10 +171,7 @@
                         <h4 class="card-title">Photo principale</h4>
                     </div>
                     <div class="card-body">
-                        <div class="basic-form custom_file_input">
-                            <div class="input-group mb-3">
-                                <input type="file" class="file" id="photoPrincipale" name="photoPrincipale" accept="image/*" >
-                            </div>
+                        <div class="input-photoPrincipale-add">
                         </div>
                 </div>
                 </div>
@@ -204,11 +201,8 @@
                         <h4 class="card-title">Photos</h4>
                     </div>
                     <div class="card-body">
-                            <div class="basic-form custom_file_input">
-                                    <div class="input-group mb-3">
-                                            <input type="file" class="file" name="photos[]" accept="image/*" multiple >
-                                    </div>
-                            </div>
+                        <div class="input-photos">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -315,6 +309,17 @@
 @endsection
 
 @push('show-variation-scripts')
+
+<script>
+    $('.input-photoPrincipale-add').imageUploader({
+		maxFiles: 1,
+        imagesInputName: 'photoPrincipale',
+	});
+
+    $('.input-photos').imageUploader({
+		imagesInputName: "photos",
+	});
+</script>
 
 <script>
     $(document).ready(function() {

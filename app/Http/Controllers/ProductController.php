@@ -152,6 +152,8 @@ class ProductController extends Controller
         }
         // product images
         //first_image
+
+        dd('hhhh');
         $hasFile = $request->hasFile('photoPrincipale');
         $hasFileTwo = $request->hasFile('photos');
         if($hasFile){
@@ -200,16 +202,16 @@ class ProductController extends Controller
 
 
         $image_preload_p = Image::where('product_id', $id)->where('type',1)
-        ->select('id', DB::raw("concat('https://www.licbplus.com.dz/newsite/public/storage/images/products/', lien) as src"))
+        ->select('id', DB::raw("concat('http://127.0.0.1:8000/storage/images/products/', lien) as src"))
         ->get();
 
         $images_preload = Image::where('product_id', $id)->where('type',2)
-        ->select('id', DB::raw("concat('https://www.licbplus.com.dz/newsite/public/storage/images/products/', lien) as src"))
+        ->select('id', DB::raw("concat('http://127.0.0.1:8000/storage/images/products/', lien) as src"))
         ->get();
 
         $all_productlines = Productline::all();
         $attributes = Attribute::all();
-       // $marks = Mark::all();
+        $marks = Mark::all();
         $productlines = Productline::where('product_id',$id)->get();
 
         return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked','images_preload','image_preload_p'));
