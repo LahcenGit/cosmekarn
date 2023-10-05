@@ -11,95 +11,45 @@ use App\Models\Promopack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use TheHocineSaad\LaravelChargilyEPay\Models\Epay_Invoice;
-
+use App\Http\Controllers\GetCartAndFavoriteDataController;
 class HomeController extends Controller
 {
     //
+
     public function index(){
-        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
 
         $products = Product::whereNotIn('id', function ($query) {
                              $query->select('product_id')->from('promopacks');
         })->get();
+        $random_popular_products = Product::whereNotIn('id', function ($query) {
+                                    $query->select('product_id')->from('promopacks');
+         })->inRandomOrder()->take(4)->get();
+
+         $random_best_selling_products = Product::whereNotIn('id', function ($query) {
+            $query->select('product_id')->from('promopacks');
+        })->inRandomOrder()->take(4)->get();
+
+        $random_products_on_sale = Product::whereNotIn('id', function ($query) {
+            $query->select('product_id')->from('promopacks');
+        })->inRandomOrder()->take(4)->get();
+
         $promopacks = Promopack::orderBy('created_at','desc')->get();
-        if(Auth::user()){
-            $cart = Cart::where('user_id',Auth::user()->id)->first();
-            $cartitems = $cart->cartitems;
-
-            if($cartitems ){
-                $nbr_cartitem = $cart->cartitems->count();
-                $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-            }
-            else{
-                $cartitems = null;
-                $nbr_cartitem = 0;
-                $total = 0;
-            }
-
-        }
-        else{
-            $cart= session('cart_id');
-            $cartitems = Cartitem::where('cart_id',$cart)->get();
-            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        }
-        return view('welcome',compact('products','cartitems','nbr_cartitem','total','categories','promopacks'));
+        include(app_path() . '\Functions\header.php');
+        return view('welcome',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id','products','promopacks','random_popular_products','random_best_selling_products','random_products_on_sale'));
 
     }
     public function about(){
-        if(Auth::user()){
-            $cart = Cart::where('user_id',Auth::user()->id)->first();
-            $cartitems = $cart->cartitems;
-
-            if($cartitems ){
-                $nbr_cartitem = $cart->cartitems->count();
-                $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-            }
-            else{
-                $cartitems = null;
-                $nbr_cartitem = 0;
-                $total = 0;
-            }
-
-        }
-        else{
-            $cart= session('cart_id');
-            $cartitems = Cartitem::where('cart_id',$cart)->get();
-            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        }
-        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
-        return view('about',compact('cartitems','nbr_cartitem','total','categories'));
+        include(app_path() . '\Functions\header.php');
+        return view('about',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id'));
 
     }
 
     public function categoryProducts($id){
         $category = Category::find($id);
-        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
         $products = Productcategory::where('category_id',$id)->paginate(16);
         $count_products = Productcategory::where('category_id',$id)->count();
-        if(Auth::user()){
-            $cart = Cart::where('user_id',Auth::user()->id)->first();
-            $cartitems = $cart->cartitems;
-
-            if($cartitems ){
-                $nbr_cartitem = $cart->cartitems->count();
-                $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-            }
-            else{
-                $cartitems = null;
-                $nbr_cartitem = 0;
-                $total = 0;
-            }
-
-        }
-        else{
-            $cart= session('cart_id');
-            $cartitems = Cartitem::where('cart_id',$cart)->get();
-            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        }
-        return view('category-products',compact('products','categories','cartitems','nbr_cartitem','total','count_products','category'));
+        include(app_path() . '\Functions\header.php');
+        return view('category-products', compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id','category','products','count_products'));
     }
 
 }

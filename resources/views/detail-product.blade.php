@@ -78,11 +78,11 @@
                                         <span class="price-regular">{{number_format($min_price)}} Da</span>
                                         @endif
                                     @else
-                                        @if($product_line->promo_price)
-                                        <span class="price-regular">{{number_format($product_line->promo_price)}} Da</span>
-                                        <span class="price-old"><del>{{number_format($product_line->price)}} Da</del></span>
+                                        @if($productLine->promo_price)
+                                        <span class="price-regular">{{number_format($productLine->promo_price)}} Da</span>
+                                        <span class="price-old"><del>{{number_format($productLine->price)}} Da</del></span>
                                         @else
-                                        <span class="price-regular">{{number_format($product_line->price)}} Da</span>
+                                        <span class="price-regular">{{number_format($productLine->price)}} Da</span>
                                         @endif
                                     @endif
                                 </div>
@@ -92,8 +92,12 @@
 
                                 @endif
                                 <div class="availability">
+                                    @if($productLine->qte >0)
                                     <i id="availability-icon" class="fa fa-check-circle"></i>
-                                    <span id="qte">{{ $productLine->qte }} dans le stock</span>
+                                    @else
+                                    <i id="availability-icon" class="fa fa-times-circle"></i>
+                                    @endif
+                                    <span id="qte">@if($productLine->qte >0){{ $productLine->qte }} dans le stock @else Repture @endif</span>
                                 </div>
                                 <p class="pro-desc">{{$product->short_description}}</p>
 
@@ -156,15 +160,17 @@
                                 </div>
                                 <div class="useful-links">
 
-                                    <a style="cursor: pointer" data-bs-toggle="tooltip" title="Wishlist"><i
+                                    <a style="cursor: pointer" class="addToFavoriteBtn" data-bs-toggle="tooltip" title="Wishlist"><i
                                             class="pe-7s-like"></i>Favoris</a>
                                 </div>
-                                <div class="like-icon">
-                                    <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
-                                    <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
-                                    <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
-                                    <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
-                                </div>
+                                 <!--
+                                    <div class="like-icon">
+                                        <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
+                                        <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
+                                        <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
+                                        <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
+                                    </div>
+                                -->
                             </div>
                         </div>
                     </div>
@@ -302,13 +308,11 @@
                                     <div class="product-label new">
                                         <span>new</span>
                                     </div>
-                                    <div class="product-label discount">
-                                        <span>10%</span>
-                                    </div>
-                                </div>
-                                <div class="button-group">
-                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
-
+                                    @if($related_product->product->productlines[0]->promo_price)
+                                        <div class="product-label discount">
+                                            <span>{{ number_format((($related_product->product->productlines[0]->price - $related_product->product->productlines[0]->promo_price) / $related_product->product->productlines[0]->price) * 100) }}%</span>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="cart-hover">
                                     <a href="{{ asset('product/'.$related_product->product->slug) }}" class="btn btn-cart">Voir le produit</a>
@@ -383,13 +387,11 @@
                                     <div class="product-label new">
                                         <span>new</span>
                                     </div>
-                                    <div class="product-label discount">
-                                        <span>10%</span>
-                                    </div>
-                                </div>
-                                <div class="button-group">
-                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
-
+                                    @if($packContainingProduct->product->productlines[0]->promo_price)
+                                        <div class="product-label discount">
+                                            <span>{{ number_format((($packContainingProduct->product->productlines[0]->price - $packContainingProduct->product->productlines[0]->promo_price) / $packContainingProduct->product->productlines[0]->price) * 100) }}%</span>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="cart-hover">
                                     <a href="{{ asset('product/'.$packContainingProduct->product->slug) }}" class="btn btn-cart">Voir le produit</a>
@@ -502,11 +504,10 @@
                                 'qte' :qte,
                             },
                             success: function (res) {
-                                toastr.success('Produit ajouté avec success');
-                                $(".nbr_product").text(res.nbr_cart);
+                               $(".nbr_product").text(res.nbr_cart);
 
                                 if(res.qtes == 0){
-
+                                    toastr.success('Produit ajouté avec success');
                                     var $path = '{{asset("storage/images/products/")}}';
 
                                     $data = '<li class="minicart-item" id="list-'+id+'">'+
@@ -547,11 +548,10 @@
                                 'qte' :qte,
                             },
                             success: function (res) {
-                                toastr.success('Produit ajouté avec success');
-                                $(".nbr_product").text(res.nbr_cart);
+                               $(".nbr_product").text(res.nbr_cart);
 
                                 if(res.qtes == 0){
-
+                                    toastr.success('Produit ajouté avec success');
                                     var $path = '{{asset("storage/images/products/")}}';
 
                                     $data = '<li class="minicart-item" id="list-'+id+'">'+
@@ -579,6 +579,74 @@
                                 $(".total").text(res.total +' Da');
                                }
                             });
+                         }
+               }
+            });
+
+});
+</script>
+@endpush
+
+@push('add-favorite-scripts')
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+    $( ".addToFavoriteBtn" ).click(function(e) {
+        e.preventDefault();
+        var product_id = $('.product_id').val();
+        $.ajax({
+                url: '/get-product/' + product_id ,
+                type: "GET",
+                success: function (res) {
+
+                if(res.countproductlines > 1){
+                    var id = $('#list-line li.selected-icon').attr('value-id');
+                    if(!id){
+                        var id = $('#list-attr a.selected-attribute').data('id');
+                   }
+
+                    $.ajax({
+                            url: '/favorite',
+                            type: "POST",
+                            data:{
+                                'id' : id,
+                            },
+                            success: function (res) {
+
+                               if(res.qtes > 0){
+                                    alert("Le produit existe déja dans votre panier");
+                                }
+                                else{
+                                    toastr.success('Produit ajouté avec success');
+                                    $(".nbr_product_favorite").text(res.nbr_favorite);
+                                }
+                            }
+                    });
+                         }
+                    else{
+                        var id = res.productlines.id;
+
+                        $.ajax({
+                        url: '/favorite',
+                        type: "POST",
+                        data:{
+                            'id' : id,
+
+                        },
+                        success: function (res) {
+                            if(res.qtes > 0){
+                                alert("Le produit existe déja dans votre panier");
+                            }
+                            else{
+                                toastr.success('Produit ajouté avec success');
+                                $(".nbr_product_favorite").text(res.nbr_favorite);
+                            }
+                        }
+                        });
                          }
                }
             });

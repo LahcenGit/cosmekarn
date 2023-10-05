@@ -143,7 +143,7 @@
                         <div class="banner-content text-right">
                             <h5 class="banner-text1">Eclipse</h5>
                             <h2 class="banner-text2">FOND <span>DE TEINT</span></h2>
-                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
+                            <a href= "{{ asset('/category-products/2') }}" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -155,7 +155,7 @@
                         <div class="banner-content text-center">
                             <h5 class="banner-text1">SCHWARZKOPF</h5>
                             <h2 class="banner-text2">Crème<span>à nuancer</span></h2>
-                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
+                            <a href= "{{ asset('/category-products/2') }}" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -167,7 +167,7 @@
                         <div class="banner-content text-center">
                             <h5 class="banner-text1">EVOLUDERM</h5>
                             <h2 class="banner-text2">Gèl<span>Douche</span></h2>
-                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
+                            <a href= "{{ asset('/category-products/10') }}" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -179,7 +179,7 @@
                         <div class="banner-content text-right">
                             <h5 class="banner-text1">UDV</h5>
                             <h2 class="banner-text2">Coffret<span>UDV Star</span></h2>
-                            <a style="cursor: pointer" class="btn btn-text">Acheter</a>
+                            <a href= "{{ asset('/category-products/3') }}" class="btn btn-text">Acheter</a>
                         </div>
                     </figure>
                 </div>
@@ -233,15 +233,13 @@
                                                     <div class="product-label new">
                                                         <span>new</span>
                                                     </div>
-                                                    <div class="product-label discount">
-                                                        <span>10%</span>
-                                                    </div>
+                                                    @if($product->productlines[0]->promo_price)
+                                                        <div class="product-label discount">
+                                                            <span>{{ number_format((($product->productlines[0]->price - $product->productlines[0]->promo_price) / $product->productlines[0]->price) * 100) }}%</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                <div class="button-group">
-                                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
-
-                                                </div>
                                                 <div class="cart-hover">
                                                     <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                                 </div>
@@ -359,15 +357,13 @@
                                                     <div class="product-label new">
                                                         <span>new</span>
                                                     </div>
-                                                    <div class="product-label discount">
-                                                        <span>10%</span>
-                                                    </div>
+                                                    @if($product->productlines[0]->promo_price)
+                                                        <div class="product-label discount">
+                                                            <span>{{ number_format((($product->productlines[0]->price - $product->productlines[0]->promo_price) / $product->productlines[0]->price) * 100) }}%</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                <div class="button-group">
-                                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
-
-                                                </div>
                                                 <div class="cart-hover">
                                                     <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                                 </div>
@@ -419,15 +415,13 @@
                                                     <div class="product-label new">
                                                         <span>new</span>
                                                     </div>
-                                                    <div class="product-label discount">
-                                                        <span>10%</span>
-                                                    </div>
+                                                    @if($product->productlines[0]->promo_price)
+                                                        <div class="product-label discount">
+                                                            <span>{{ number_format((($product->productlines[0]->price - $product->productlines[0]->promo_price) / $product->productlines[0]->price) * 100) }}%</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                <div class="button-group">
-                                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
-
-                                                </div>
                                                 <div class="cart-hover">
                                                     <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                                 </div>
@@ -508,15 +502,13 @@
                                                     <div class="product-label new">
                                                         <span>new</span>
                                                     </div>
-                                                    <div class="product-label discount">
-                                                        <span>10%</span>
-                                                    </div>
+                                                    @if($promopack->price_promo)
+                                                        <div class="product-label discount">
+                                                            <span>{{ number_format((($promopack->price - $promopack->price_promo) / $promopack->price) * 100) }}%</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                <div class="button-group">
-                                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
-
-                                                </div>
                                                 <div class="cart-hover">
                                                     <a href="{{ asset('product/'.$promopack->product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                                 </div>
@@ -563,7 +555,7 @@
                                     <img src="{{ asset('images/img1.png') }}" alt="product banner">
                                 </a>
                                 <div class="banner-content banner-content_style2">
-                                    <h5 class="banner-text3"><a style="cursor: pointer">Maquillage</a></h5>
+                                    <h5 class="banner-text3"><a href="{{ asset('/category-products/1') }}">Maquillage</a></h5>
                                 </div>
                             </figure>
                         </div>
@@ -575,7 +567,7 @@
                                     <img src="{{ asset('images/img2.png') }}" alt="product banner">
                                 </a>
                                 <div class="banner-content banner-content_style2">
-                                    <h5 class="banner-text3"><a style="cursor: pointer">Cheveux</a></h5>
+                                    <h5 class="banner-text3"><a href="{{ asset('/category-products/7') }}">Cheveux</a></h5>
                                 </div>
                             </figure>
                         </div>
@@ -587,7 +579,7 @@
                                     <img src="{{ asset('images/img3.png') }}" alt="product banner">
                                 </a>
                                 <div class="banner-content banner-content_style2">
-                                    <h5 class="banner-text3"><a style="cursor: pointer">Parfums</a></h5>
+                                    <h5 class="banner-text3"><a href= "{{ asset('/category-products/3') }}">Parfums</a></h5>
                                 </div>
                             </figure>
                         </div>
@@ -630,40 +622,38 @@
             <div class="row">
                 <div class="col-12">
                     <div class="product-carousel-4_2 slick-row-10 slick-arrow-style">
-                        @foreach($products as $product)
+                        @foreach($random_popular_products as $random_popular_product)
                         <div class="product-item">
                             <figure class="product-thumb">
-                                <a href="{{ asset('product/'.$product->slug) }}">
-                                    @if($product->images[0])
-                                    <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
-                                    <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                <a href="{{ asset('product/'.$random_popular_product->slug) }}">
+                                    @if($random_popular_product->images[0])
+                                    <img class="pri-img" src="{{asset('storage/images/products/'.$random_popular_product->images[0]->lien)}}" alt="product">
+                                    <img class="sec-img" src="{{asset('storage/images/products/'.$random_popular_product->images[0]->lien)}}" alt="product">
                                     @endif
                                 </a>
                                 <div class="product-badge">
                                     <div class="product-label new">
                                         <span>new</span>
                                     </div>
-                                    <div class="product-label discount">
-                                        <span>10%</span>
-                                    </div>
+                                    @if($random_popular_product->productlines[0]->promo_price)
+                                        <div class="product-label discount">
+                                            <span>{{ number_format((($random_popular_product->productlines[0]->price - $random_popular_product->productlines[0]->promo_price) / $random_popular_product->productlines[0]->price) * 100) }}%</span>
+                                        </div>
+                                    @endif
                                 </div>
-                                <div class="button-group">
-                                    <a style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au favoris"><i class="pe-7s-like"></i></a>
 
-
-                                </div>
                                 <div class="cart-hover">
-                                    <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-cart">Voir le produit</a>
+                                    <a href="{{ asset('product/'.$random_popular_product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                 </div>
                             </figure>
                             <div class="product-caption text-center">
-                                @if($product->mark)
+                                @if($random_popular_product->mark)
                                     <div class="product-identity">
-                                        <p class="manufacturer-name"><a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a></p>
+                                        <p class="manufacturer-name"><a href="{{ asset('product/'.$random_popular_product->slug) }}">{{ $random_popular_product->mark->designation }}</a></p>
                                     </div>
                                 @endif
                                 <ul class="color-categories">
-                                    @foreach($product->productlines as $item)
+                                    @foreach($random_popular_product->productlines as $item)
                                         @if($item->attribute_id)
                                             <li>
                                                 <a  style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
@@ -672,14 +662,14 @@
                                     @endforeach
                                 </ul>
                                 <h6 class="product-name">
-                                    <a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a>
+                                    <a href="{{ asset('product/'.$random_popular_product->slug) }}">{{ $random_popular_product->designation }}</a>
                                 </h6>
                                 <div class="price-box">
                                     @if($product->getPricePromo())
-                                    <span class="price-regular">{{number_format($product->getPricePromo())}} Da</span>
-                                    <span class="price-old"><del>{{number_format($product->getPrice())}} Da</del></span>
+                                    <span class="price-regular">{{number_format($random_popular_product->getPricePromo())}} Da</span>
+                                    <span class="price-old"><del>{{number_format($random_popular_product->getPrice())}} Da</del></span>
                                     @else
-                                    <span class="price-regular">{{number_format($product->getPrice())}} Da</span>
+                                    <span class="price-regular">{{number_format($random_popular_product->getPrice())}} Da</span>
                                     @endif
                                 </div>
                             </div>
@@ -776,25 +766,25 @@
                         <div class="group-list-item-wrapper">
                             <div class="group-list-carousel">
                                 <!-- group list item start -->
-                            @foreach($products as $product)
+                            @foreach($random_best_selling_products as $random_best_selling_product)
                                 <div class="group-slide-item">
                                     <div class="group-item">
                                         <div class="group-item-thumb">
-                                            <a href="{{ asset('product/'.$product->slug) }}">
-                                                @if($product->images[0])
-                                                <img src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="">
+                                            <a href="{{ asset('product/'.$random_best_selling_product->slug) }}">
+                                                @if($random_best_selling_product->images[0])
+                                                <img src="{{asset('storage/images/products/'.$random_best_selling_product->images[0]->lien)}}" alt="">
                                                 @endif
                                             </a>
                                         </div>
                                         <div class="group-item-desc">
-                                            <h5 class="group-product-name"><a href="{{ asset('product/'.$product->slug) }}">
-                                                    {{ $product->designation }}</a></h5>
+                                            <h5 class="group-product-name"><a href="{{ asset('product/'.$random_best_selling_product->slug) }}">
+                                                    {{ $random_best_selling_product->designation }}</a></h5>
                                             <div class="price-box">
-                                                @if($product->getPricePromo())
-                                                <span class="price-regular">{{number_format($product->getPricePromo())}} Da</span>
-                                                <span class="price-old"><del>{{number_format($product->getPrice())}} Da</del></span>
+                                                @if($random_best_selling_product->getPricePromo())
+                                                <span class="price-regular">{{number_format($random_best_selling_product->getPricePromo())}} Da</span>
+                                                <span class="price-old"><del>{{number_format($random_best_selling_product->getPrice())}} Da</del></span>
                                                 @else
-                                                <span class="price-regular">{{number_format($product->getPrice())}} Da</span>
+                                                <span class="price-regular">{{number_format($random_best_selling_product->getPrice())}} Da</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -821,25 +811,25 @@
                         <div class="group-list-item-wrapper">
                             <div class="group-list-carousel">
                                 <!-- group list item start -->
-                                @foreach($products as $product)
+                                @foreach($random_products_on_sale as $random_product_on_sale)
                                     <div class="group-slide-item">
                                         <div class="group-item">
                                             <div class="group-item-thumb">
-                                                <a href="{{ asset('product/'.$product->slug) }}">
-                                                    @if($product->images[0])
-                                                    <img src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="">
+                                                <a href="{{ asset('product/'.$random_product_on_sale->slug) }}">
+                                                    @if($random_product_on_sale->images[0])
+                                                    <img src="{{asset('storage/images/products/'.$random_product_on_sale->images[0]->lien)}}" alt="">
                                                     @endif
                                                 </a>
                                             </div>
                                             <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="{{ asset('product/'.$product->slug) }}">
-                                                        {{ $product->designation }}</a></h5>
+                                                <h5 class="group-product-name"><a href="{{ asset('product/'.$random_product_on_sale->slug) }}">
+                                                        {{ $random_product_on_sale->designation }}</a></h5>
                                                 <div class="price-box">
-                                                    @if($product->getPricePromo())
-                                                    <span class="price-regular">{{number_format($product->getPricePromo())}} Da</span>
-                                                    <span class="price-old"><del>{{number_format($product->getPrice())}} Da</del></span>
+                                                    @if($random_product_on_sale->getPricePromo())
+                                                    <span class="price-regular">{{number_format($random_product_on_sale->getPricePromo())}} Da</span>
+                                                    <span class="price-old"><del>{{number_format($random_product_on_sale->getPrice())}} Da</del></span>
                                                     @else
-                                                    <span class="price-regular">{{number_format($product->getPrice())}} Da</span>
+                                                    <span class="price-regular">{{number_format($random_product_on_sale->getPrice())}} Da</span>
                                                     @endif
                                                 </div>
                                             </div>

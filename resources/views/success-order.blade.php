@@ -10,7 +10,7 @@
                     <div class="breadcrumb-wrap">
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="{{ asset('/') }}"><i class="fa fa-home"></i></a></li>
                                 <li class="breadcrumb-item active" aria-current="page">login-Register</li>
                             </ul>
                         </nav>
@@ -34,7 +34,7 @@
                             <a  href="{{url('/')}}" type="button" style="margin-top:20px;" class="btn btn-cart2">Page d'acceuil</a>
                         </div>
                     </div>
-                 
+
                 </div>
             </div>
         </div>

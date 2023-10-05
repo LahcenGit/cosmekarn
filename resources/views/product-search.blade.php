@@ -10,7 +10,7 @@
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ asset('/') }}"><i class="fa fa-home"></i></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ $category->designation }}</li>
+                                <li class="breadcrumb-item active" aria-current="page">Produits</li>
                             </ul>
                         </nav>
                     </div>
@@ -54,22 +54,22 @@
                                         <div class="product-item">
                                             <figure class="product-thumb">
                                                 <a href="product-details.html">
-                                                    <img class="pri-img" src="{{asset('storage/images/products/'.$product->product->images[0]->lien)}}" alt="product">
-                                                    <img class="sec-img" src="{{asset('storage/images/products/'.$product->product->images[0]->lien)}}" alt="product">
+                                                    <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
                                                 </a>
                                                 <div class="product-badge">
                                                     <div class="product-label new">
                                                         <span>new</span>
                                                     </div>
-                                                    @if($product->product->productlines[0]->promo_price)
+                                                    @if($product->productlines[0]->promo_price)
                                                         <div class="product-label discount">
-                                                            <span>{{ number_format((($product->product->productlines[0]->price - $product->product->productlines[0]->promo_price) / $product->product->productlines[0]->price) * 100) }}%</span>
+                                                            <span>{{ number_format((($product->productlines[0]->price - $product->productlines[0]->promo_price) / $product->productlines[0]->price) * 100) }}%</span>
                                                         </div>
                                                     @endif
                                                 </div>
 
                                                 <div class="cart-hover">
-                                                    <a href="{{ asset('product/'.$product->product->slug) }}" class="btn btn-cart">Voir le produit</a>
+                                                    <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-cart">Voir le produit</a>
                                                 </div>
                                             </figure>
                                             <div class="product-caption text-center">
@@ -77,28 +77,25 @@
                                                     <p class="manufacturer-name"><a href="product-details.html">Platinum</a></p>
                                                 </div>
                                                 <ul class="color-categories">
-                                                    @foreach($product->product->productlines as $item)
+                                                    @foreach($product->productlines as $item)
                                                         @if($item->attribute_id)
                                                                 @if($item->attribute_icone)
                                                                 <li>
                                                                     <a  width="30px" height="30px"  style="cursor: pointer" title="{{$item->attributeLine->value}}"><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
                                                                 </li>
-                                                            @else
-
-                                                            @endif
-
+                                                                @endif
                                                         @endif
                                                     @endforeach
                                                 </ul>
                                                 <h6 class="product-name">
-                                                    <a href="{{ asset('product/'.$product->product->slug) }}">{{ $product->product->designation }}</a>
+                                                    <a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a>
                                                 </h6>
                                                 <div class="price-box">
-                                                    @if($product->product->getPricePromo())
-                                                    <span class="price-regular">{{number_format($product->product->getPricePromo())}} Da</span>
-                                                    <span class="price-old"><del>{{number_format($product->product->getPrice())}} Da</del></span>
+                                                    @if($product->getPricePromo())
+                                                    <span class="price-regular">{{number_format($product->getPricePromo())}} Da</span>
+                                                    <span class="price-old"><del>{{number_format($product->getPrice())}} Da</del></span>
                                                     @else
-                                                    <span class="price-regular">{{number_format($product->product->getPrice())}} Da</span>
+                                                    <span class="price-regular">{{number_format($product->getPrice())}} Da</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -148,7 +145,7 @@
                 @else
                     <div class="col-lg-12">
                         <div class="alert alert-success-cosmekarn text-center"   role="alert">
-                        <p class="mt-3" style="font-size: 15px;"> Aucun produit trouvé pour cette catégorie pour le moment. </p>
+                        <p class="mt-3" style="font-size: 15px;"> Aucun produit trouvé pour le moment. </p>
                             <a  href="{{url('/')}}" type="button" style="margin-top:20px;" class="btn btn-cart2">Page d'acceuil</a>
                         </div>
                     </div>

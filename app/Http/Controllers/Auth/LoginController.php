@@ -55,28 +55,8 @@ class LoginController extends Controller
 
     public function loginRegister(){
 
-        if(Auth::user()){
-            $cart = Cart::where('user_id',Auth::user()->id)->first();
-            if($cart){
-            $cartitems = $cart->cartitems;
-            $nbr_cartitem = $cart->cartitems->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-            }
-            else{
-                $cartitems = null;
-                $nbr_cartitem = 0;
-                $total = 0;
-            }
-        }
-        else{
-        $cart= session('cart_id');
-        $cartitems = Cartitem::where('cart_id',$cart)->get();
-        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        }
-        $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
-
-        return view('login-register',compact('cart','cartitems','nbr_cartitem','total','categories'));
+        include(app_path() . '\Functions\header.php');
+        return view('login-register',compact('cart_id','cartitems','nbr_cartitem','total','categories','favoritelines','nbr_favoritelines'));
 
     }
 }
