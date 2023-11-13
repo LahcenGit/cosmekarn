@@ -85,8 +85,12 @@
 
                                 <div class="single-input-item">
                                     <label for="country" class="required">Wilayas</label>
-                                    <select name="country" class="nice-select" id="wilayas">
+                                    <select name="country" class="nice-select" id="wilayas" required>
+
                                         @foreach ($wilayas as $wilaya)
+                                        @if ($loop->first)
+                                        <option value="" disabled selected>Sélectionnez...</option>
+                                        @endif
                                         <option value="{{$wilaya->wilaya}}">{{$wilaya->wilaya}}</option>
 
                                         @endforeach
@@ -96,8 +100,8 @@
 
                                 <div class="single-input-item">
                                     <label for="commune" class="required">Communes</label>
-                                    <select name="commune" class="nice-select" id="communes">
-                                         <option value="select">selectionner...</option>
+                                    <select name="commune" class="nice-select" id="communes" required>
+                                         <option value="select" selected disabled>selectionner...</option>
                                     </select>
                                 </div>
 
@@ -105,7 +109,7 @@
                                 <div class="single-input-item">
                                     <label for="centers" class="required">centres</label>
                                     <select name="center" class="nice-select" id="centers">
-                                         <option value="select">selectionner...</option>
+                                         <option value="select" selected disabled>selectionner...</option>
                                     </select>
                                 </div>
 
@@ -402,6 +406,7 @@
         });
 
     });
+/*
     $( ".btn-submit" ).click(function(e) {
     if(terms.checked) {
      $(this).parents("form:first").submit();
@@ -410,6 +415,8 @@
         e.preventDefault();
         $(".alert-condition").css("display", "block");
     }
+
 });
+*/
 </script>
 @endpush

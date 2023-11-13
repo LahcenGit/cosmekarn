@@ -165,15 +165,17 @@
                                     @endforeach
 
                                 @endif
-                                <div class="quantity-cart-box d-flex align-items-center">
-                                    <input type="hidden" value="{{$product->id}}" class="product_id">
+                                <div class="qte-product">
+                                   <div class="quantity-cart-box d-flex align-items-center">
+                                        <input type="hidden" value="{{$product->id}}" class="product_id">
 
-                                    <h6 class="option-title">Qte:</h6>
-                                    <div class="quantity">
-                                        <div class="pro-qty"><input id="monChamp" type="text" class="qty-val" max="{{ $productLine->qte }}" min="1" value="1"></div>
-                                    </div>
-                                    <div class="action_link">
-                                        <a class="btn btn-cart2 addToCartBtn"  href="JavaScript:void(0);">Ajouter au panier</a>
+                                        <h6 class="option-title">Qte:</h6>
+                                        <div class="quantity">
+                                            <div class="pro-qty"><input id="monChamp" type="text" class="qty-val" max="{{ $productLine->qte }}" min="1" value="1"></div>
+                                        </div>
+                                        <div class="action_link">
+                                            <a class="btn btn-cart2 addToCartBtn @if($productLine->qte == 0) disabled @endif"  href="JavaScript:void(0);">Ajouter au panier</a>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -483,12 +485,15 @@
                         if(res.qte > 0){
                             $("#availability-icon").removeClass("fa-times-circle").addClass("fa-check-circle");
                             $("#qte").text(res.qte  + " dans le stock");
+                            $(".addToCartBtn").removeClass("disabled");
+
                         }
                         else{
                             $("#availability-icon").removeClass("fa-check-circle").addClass("fa-times-circle");
                             $("#qte").text("Repture de stock");
                             $(".addToCartBtn").addClass("disabled");
                             $(".addToCartBtn").off("click");
+
                         }
 
                     }
