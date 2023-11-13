@@ -26,9 +26,10 @@
         @csrf
     <div class="checkout-page-wrapper section-padding">
         <div class="container">
+            {{--
             <div class="row">
                 <div class="col-12">
-                    <!-- Checkout Login Coupon Accordion Start -->
+                     Checkout Login Coupon Accordion Start
                     <div class="checkoutaccordion" id="checkOutAccordion">
 
                         <div class="card">
@@ -51,8 +52,7 @@
                     <!-- Checkout Login Coupon Accordion End -->
                 </div>
             </div>
-
-
+--}}
 
             <div class="row">
                 <!-- Checkout Billing Details -->
@@ -238,7 +238,7 @@
                                     <div class="alert alert-danger mt-3 alert-condition" role="alert" style="display: none;">
                                         <span style="font-size: 15px;">Veuillez confirmer votre acceptation des conditions générales d'utilisation.  </span>
                                     </div>
-                                    <button  class="btn btn-sqr btn-submit">Commander</button>
+                                    <button type="submit" class="btn btn-sqr btn-submit">Commander</button>
 
                                 </div>
                             </div>
@@ -305,16 +305,16 @@
         var wilaya = $('#wilayas').val();
         var commune = $(this).val();
         check = $('input[name="shipping"]:checked', '.shipping-type').val();
-        /*
+
         var total_promo = '{{$total_promo}}';
          if(total_promo){
             var total = total_promo;
         }
         else{
             var total = '{{$total->sum}}';
-        }*/
-        var totalText = $('.total-price').text();
-        var total = parseFloat(totalText.match(/[0-9,]+/)[0].replace(',', ''));
+        }
+       // var totalText = $('.total-price').text();
+        //var total = parseFloat(totalText.match(/[0-9,]+/)[0].replace(',', ''));
 
         var total_final;
        $.ajax({
@@ -325,11 +325,13 @@
                 $('#bureau-cost').html(res.price_b);
                 $('#domicile-cost').html(res.price_a + res.supp);
                 if(check == 'bureau'){
-                    total_final = total + parseFloat(res.price_b);
+                    total_final = parseFloat(total) + parseFloat(res.price_b);
+
                     $('.total-price').html(total_final +'Da');
                 }
                 if(check == 'domicile'){
-                    total_final = total + parseFloat(res.price_a) + parseFloat(res.supp) ;
+                    total_final = parseFloat(total)+ parseFloat(res.price_a) + parseFloat(res.supp) ;
+
                     $('.total-price').html(total_final +'Da');
                 }
 
@@ -346,30 +348,30 @@
     $('.shipping-redio').on('click', function() {
       var wilaya = $('#wilayas').val();
       var commune = $('#communes').val();
-      var totalText = $('.total-price').text();
-      var total = parseFloat(totalText.match(/[0-9,]+/)[0].replace(',', ''));
+     // var totalText = $('.total-price').text();
+      //var total = parseFloat(totalText.match(/[0-9,]+/)[0].replace(',', ''));
       check = $('input[name="shipping"]:checked', '.shipping-type').val();
-       /*
+
         var total_promo = '{{$total_promo}}';
          if(total_promo){
             var total = total_promo;
         }
         else{
             var total = '{{$total->sum}}';
-        }*/
+        }
      $.ajax({
 			url: '/get-cost/'+wilaya+'/'+ commune ,
 			type: 'GET',
 
         success: function (res) {
 
-                if(check == "bureau"){
-                    total = total + res.price_b;
-                    $('.total-price').text(total + ' Da');
+            if(check == "bureau"){
+                    total = parseFloat(total) + parseFloat(res.price_b);
+                    $('.total-price').html(total + ' Da');
                 }
                 if(check == "domicile"){
-                    total = total + res.price_a + res.supp;
-                    $('.total-price').text(total + ' Da');
+                    total = parseFloat(total) + parseFloat(res.price_a) + parseFloat(res.supp) ;
+                    $('.total-price').html(total + ' Da');
                 }
 
             }

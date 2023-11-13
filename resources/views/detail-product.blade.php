@@ -176,6 +176,7 @@
                                         <a class="btn btn-cart2 addToCartBtn"  href="JavaScript:void(0);">Ajouter au panier</a>
                                     </div>
                                 </div>
+
                                 <div class="useful-links">
 
                                     <a style="cursor: pointer" class="addToFavoriteBtn" data-bs-toggle="tooltip" title="Wishlist"><i

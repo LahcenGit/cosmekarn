@@ -9,6 +9,27 @@ use Illuminate\Support\Facades\Auth;
 
 if(Auth::user()){
     $cart = Cart::where('user_id',Auth::user()->id)->first();
+    $cart_session = session('cart_id');
+    if ($cart_session) {
+        $cartitems_session = Cartitem::where('cart_id', $cart_session)->get();
+
+        foreach ($cartitems_session as $cartitem_session) {
+            // Vérifier si le produit existe déjà dans le panier de l'utilisateur
+            $existingCartItem = $cart->cartitems()->where('productline_id', $cartitem_session->productline_id)->first();
+
+            if ($existingCartItem) {
+                // Si le produit existe, augmenter la quantité
+                $existingCartItem->qte += $cartitem_session->qte;
+                $existingCartItem->price =  $cartitem_session->qte * $cartitem_session->price;
+                $existingCartItem->save();
+            } else {
+                // Sinon, créer un nouvel élément dans le panier de l'utilisateur
+                $cartitem_session->cart_id = $cart->id;
+                $cartitem_session->save();
+            }
+        }
+    }
+    session()->forget('cart');
     $cart_id = $cart->id;
     $cartitems = $cart->cartitems;
 
