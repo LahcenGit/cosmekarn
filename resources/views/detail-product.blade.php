@@ -524,7 +524,7 @@
                     var id = $('#list-line li.selected-icon').attr('value-id');
                     if(!id){
                         var id = $('#list-attr a.selected-attribute').data('id');
-                        alert(id);
+
                     }
 
                     $.ajax({
@@ -563,6 +563,7 @@
                                 else{
                                     alert("Le produit existe déja dans votre panier");
                                 }
+                                alert(res.total);
                                 $(".total").text(res.total +' Da');
                                }
 
