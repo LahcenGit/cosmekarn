@@ -161,7 +161,11 @@
                                                 </a>
                                                 <ul class="dropdown-list">
                                                     <li style="color: #E41F85; margin-bottom:10px;" >Hi ! {{strtok(Auth::user()->name, " ")}}</li>
+                                                    @if(Auth::user()->type == 'customer')
                                                     <li><a href="{{asset('/customer')}}" style="cursor: pointer">Dashboard</a></li>
+                                                    @else
+                                                    <li><a href="{{asset('/admin')}}" style="cursor: pointer">Dashboard</a></li>
+                                                    @endif
                                                     <li>
                                                         <a style="cursor: pointer" href="{{route('logout')}}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
