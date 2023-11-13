@@ -153,12 +153,11 @@ class ProductController extends Controller
         // product images
         //first_image
 
-        dd('hhhh');
         $hasFile = $request->hasFile('photoPrincipale');
         $hasFileTwo = $request->hasFile('photos');
         if($hasFile){
                 $destination = 'public/images/products';
-                $path = $request->file('photoPrincipale')->store($destination);
+                $path = $request->file('photoPrincipale')[0]->store($destination);
                 $storageName = basename($path);
                 $image = new Image();
                 $image->lien = $storageName;
@@ -298,7 +297,7 @@ class ProductController extends Controller
             }
 
 
-           }
+        }
           //product has no attribute
         else{
            $images = $product->images;

@@ -224,9 +224,12 @@
                                         <div class="product-item">
                                             <figure class="product-thumb">
                                                 <a href="{{ asset('product/'.$product->slug) }}">
-                                                    @if($product->images[0])
-                                                    <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
-                                                    <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    @if(optional($product->images->first())->lien)
+                                                        <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    @else
+                                                        <img class="pri-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
                                                     @endif
                                                 </a>
                                                 <div class="product-badge">
@@ -288,9 +291,12 @@
                                         <div class="product-item">
                                             <figure class="product-thumb">
                                                 <a href="{{ asset('product/'.$product->slug) }}">
-                                                    @if($product->images[0])
-                                                    <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
-                                                    <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    @if(optional($product->images->first())->lien)
+                                                        <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    @else
+                                                        <img class="pri-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
                                                     @endif
                                                 </a>
                                                 <div class="product-badge">
@@ -348,9 +354,12 @@
                                         <div class="product-item">
                                             <figure class="product-thumb">
                                                 <a href="{{ asset('product/'.$product->slug) }}">
-                                                    @if($product->images[0])
-                                                    <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
-                                                    <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    @if(optional($product->images->first())->lien)
+                                                        <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    @else
+                                                        <img class="pri-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
                                                     @endif
                                                 </a>
                                                 <div class="product-badge">
@@ -406,9 +415,12 @@
                                         <div class="product-item">
                                             <figure class="product-thumb">
                                                 <a href="{{ asset('product/'.$product->slug) }}">
-                                                    @if($product->images[0])
-                                                    <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
-                                                    <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    @if(optional($product->images->first())->lien)
+                                                        <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    @else
+                                                        <img class="pri-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
                                                     @endif
                                                 </a>
                                                 <div class="product-badge">
@@ -493,9 +505,12 @@
                                         <div class="product-item">
                                             <figure class="product-thumb">
                                                 <a href="{{ asset('product/'.$promopack->product->slug) }}">
-                                                    @if($product->images[0])
-                                                    <img class="pri-img" src="{{asset('storage/images/products/'.$promopack->product->images[0]->lien)}}" alt="product">
-                                                    <img class="sec-img" src="{{asset('storage/images/products/'.$promopack->product->images[0]->lien)}}" alt="product">
+                                                    @if(optional($product->images->first())->lien)
+                                                        <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    @else
+                                                        <img class="pri-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
                                                     @endif
                                                 </a>
                                                 <div class="product-badge">
@@ -626,9 +641,12 @@
                         <div class="product-item">
                             <figure class="product-thumb">
                                 <a href="{{ asset('product/'.$random_popular_product->slug) }}">
-                                    @if($random_popular_product->images[0])
+                                    @if(optional($random_popular_product->images->first())->lien)
                                     <img class="pri-img" src="{{asset('storage/images/products/'.$random_popular_product->images[0]->lien)}}" alt="product">
                                     <img class="sec-img" src="{{asset('storage/images/products/'.$random_popular_product->images[0]->lien)}}" alt="product">
+                                    @else
+                                    <img class="pri-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
+                                    <img class="sec-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
                                     @endif
                                 </a>
                                 <div class="product-badge">
@@ -771,9 +789,12 @@
                                     <div class="group-item">
                                         <div class="group-item-thumb">
                                             <a href="{{ asset('product/'.$random_best_selling_product->slug) }}">
-                                                @if($random_best_selling_product->images[0])
+                                                @if(optional($random_best_selling_product->images->first())->lien)
                                                 <img src="{{asset('storage/images/products/'.$random_best_selling_product->images[0]->lien)}}" alt="">
+                                                @else
+                                                <img src="{{asset('/product-cosmekarn.jpg')}}" alt="">
                                                 @endif
+
                                             </a>
                                         </div>
                                         <div class="group-item-desc">
@@ -816,8 +837,10 @@
                                         <div class="group-item">
                                             <div class="group-item-thumb">
                                                 <a href="{{ asset('product/'.$random_product_on_sale->slug) }}">
-                                                    @if($random_product_on_sale->images[0])
-                                                    <img src="{{asset('storage/images/products/'.$random_product_on_sale->images[0]->lien)}}" alt="">
+                                                    @if(optional($random_product_on_sale->first())->lien)
+                                                       <img src="{{asset('storage/images/products/'.$random_product_on_sale->images[0]->lien)}}" alt="">
+                                                    @else
+                                                        <img src="{{asset('/product-cosmekarn.jpg')}}" alt="">
                                                     @endif
                                                 </a>
                                             </div>

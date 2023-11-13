@@ -37,11 +37,11 @@
                                     <div class="form-group col-md-6">
                                         <label>Désignation*:</label>
                                         <input type="text"  class="form-control input-default " 
-                                          value="{{old('designation')}}" name="designation" id="designation" placeholder="designation" >
+                                          value="{{ $product->designation }}" name="designation" id="designation" placeholder="designation" >
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Qte:</label>
-                                        <input type="number"  class="form-control input-default control-number @error('qte') is-invalid @enderror" value="{{old('qte')}}" min="0" name="qte" placeholder="0">
+                                        <input type="number"  class="form-control input-default control-number @error('qte') is-invalid @enderror" value="{{ $product->qte }}" min="0" name="qte" placeholder="0">
                                             @error('qte')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -52,8 +52,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Prix:</label>
+                                        @if($productlines->count() == 1)
+                                         <input type="text" class="form-control input-default control-number @error('price') is-invalid @enderror" value="{{ $productlines[0]->price }}" name="price" placeholder="0.00">
+                                        @else
                                         <input type="text" class="form-control input-default control-number @error('price') is-invalid @enderror" value="{{old('price')}}" name="price" placeholder="0.00">
-                                            @error('price')
+                                        @endif
+                                           @error('price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -61,7 +65,11 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Promo:</label>
-                                        <input type="text"  class="form-control input-default control-number @error('promo') is-invalid @enderror" value="{{old('promo')}}" name="promo" placeholder="0.00">
+                                        @if($productlines->count() == 1)
+                                            <input type="text"  class="form-control input-default control-number @error('promo') is-invalid @enderror" value="{{ $productlines[0]->promo }}" name="promo" placeholder="0.00">
+                                        @else
+                                            <input type="text"  class="form-control input-default control-number @error('promo') is-invalid @enderror" value="{{old('promo')}}" name="promo" placeholder="0.00">
+                                        @endif
                                             @error('promo')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -74,10 +82,10 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Variation :</label>
-                                            <select  id="select-content-individuel"  class="default-select form-control wide selectpicker"   name="variation" >
-                                                <option value="0"> Aucune option</option>
+                                            <select  id="select-content-individuel"  class="default-select form-control wide selectpicker" name="variation" >
+                                                <option value="0"> Sans variation</option>
                                                 @foreach($attributes as $a)
-                                                <option value="{{$a->id}}">{{$a->value}}</option>
+                                                    <option value="{{$a->id}}">{{$a->value}}</option>
                                                 @endforeach
                                             </select>
 
@@ -90,6 +98,7 @@
                                     <div class="form-group col-md-6">
                                         <label>Valeur :</label>
                                             <select  id="select-value-individuel" class="default-select form-control wide selectpicker" data-live-search="true" name="valeur" disabled >
+                                                <option value="" disabled selected>Selectionnez une variation</option>
                                             </select>
                                             @error('valeur')
                                                 <span class="invalid-feedback" role="alert">
@@ -104,10 +113,10 @@
                                     <div class="form-group col-md-6">
                                         <label>Statut:</label>
                                         <select id="inputState" class="default-select form-control wide" name="status">
-                                            <option value="1">Nouveau</option>
-                                            <option value="2">Ancien stock</option>
-                                            <option value="3">rupture</option>
-                                            <option value="4">Prochainement</option>
+                                            <option value="1" {{ $product->status == 1 ? 'selected' : '' }}>Nouveau</option>
+                                            <option value="2" {{ $product->status == 2 ? 'selected' : '' }}>Ancien stock</option>
+                                            <option value="3" {{ $product->status == 3 ? 'selected' : '' }}>rupture</option>
+                                            <option value="4" {{ $product->status == 4 ? 'selected' : '' }}>Prochainement</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -150,7 +159,7 @@
                         <div class="basic-form">
                              <div class="row">
                                     <div class="mb-3 col-md-12">
-                                    <textarea  class="form-control" name="short_description"></textarea>
+                                    <textarea  class="form-control" name="short_description">{{ $product->short_description }}</textarea>
                                  </div>
                             </div>
                         </div>
@@ -180,7 +189,7 @@
                         <div class="basic-form">
                              <div class="row">
                                     <div class="mb-3 col-md-12">
-                                        <textarea class="summernote" class="form-control " name="long_description" >{{old('description')}}</textarea>
+                                        <textarea class="summernote" class="form-control " name="long_description" >{{$product->long_description}}</textarea>
                                  </div>
                             </div>
                         </div>
@@ -205,7 +214,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <input type="checkbox" class="form-check-input" id="check" value="oui" name="check" >
+                        <input type="checkbox" class="form-check-input" id="checkVar" value="oui" name="check" >
                         <h4 class="card-title">Variants ?</h4>
                     </div>
                     
@@ -229,47 +238,46 @@
                                         </tr>
                                     </thead>
                                     <tbody id="dynamicAddRemove"  >
+                                        @foreach ($productlines as $productline)
                                             <tr>
                                                 <td style="width: 15%">
-                                                    <select  id="select-content"  class="default-select form-control wide "  name="as[0]"  >
+                                                    <select  id="select-content"  class="default-select form-control wide"  name="as[0]"  >
                                                         @foreach($attributes as $a)
-                                                        <option value="{{$a->id}}">{{$a->value}}</option>
+                                                             <option value="{{$a->id}}">{{$a->value}}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
 
-                                                
                                                 <td style="width: 15%">
                                                     <select  id="select-value" class="default-select form-control wide " name="values[0]"  >
                                                     </select>
                                                 </td>
                                                 <td style="width:  10%">
-                                                    <input type="text" class="form-control" placeholder="0" name="qtes[0]">
+                                                    <input type="text" class="form-control" value="{{$productline->qte}}" placeholder="0" name="qtes[0]">
                                                 </td>
                                                 <td  style="width: 15%">
-                                                    <input type="text" class="form-control price" placeholder="0.00" name="prices[0]">
+                                                    <input type="text" class="form-control price" value="{{$productline->price}}" placeholder="0.00" name="prices[0]">
                                                 </td>
                                                 <td style="width: 15%">
-                                                    <input type="text" class="form-control price" placeholder="0.00" name="promos[0]">
+                                                    <input type="text" class="form-control price" value="{{$productline->promo_price}}" placeholder="0.00" name="promos[0]">
                                                 </td>
                                                 <td>
                                                     <label for="icon-0" style="cursor: pointer;">
                                                         <img id="icon-show-0" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
                                                     </label>
-                                                    <input type="file" class="input-image" id="icon-0" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                                    <input type="file" class="input-image" id="icon-0" name="icons[]" accept="image/*" style="display: none; visibility:none;">
                                                 </td>
                                                 <td>
                                                     <label for="image-0" style="cursor: pointer;">
                                                         <img id="image-show-0" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >
                                                     </label>
-                                                    <input type="file" class="input-image" id="image-0" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                                    <input type="file" class="input-image" id="image-0" name="images[]" accept="image/*"  style="display: none; visibility:none;">
                                                 </td>
                                                 <td>
                                                     <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                                                 </td>
                                             </tr>
-
-                                        
+                                        @endforeach
                                     </tbody>
                                 </table>
                              </div>
@@ -300,6 +308,17 @@
 @endsection
 
 @push('show-variation-scripts')
+
+<script>
+    let category_checked ={!! $array_checked !!};
+
+    $.each(category_checked, function (index, value) {
+       $('input[value="'+value+'"]' ).prop( "checked", true );
+    });
+
+ 
+
+</script>
 
 <script>
 
@@ -355,23 +374,30 @@
     });
  </script>
  
-<script>
+ <script>
 
-   $( "#check" ).prop( "checked", false );
-   $("#check").on('change',function(){
-   
-    if(this.checked) {
-        $("#variation").css("display", "block");
-        $("#select-content").prop('required',true);
+    $( "#checkVar" ).prop( "checked", false );
+
+    let  exist_productlines = {!! $productlines !!};
+    if(exist_productlines){
+            $( "#checkVar" ).prop( "checked", true );
+            $("#variation").css("display", "block");
     }
-    else{
-        $("#select-content").prop('required',false);
-        $("#variation").css("display", "none");
-        $('.tradded').remove();
-        }
-    });
 
- </script>
+    $("#checkVar").on('change',function(){
+ 
+     if(this.checked) {
+         $("#variation").css("display", "block");
+         $("#select-content").prop('required',true);
+     }
+     else{
+         $("#select-content").prop('required',false);
+         $("#variation").css("display", "none");
+         $('.tradded').remove();
+         }
+    });
+ 
+  </script>
 @endpush
 
 @push('generate-attribute-scripts')
@@ -611,5 +637,8 @@
       var myText = "Vous ne pouvez pas ajouter un produit en mode test ! InnoDev";
       alert (myText);
     }
+
+
+
     </script>
 @endpush

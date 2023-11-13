@@ -34,6 +34,7 @@ class HomeController extends Controller
         })->inRandomOrder()->take(4)->get();
 
         $promopacks = Promopack::orderBy('created_at','desc')->get();
+
         include(app_path() . '\Functions\header.php');
         return view('welcome',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id','products','promopacks','random_popular_products','random_best_selling_products','random_products_on_sale'));
 

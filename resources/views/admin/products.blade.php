@@ -32,18 +32,22 @@
                                     @foreach($products as $product)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td><img  width="35" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}"/></td>
+                                        @if(optional($product->images->first())->lien)
+                                            <td><img  width="35" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}"/></td>
+                                        @else
+                                            <td><img  width="35" src="{{asset('/product-cosmekarn.jpg')}}"/></td>
+                                        @endif
                                         <td>{{$product->designation}}</td>
-
                                         <td>
-
                                             <div class="d-flex">
-                                                <a  href="{{url('admin/products/'.$product->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <a  href="{{url('product/'.$product->slug)}}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fas fa-eye"></i></a>
+                                                <a  href="{{url('admin/products/'.$product->id.'/edit')}}" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fas fa-pencil-alt"></i></a>
                                                 <form action="{{url('admin/products/'.$product->id)}}" method="post">
                                                     {{csrf_field()}}
                                                     {{method_field('DELETE')}}
                                                     <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
                                                </form>
+                                            
                                             </div>
                                         </td>
                                     </tr>

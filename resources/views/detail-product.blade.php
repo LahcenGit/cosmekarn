@@ -1,5 +1,12 @@
 @extends('layouts.front')
 @section('content')
+
+<style>
+    .disabled{
+        color: #8b8b8b;
+        background-color: #d3d3d3;
+    }
+</style>
 <!-- page main wrapper start -->
 <div class="shop-main-wrapper section-padding pb-0">
     <div class="container">
@@ -12,16 +19,22 @@
 
                         <div class="col-lg-5">
                             <div class="product-large-slider">
-                                @if($first_image)
+                                @if(optional($first_image)->lien)
                                     <div class="pro-large-img img-zoom">
                                         <img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product-details" />
+                                    </div>
+                                @else
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="{{asset('/product-cosmekarn.jpg')}}" alt="product-details" />
                                     </div>
                                 @endif
                                 @if($images_attributes)
                                     @foreach($images_attributes as $image_attribute)
-                                    <div class="pro-large-img img-zoom">
-                                        <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}"  alt="{{ $image_attribute->attributeLine->value }}" />
-                                    </div>
+                                        @if($image_attribute->attribute_image != null)
+                                            <div class="pro-large-img img-zoom">
+                                                <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}"  alt="{{ $image_attribute->attributeLine->value }} 5866" />
+                                            </div>
+                                        @endif
                                     @endforeach
                                 @else
                                     @foreach($secondary_images as $secondary_image)
@@ -34,12 +47,18 @@
                             <div class="pro-nav slick-row-10 slick-arrow-style">
                                 @if($images_attributes)
                                 <div class="pro-nav-thumb">
+                                    @if(optional($first_image)->lien)
                                     <img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product-details" />
+                                    @else
+                                    <img src="{{asset('/product-cosmekarn.jpg')}}" alt="product-details" />
+                                    @endif
                                 </div>
                                     @foreach($images_attributes as $image_attribute)
-                                    <div class="pro-nav-thumb" id="{{'related-img-'.$image_attribute->id}}">
-                                        <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="{{ $image_attribute->attributeLine->value }}" />
-                                    </div>
+                                        @if($image_attribute->attribute_image != null)
+                                            <div class="pro-nav-thumb" id="{{'related-img-'.$image_attribute->id}}">
+                                                <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="{{ $image_attribute->attributeLine->value }}" />
+                                            </div>
+                                        @endif
                                     @endforeach
                                 @else
                                     @foreach($images as $image)
@@ -86,18 +105,17 @@
                                         @endif
                                     @endif
                                 </div>
-                                @if($product->id != 59)
-                                <h5 class="offer-text"><strong>Dépêchez-vous</strong>! l'offre se termine dans:</h5>
-                                <div class="product-countdown" data-countdown="2022/12/30"></div>
 
-                                @endif
+                                {{--<h5 class="offer-text"><strong>Dépêchez-vous</strong>! l'offre se termine dans:</h5>
+                                <div class="product-countdown" data-countdown="2022/12/30"></div>--}}
+
                                 <div class="availability">
                                     @if($productLine->qte >0)
                                     <i id="availability-icon" class="fa fa-check-circle"></i>
                                     @else
-                                    <i id="availability-icon" class="fa fa-times-circle"></i>
+                                    <i id="availability-icon" class="fa fa-times-circle" style="color:red"></i>
                                     @endif
-                                    <span id="qte">@if($productLine->qte >0){{ $productLine->qte }} dans le stock @else Repture @endif</span>
+                                    <span id="qte">@if($productLine->qte >0) <b> {{ $productLine->qte }} </b> dans le stock @else <b style="color: red"> Rupture de stock </b> @endif</span>
                                 </div>
                                 <p class="pro-desc">{{$product->short_description}}</p>
 
@@ -155,7 +173,7 @@
                                         <div class="pro-qty"><input id="monChamp" type="text" class="qty-val" max="{{ $productLine->qte }}" min="1" value="1"></div>
                                     </div>
                                     <div class="action_link">
-                                        <a class="btn btn-cart2 addToCartBtn" href="JavaScript:void(0);">Ajouter au panier</a>
+                                        <a class="btn btn-cart2 addToCartBtn"  href="JavaScript:void(0);">Ajouter au panier</a>
                                     </div>
                                 </div>
                                 <div class="useful-links">
@@ -294,58 +312,61 @@
             <div class="col-12">
                 <div class="product-carousel-4 slick-row-10 slick-arrow-style">
                     <!-- product item start -->
-
-                    @foreach($related_products as $related_product)
-                        <div class="product-item">
-                            <figure class="product-thumb">
-                                <a href="{{ asset('product/'.$related_product->product->slug) }}">
-                                    @if($first_image)
-                                    <img class="pri-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="product">
-                                    <img class="sec-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="product">
-                                    @endif
-                                </a>
-                                <div class="product-badge">
-                                    <div class="product-label new">
-                                        <span>new</span>
-                                    </div>
-                                    @if($related_product->product->productlines[0]->promo_price)
-                                        <div class="product-label discount">
-                                            <span>{{ number_format((($related_product->product->productlines[0]->price - $related_product->product->productlines[0]->promo_price) / $related_product->product->productlines[0]->price) * 100) }}%</span>
+                        @foreach($related_products as $related_product)
+                            <div class="product-item">
+                                <figure class="product-thumb">
+                                    <a href="{{ asset('product/'.$related_product->product->slug) }}">
+                                        @if(optional($related_product->product->images->first())->lien)
+                                            <img class="pri-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="product">
+                                            <img class="sec-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="product">
+                                        @else
+                                            <img class="pri-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
+                                            <img class="sec-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
+                                        @endif
+                                    </a>
+                                    <div class="product-badge">
+                                        <div class="product-label new">
+                                            <span>new</span>
                                         </div>
-                                    @endif
-                                </div>
-                                <div class="cart-hover">
-                                    <a href="{{ asset('product/'.$related_product->product->slug) }}" class="btn btn-cart">Voir le produit</a>
-                                </div>
-                            </figure>
-                            <div class="product-caption text-center">
-                                <div class="product-identity">
-                                    <p class="manufacturer-name"><a href="{{ asset('product/'.$related_product->product->slug) }}">{{ $related_product->product->mark->designation }}</a></p>
-                                </div>
-                                <ul class="color-categories">
-                                    @foreach($related_product->product->productlines as $item)
-                                      @if($item->attribute_id)
-                                        <li>
-                                            <a style="cursor: pointer" title=" {{$item->attributeLine->value}} "><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
-                                        </li>
-                                      @endif
-                                    @endforeach
-                                </ul>
-                                <h6 class="product-name">
-                                    <a href="{{ asset('product/'.$related_product->product->slug) }}">{{ $related_product->product->designation }}</a>
-                                </h6>
-                                <div class="price-box">
-                                    @if($related_product->getPricePromo())
-                                        <span class="price-regular">{{number_format($related_product->getPricePromo())}} Da</span>
-                                        <span class="price-old"><del>{{number_format($related_product->getPrice())}} Da</del></span>
-                                    @else
-                                        <span class="price-regular">{{number_format($related_product->getPrice())}} Da</span>
-                                    @endif
+                                        @if(optional($related_product->product->productlines->first())->promo_price)
+                                            <div class="product-label discount">
+                                                <span>{{ number_format((($related_product->product->productlines[0]->price - $related_product->product->productlines[0]->promo_price) / $related_product->product->productlines[0]->price) * 100) }}%</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="cart-hover">
+                                        <a href="{{ asset('product/'.$related_product->product->slug) }}" class="btn btn-cart">Voir le produit</a>
+                                    </div>
+                                </figure>
+                                <div class="product-caption text-center">
+                                    <div class="product-identity">
+                                        @if(optional($related_product->product->mark)->designation)
+                                         <p class="manufacturer-name"><a href="{{ asset('product/'.$related_product->product->slug) }}">{{ $related_product->product->mark->designation }}</a></p>
+                                        @endif
+                                    </div>
+                                    <ul class="color-categories">
+                                        @foreach($related_product->product->productlines as $item)
+                                        @if($item->attribute_id)
+                                            <li>
+                                                <a style="cursor: pointer" title=" {{$item->attributeLine->value}} "><img src="{{ asset('storage/icones/productlines/'.$item->attribute_icone) }}" alt="" /></a>
+                                            </li>
+                                        @endif
+                                        @endforeach
+                                    </ul>
+                                    <h6 class="product-name">
+                                        <a href="{{ asset('product/'.$related_product->product->slug) }}">{{ $related_product->product->designation }}</a>
+                                    </h6>
+                                    <div class="price-box">
+                                        @if($related_product->getPricePromo())
+                                            <span class="price-regular">{{number_format($related_product->getPricePromo())}} Da</span>
+                                            <span class="price-old"><del>{{number_format($related_product->getPrice())}} Da</del></span>
+                                        @else
+                                            <span class="price-regular">{{number_format($related_product->getPrice())}} Da</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                    @endforeach
+                        @endforeach
 
                 </div>
             </div>
@@ -427,6 +448,8 @@
 
 @push('select-icon-indice')
 
+
+
 <script>
     $(".attribute-text").click(function() {
         $('.selected-attribute').removeClass("selected-attribute");
@@ -458,11 +481,13 @@
                     success: function (res) {
                         if(res.qte > 0){
                             $("#availability-icon").removeClass("fa-times-circle").addClass("fa-check-circle");
-                            $("#qte").text(res.qte + " dans le stock");
+                            $("#qte").text(res.qte  + " dans le stock");
                         }
                         else{
                             $("#availability-icon").removeClass("fa-check-circle").addClass("fa-times-circle");
-                            $("#qte").text("Repture");
+                            $("#qte").text("Repture de stock");
+                            $(".addToCartBtn").addClass("disabled");
+                            $(".addToCartBtn").off("click");
                         }
 
                     }

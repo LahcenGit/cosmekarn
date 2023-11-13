@@ -72,7 +72,7 @@
                                     <div class="form-group col-md-6">
                                         <label>Variation :</label>
                                             <select  id="select-content-individuel"  class="default-select form-control wide selectpicker"   name="variation" >
-                                                <option value="0"> Aucune option</option>
+                                                <option value="0"> Sans variation</option>
                                                 @foreach($attributes as $a)
                                                 <option value="{{$a->id}}">{{$a->value}}</option>
                                                 @endforeach
@@ -84,9 +84,10 @@
                                                 </span>
                                             @enderror
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-6" id="variation-value-block">
                                         <label>Valeur :</label>
                                             <select  id="select-value-individuel" class="default-select form-control wide selectpicker" data-live-search="true" name="valeur" disabled >
+                                                <option value="" disabled selected>Selectionnez une variation</option>
                                             </select>
                                             @error('valeur')
                                                 <span class="invalid-feedback" role="alert">
@@ -108,7 +109,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>La marque*:</label>
+                                        <label>Marque*:</label>
                                         <select id="inputState" class="default-select form-control wide" name="mark">
                                             @foreach($marks as $mark)
                                             <option value="{{ $mark->id }}">{{ $mark->designation }}</option>
@@ -265,13 +266,13 @@
                                                     <label for="icon-0" style="cursor: pointer;">
                                                         <img id="icon-show-0" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
                                                     </label>
-                                                    <input type="file" class="input-image" id="icon-0" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                                    <input type="file" class="input-image" id="icon-0" name="icons[]" accept="image/*" style="display: none; visibility:none;">
                                                 </td>
                                                 <td>
                                                     <label for="image-0" style="cursor: pointer;">
                                                         <img id="image-show-0" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >
                                                     </label>
-                                                    <input type="file" class="input-image" id="image-0" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                                    <input type="file" class="input-image" id="image-0" name="images[]" accept="image/*" style="display: none; visibility:none;">
                                                 </td>
                                                 <td>
                                                     <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
@@ -372,26 +373,38 @@
 		}
     });
 
+    //loading page
+    $('#select-value-individuel').prop('disabled', true);
+    $('#variation-value-block').hide();
+    //go
     $("#select-content-individuel").change(function() {
 
-        $('#select-value-individuel').prop('disabled', false);
-        var id = $(this).val();
-        var data ="";
+        if($(this).val() != 0){
+            $('#variation-value-block').show();
+            $('#select-value-individuel').prop('disabled', false);
+            var id = $(this).val();
+            var data ="";
 
-        $.ajax({
-            url: '/get-attribute/' + id,
-            type: "GET",
+            $.ajax({
+                url: '/get-attribute/' + id,
+                type: "GET",
 
-            success: function (res) {
-                $.each(res, function(i, res) {
-                data = data + '<option value="'+ res.id+ '" >'+ res.value + '</option>';
-                });
+                success: function (res) {
+                    $.each(res, function(i, res) {
+                    data = data + '<option value="'+ res.id+ '" >'+ res.value + '</option>';
+                    });
 
-                $('#select-value-individuel').html(data);
-                $('#select-value-individuel').selectpicker('refresh');
-				$('#select-value-individuel').selectpicker('refresh');
-            }
-        });
+                    $('#select-value-individuel').html(data);
+                    $('#select-value-individuel').selectpicker('refresh');
+                    $('#select-value-individuel').selectpicker('refresh');
+                }
+            });
+        }
+
+        else{
+            $('#select-value-individuel').prop('disabled', true);
+            $('#variation-value-block').hide();
+        }
     });
     $("#select-content").change(function() {
 
@@ -473,13 +486,13 @@
                         '<label for="icon-'+i+'" style="cursor: pointer;">'+
                            '<img id="icon-show-'+i+'" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >'+
                         '</label>'+
-                        '<input type="file" class="input-image" id="icon-'+i+'" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                        '<input type="file" class="input-image" id="icon-'+i+'" name="icons[]" accept="image/*" style="display: none; visibility:none;">'+
                     '</td>'+
                     '<td>'+
                        ' <label for="image-'+i+'" style="cursor: pointer;">'+
                             '<img id="image-show-'+i+'" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >'+
                        ' </label>'+
-                        '<input type="file" class="input-image" id="image-'+i+'" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                        '<input type="file" class="input-image" id="image-'+i+'" name="images[]" accept="image/*" style="display: none; visibility:none;">'+
                     '</td>'+
                     '<td>'+
                        ' <button type="button" class="btn btn-danger shadow btn-xs sharp delete-attribute"><i class="fa fa-trash"></i></button>'+
