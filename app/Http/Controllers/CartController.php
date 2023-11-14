@@ -83,7 +83,6 @@ class CartController extends Controller
                     $cart_item->cart_id = $cart;
                     $cart_item->productline_id = $request->input('id');
                     $cart_item->qte = $request->input('qte');
-                     dd($productline->promo_price);
                     if($productline->promo_price){
                     $cart_item->price = $productline->promo_price;
                     $cart_item->total = $productline->promo_price * $request->input('qte');
@@ -106,7 +105,6 @@ class CartController extends Controller
                         'total' => number_format($total->sum),
                         'qtes' => 0,
                     );
-
                     session()->put('cart_id', $cart);
 
                     return $data;
@@ -134,7 +132,7 @@ class CartController extends Controller
                 $cart_item->save();
 
                 $nbr_cart = Cartitem::where('cart_id',$cart->id)->count();
-                $total = Cartitem::selectRaw('sum(total) as sum')->first();
+                $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
                 $data = array(
                     'nbr_cart' => $nbr_cart,
                     'name' => $cart_item->productline->product->designation,
