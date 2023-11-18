@@ -41,75 +41,78 @@ class CalculateTotalController extends Controller
 
 
         // test code coupon
-        $code = Couponcode::where('code',$coupon)->first();
-        if($code){
-            $date_expiration = Carbon::parse($code->expiration_date );
-        }
-        // Récupérez les catégories des produits dans le panier
-        $cart_product_categories = Product::join('productcategories', 'products.id', '=', 'productcategories.product_id')
-                                        ->whereIn('product_id', $products)
-                                        ->distinct()
-                                        ->pluck('category_id')
-                                        ->toArray();
+        if($coupon){
+            $code = Couponcode::where('code',$coupon)->first();
+            if($code){
+                $date_expiration = Carbon::parse($code->expiration_date );
+            }
+            // Récupérez les catégories des produits dans le panier
+            $cart_product_categories = Product::join('productcategories', 'products.id', '=', 'productcategories.product_id')
+                                            ->whereIn('product_id', $products)
+                                            ->distinct()
+                                            ->pluck('category_id')
+                                            ->toArray();
 
-        $date_now = Carbon::now();
-        if($code && $date_expiration->gt($date_now) && $code->usage_limit_code > 0){
-            $coupon_categories = json_decode($code->categories);
-            // Vérifiez si toutes les catégories des produits dans le panier correspondent aux catégories du coupon
-            $all_categories_match = array_diff($cart_product_categories, $coupon_categories);
+            $date_now = Carbon::now();
+            if($code && $date_expiration->gt($date_now) && $code->usage_limit_code > 0){
+                $coupon_categories = json_decode($code->categories);
+                // Vérifiez si toutes les catégories des produits dans le panier correspondent aux catégories du coupon
+                $all_categories_match = array_diff($cart_product_categories, $coupon_categories);
 
-            if ($code->minimum_spend !== null) {
-            if ($total >= $code->minimum_spend) {
-                if($code->categories !== null && $all_categories_match){
-                    if($code->type =='0'){ //fix
-                        $total_promo = $total - $code->value ;
+                if ($code->minimum_spend !== null) {
+                if ($total >= $code->minimum_spend) {
+                    if($code->categories !== null && $all_categories_match){
+                        if($code->type =='0'){ //fix
+                            $total_promo = $total - $code->value ;
 
+                        }
+                        else{//pourcentage
+
+                            $total_promo =  $total - ( $total * $code->value)/100 ;
+
+                        }
                     }
-                    else{//pourcentage
+                    else{
+                        if($code->type =='0'){ //fix
+                            $total_promo = $total - $code->value ;
 
-                        $total_promo =  $total - ( $total * $code->value)/100 ;
+                        }
+                        else{//pourcentage
 
+                            $total_promo =  $total - ( $total * $code->value)/100 ;
+
+                        }
                     }
+                    }
+
                 }
                 else{
-                    if($code->type =='0'){ //fix
-                        $total_promo = $total - $code->value ;
+                    if($code->categories !== null && $all_categories_match){
+                        if($code->type =='0'){ //fix
+                            $total_promo = $total_promo - $code->value ;
 
+                        }
+                        else{//pourcentage
+
+                            $total_promo =  $total - ( $total * $code->value)/100 ;
+
+                        }
                     }
-                    else{//pourcentage
+                    else{
+                        if($code->type =='0'){ //fix
+                            $total_promo = $total - $code->value ;
 
-                        $total_promo =  $total - ( $total * $code->value)/100 ;
+                        }
+                        else{//pourcentage
 
-                    }
-                }
-                }
+                            $total_promo =  $total - ( $total * $code->value)/100 ;
 
-            }
-            else{
-                if($code->categories !== null && $all_categories_match){
-                    if($code->type =='0'){ //fix
-                        $total_promo = $total_promo - $code->value ;
-
-                    }
-                    else{//pourcentage
-
-                        $total_promo =  $total - ( $total * $code->value)/100 ;
-
-                    }
-                }
-                else{
-                    if($code->type =='0'){ //fix
-                        $total_promo = $total - $code->value ;
-
-                    }
-                    else{//pourcentage
-
-                        $total_promo =  $total - ( $total * $code->value)/100 ;
-
+                        }
                     }
                 }
             }
         }
+
 
         //promo panier explicite
         $carts_promo_explicite = Promocart::whereDate('date_debut', '<=', $currentDate)

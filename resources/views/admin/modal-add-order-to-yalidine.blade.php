@@ -55,11 +55,11 @@
                         <div class="col-md-6 mt-2">
                             <label>Livraison :</label> <br>
                               <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" @if($order->is_stopdesk) checked @else disabled @endif>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" @if($order->is_stopdesk == NULL) checked @else disabled @endif>
                                 <label class="form-check-label" for="inlineRadio1">Au bureau</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" @if($order->is_stopdesk) disabled @else checked @endif>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" @if($order->is_stopdesk) checked @else disabled @endif>
                                 <label class="form-check-label" for="inlineRadio2">A domicile</label>
                               </div>
                         </div>

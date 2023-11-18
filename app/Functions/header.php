@@ -20,7 +20,7 @@ if(Auth::user()){
             if ($existingCartItem) {
                 // Si le produit existe, augmenter la quantité
                 $existingCartItem->qte += $cartitem_session->qte;
-                $existingCartItem->price =  $cartitem_session->qte * $cartitem_session->price;
+                $existingCartItem->total =  $cartitem_session->qte * $cartitem_session->price;
                 $existingCartItem->save();
             } else {
                 // Sinon, créer un nouvel élément dans le panier de l'utilisateur
