@@ -563,7 +563,7 @@
                                 else{
                                     alert("Le produit existe déja dans votre panier");
                                 }
-                                alert(res.total);
+
                                 $(".total").text(res.total +' Da');
                                }
 
