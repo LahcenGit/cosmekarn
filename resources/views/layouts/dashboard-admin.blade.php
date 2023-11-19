@@ -68,7 +68,7 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="index.html" class="brand-logo">
+            <a href="{{asset('/')}}" class="brand-logo">
                 <img class="brand-title" src="{{ asset('dashboard/images/logo-text-white.png') }}" alt="">
             </a>
 

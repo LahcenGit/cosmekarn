@@ -25,7 +25,7 @@ class CheckoutController extends Controller
     }
 
     public function index(Request $request){
-
+        
         $cart = Cart::find($request->cart_id);
         $cartitems = Cartitem::where('cart_id',$request->cart_id)->get();
         $nbr_cartitem = $cartitems->count();
