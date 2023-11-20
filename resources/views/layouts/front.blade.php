@@ -98,7 +98,7 @@
                         <div class="col-lg-2">
                             <div class="logo">
                                 <a style="cursor: pointer">
-                                   <a href="{{asset('/')}}"> <img src="{{ asset('front/assets/img/logo/logo.png') }}" alt="Brand Logo"></a>
+                                   <a href="{{asset('/')}}"> <img style="max-width: 70%;" src="{{ asset('front/assets/img/logo/logo-cosmekarn.png') }}" alt="cosmekarn Logo"></a>
                                 </a>
                             </div>
                         </div>
@@ -498,7 +498,6 @@
 
                         <div class="minicart-button">
                             <a href="{{ asset('/carts') }}"><i class="fa fa-shopping-cart"></i> Voir le panier</a>
-                            <a href="cart.html"><i class="fa fa-share"></i> Validation</a>
                         </div>
 
                 </div>

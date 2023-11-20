@@ -50,12 +50,12 @@
                                                 <tr id="item-{{$cartitem->id}}">
                                                     <td class="pro-thumbnail"><a href="{{ asset('product/'.$cartitem->productline->product->slug) }}"><img class="img-fluid" src="{{asset('storage/images/products/'.$cartitem->productline->product->images[0]->lien)}}" alt="Product" /></a></td>
                                                     <td class="pro-title"><a href="{{ asset('product/'.$cartitem->productline->product->slug) }}">{{ $cartitem->productline->product->designation }} @if($cartitem->productline->attributeLine) - {{ $cartitem->productline->attributeLine->value }}@endif</a></td>
-                                                    <td class="pro-price"><span>{{ number_format($cartitem->price) }} Da</span></td>
+                                                    <td class="pro-price"><span> <b> {{ number_format($cartitem->price) }} </b> Da</span></td>
                                                     <td class="pro-quantity">
                                                         <div class="pro-qty"><input type="text" value="{{ $cartitem->qte }}" name="qtes[]" min="1"></div>
                                                         <input type="hidden" name="cartitem[]" value="{{$cartitem->id}}">
                                                     </td>
-                                                    <td class="pro-subtotal"><span>{{ number_format($cartitem->total) }} Da</span></td>
+                                                    <td class="pro-subtotal"><span> <b> {{ number_format($cartitem->total) }} </b> Da</span></td>
                                                     <td class="pro-remove"><a class="delete-item" data-id="{{$cartitem->id}}"><i class="fa fa-trash-o"></i></a></td>
                                                 </tr>
 
@@ -73,7 +73,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row d-flex justify-content-end">
                         <div class="col-lg-5 ml-auto">
                             <form action="{{url('checkout')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
@@ -85,7 +85,7 @@
                                             <table class="table">
                                                 <tr>
                                                     <td>Total</td>
-                                                    <td>{{ number_format($total->sum) }} Da</td>
+                                                    <td style="font-weight: 800; font-size:30px; color:#E41F85"> {{ number_format($total->sum,2) }}  Da</td>
                                                 </tr>
 
                                             </table>

@@ -40,10 +40,15 @@ class LoginController extends Controller
 
      public function redirectTo(){
         if(Auth::user()->type == 'customer'){
-            return '/';
+            if (session('visited_carts_page')){
+                return '/carts';
+            }
+            else{
+                return '/';
+            }
         }
         else if(Auth::user()->type == 'admin'){
-            return 'admin/';
+            return '/admin';
         }
      }
 
@@ -56,7 +61,8 @@ class LoginController extends Controller
     public function loginRegister(){
 
         include(app_path() . '\Functions\header.php');
-        return view('login-register',compact('cart_id','cartitems','nbr_cartitem','total','categories','favoritelines','nbr_favoritelines'));
+        $visited_carts_page = session('visited_carts_page');
+        return view('login-register',compact('cart_id','cartitems','nbr_cartitem','total','categories','favoritelines','nbr_favoritelines','visited_carts_page'));
 
     }
 }

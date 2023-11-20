@@ -15,6 +15,7 @@ class CartController extends Controller
 
     public function index(){
         include(app_path() . '\Functions\header.php');
+        session(['visited_carts_page' => true]);
         return view('carts',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id'));
     }
 

@@ -27,6 +27,20 @@
             <div class="member-area-from-wrap">
                 <div class="row">
                     <!-- Login Content Start -->
+                    @if($visited_carts_page)
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Vous devez vous connecter d'abord pour continuer vos achats !
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{$error}}
+                            </div>
+                        @endforeach
+                    @endif
+
                     <div class="col-lg-6">
                         <div class="login-reg-form-wrap">
                             <h5>Connexion</h5>
@@ -87,15 +101,11 @@
                                 <div class="single-input-item">
                                     <div class="login-reg-form-meta">
                                         <div class="remember-meta">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="subnewsletter">
-                                                <label class="custom-control-label" for="subnewsletter">S'inscrir à notre newsletter</label>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="single-input-item">
-                                    <button class="btn btn-sqr">S'inscrir</button>
+                                    <button class="btn btn-sqr">S'inscrire</button>
                                 </div>
                             </form>
                         </div>
