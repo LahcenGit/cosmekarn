@@ -33,7 +33,7 @@
                                         <input type="text"  class="form-control input-default "
                                           value="{{old('designation')}}" name="designation" id="designation" placeholder="designation" >
                                     </div>
-                                    <div class="form-group col-md-6">
+                                   {{-- <div class="form-group col-md-6">
                                         <label>Produits* :</label>
                                         <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="products[]" multiple>
                                             <option value=0>Nothing selected</option>
@@ -41,8 +41,32 @@
                                                 <option value="{{$product->id}}" @if (old('product') == $product->id ) selected @endif >{{$product->designation}}</option>
                                                 @endforeach
                                         </select>
+                                    </div>--}}
+                                </div>
+
+                               <div class="form-row" id="dynamic_field">
+                                    
+                                    <div class="form-group col-md-4">
+                                        <label>Produits* :</label>
+                                        <select class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="products[]" >
+                                            <option value=0>Nothing selected</option>
+                                                @foreach($products as $product)
+                                                <option value="{{$product->id}}" @if (old('product') == $product->id ) selected @endif >{{$product->designation}}</option>
+                                                @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label>qte* :</label>
+                                        <input type="text"  class="form-control input-default "
+                                          value="{{old('designation')}}" name="qte-p" id="designation" placeholder="quantité" >
+                                    </div>
+
+                                    <div class="form-group col-md-1">
+                                        <button type="button" name="add" id="add" class="btn btn-success mt-4"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
+                                
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label>Prix:</label>
@@ -137,6 +161,27 @@
 
 
 @endsection
+
+@push('add-pack-promo')
+<script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+    $('#add').click(function(){  
+        i++;  
+        $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+    });  
+
+    $(document).on('click', '.btn_remove', function(){  
+        var button_id = $(this).attr("id");   
+        $('#row'+button_id+'').remove();  
+    });  
+
+</script>
+@endpush
+
 
 
 
