@@ -79,6 +79,7 @@ Route::get('/edit-status-order/{id}', [App\Http\Controllers\OrderController::cla
 Route::post('/update-status', [App\Http\Controllers\OrderController::class, 'updateStatus']);
 Route::get('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'index']);
 Route::post('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'generateReport']);
+Route::resource('/admin/comments',AdminCommentController::class)->middleware('can:admin');
 Route::resource('/admin',AdminController::class);
 
 });
@@ -92,7 +93,6 @@ Route::get('/login-register', [App\Http\Controllers\Auth\LoginController::class,
 Route::resource('/carts',CartController::class);
 Route::resource('/favorite',FavoriteController::class);
 Route::resource('/',HomeController::class);
-Route::resource('/admin/comments',AdminCommentController::class)->middleware('can:admin');
 Route::resource('/admin/delivery-costs',DeliverycostController::class)->middleware('can:admin');
 Route::get('/update-delivery-cost/{id}/{price_b}/{price_a}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
 Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
