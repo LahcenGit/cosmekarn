@@ -32,35 +32,46 @@
                             Vous devez vous connecter d'abord pour continuer vos achats !
                         </div>
                     @endif
-
-                    @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{$error}}
-                            </div>
-                        @endforeach
-                    @endif
-
                     <div class="col-lg-6">
                         <div class="login-reg-form-wrap">
                             <h5>Connexion</h5>
                             <form action="{{ route('login') }}" method="post">
-                            @csrf
+                                @csrf
                                 <div class="single-input-item">
-                                    <input type="email" name="email" placeholder="Email" required />
+                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" required />
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
-                                <div class="single-input-item">
-                                    <input type="password" name="password" placeholder="Mot de passe" required />
+                                <div class="single-input-item input-group">
+                                    <input type="password" id="password-login" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Mot de passe" required />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-eye-slash toggle-password" onclick="togglePassword('password-login', this)"></i>
+                                        </span>
+                                    </div>
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
+                                @if($error)
+                                    <div class="alert alert-danger mt-3" role="alert">
+                                        <span style="font-size: 15px;">  {{$error}}  </span>
+                                    </div>
+                                @endif
                                 <div class="single-input-item">
                                     <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
                                         <div class="remember-meta">
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="rememberMe">
+                                                <input type="checkbox" class="custom-control-input" id="rememberMe" name="remember_me">
                                                 <label class="custom-control-label" for="rememberMe">Se souvenir de moi</label>
                                             </div>
                                         </div>
-                                        <a href="#" class="forget-pwd">mot de passe oublié?</a>
+                                        <a href="#" class="forget-pwd">Mot de passe oublié?</a>
                                     </div>
                                 </div>
                                 <div class="single-input-item">
@@ -78,26 +89,59 @@
                             <form action="{{ route('register') }}" method="post">
                             @csrf
                                 <div class="single-input-item">
-                                    <input name="name" type="text" placeholder="Nom complet" required/>
+                                    <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Nom complet" />
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                 </div>
                                 <div class="single-input-item">
-                                    <input name="phone" type="text" placeholder="N° téléphone" required />
+                                    <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror"   value="{{ old('phone') }}" placeholder="N° téléphone" required />
+                                       @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                 </div>
                                 <div class="single-input-item">
-                                    <input  name="email" type="email" placeholder="Email" required />
+                                    <input  name="email" type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email" required />
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="single-input-item">
-                                            <input type="password" name="password" placeholder="mot de passe" required />
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item input-group">
+                                                <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Mot de passe" required />
+                                                <i class="fa fa-eye-slash toggle-password" onclick="togglePassword('password', this)"></i>
+                                                @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div>
+                                                @if(!$errors->any())
+                                                <p>8 caractères</p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item input-group">
+                                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Retaper le mot de passe" required />
+                                                <i class="fa fa-eye-slash toggle-password" onclick="togglePassword('password_confirmation', this)"></i>
+                                                @error('password_confirmation')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="single-input-item">
-                                            <input type="password" name="password_confirmation" placeholder="Retaper le mot de passe" required />
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="single-input-item">
                                     <div class="login-reg-form-meta">
                                         <div class="remember-meta">

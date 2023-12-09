@@ -14,64 +14,29 @@
     <!-- hero slider area start -->
     <section class="slider-area">
         <div class="hero-slider-active slick-arrow-style slick-arrow-style_hero slick-dot-style">
-
-
-            <!-- single slider item start -->
-            <div class="hero-single-slide hero-overlay">
-                <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide1.jpg') }}">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="hero-slider-content slide-3">
-                                    <h2 class="slide-title">FOND DE TEINT <span>PERFECTION</span></h2>
-                                    <h4 class="slide-desc">Une formule tout simplement prodigieuse qui illuminera votre visage instantanément !</h4>
-                                    <a style="cursor: pointer" class="btn btn-hero">Découvrir</a>
+        <!-- single slider item start -->
+            @foreach($sliders as $slider)
+                <div class="hero-single-slide hero-overlay">
+                    <div class="hero-slider-item bg-img" data-bg="{{ asset('storage/uploads/sliders/'.$slider->image) }}">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @if($slider->text == 0)
+                                    <div class="hero-slider-content slide-3">
+                                    @else
+                                    <div class="hero-slider-content slide-2 float-md-end float-none pl-4">
+                                    @endif
+                                    <h2 class="slide-title">{{ $slider->title }}</h2>
+                                    <h4 class="slide-desc">{{ $slider->description }}</h4>
+                                    <a style="cursor: pointer" class="btn btn-hero">{{ $slider->button_value }}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
             <!-- single slider item end -->
-
-            <!-- single slider item start -->
-            <div class="hero-single-slide hero-overlay">
-                <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide2.jpg') }}">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="hero-slider-content slide-1">
-                                    <h2 class="slide-title">CIRE FROIDE JAMBES <span></span></h2>
-                                    <h4 class="slide-desc">Des bandes de cire froide prêtes à l'emploi</h4>
-                                    <a style="cursor: pointer" class="btn btn-hero">Acheter</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single slider item start -->
-
-
-
-
-            <!-- single slider item start -->
-            <div class="hero-single-slide hero-overlay">
-                <div class="hero-slider-item bg-img" data-bg="{{ asset('front/assets/img/slider/home1-slide3.jpg') }}">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="hero-slider-content slide-2 float-md-end float-none pl-4">
-                                    <h2 class="slide-title text-white" >Pack Relax Men <span></span></h2>
-                                    <h4 class="slide-desc  text-white">Gel Douche Surgras, Shampooing L'original Vert, Lotion Verte Force,Whisky Men... </h4>
-                                    <a style="cursor: pointer" class="btn btn-hero">Acheter</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- single slider item start -->
         </div>
     </section>
     <!-- hero slider area end -->
@@ -505,9 +470,9 @@
                                         <div class="product-item">
                                             <figure class="product-thumb">
                                                 <a href="{{ asset('product/'.$promopack->product->slug) }}">
-                                                    @if(optional($product->images->first())->lien)
-                                                        <img class="pri-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
-                                                        <img class="sec-img" src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" alt="product">
+                                                    @if(optional($promopack->product->images->first())->lien)
+                                                        <img class="pri-img" src="{{asset('storage/images/products/'.$promopack->product->images[0]->lien)}}" alt="product">
+                                                        <img class="sec-img" src="{{asset('storage/images/products/'.$promopack->product->images[0]->lien)}}" alt="product">
                                                     @else
                                                         <img class="pri-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">
                                                         <img class="sec-img" src="{{asset('/product-cosmekarn.jpg')}}" alt="product">

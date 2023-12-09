@@ -42,7 +42,7 @@ class RegisterController extends Controller
         }
 
     }
-    
+
 
     /**
      * Create a new controller instance.
@@ -68,7 +68,19 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => 'required|unique:users'
 
-        ]);
+        ],
+        [
+            'password.min' => '8 caractères',
+            'email.unique' => 'Ce email existe déja',
+            'email.email' => 'e-mail doit être une adresse e-mail valide.',
+            'phone.unique' => 'Ce numéro existe déja',
+            'phone.required' =>'Ce champ est obligatoire',
+            'password.required'=>'le mot de passe est obligatoire',
+            'name.required' => 'Ce champ est obligatoire',
+            'email.required' => 'Ce champ est obligatoire',
+            'phone.required' => 'Ce champ est obligatoire',
+        ]
+    );
     }
 
     /**

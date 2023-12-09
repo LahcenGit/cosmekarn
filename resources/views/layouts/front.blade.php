@@ -112,24 +112,15 @@
                                     <nav class="desktop-menu">
                                         <ul>
                                             <li><a href="{{ asset('/') }}">Accueil</a></li>
-                                            <li><a style="cursor: pointer">Catégories <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                    @foreach($categories as $category)
-                                                        @if($category->childCategories)
-                                                            <li><a style="cursor: pointer">{{ $category->designation }}<i class="fa fa-angle-right"></i></a>
-                                                                <ul class="dropdown">
-                                                                    @foreach($category->childCategories as $childCategory)
-                                                                        <li><a href="{{ asset('category-products/'.$childCategory->id) }}">{{ $childCategory->designation }}</a></li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </li>
-                                                        @else
-                                                        <li><a href="{{ asset('category-products/'.$category->id) }}">{{ $category->designation }}</a></li>
-                                                        @endif
-
+                                            @foreach($categories as $category)
+                                                <li><a href="{{ asset('category-parent-products/'.$category->id) }}">{{ $category->designation }} <i class="fa fa-angle-down"></i></a>
+                                                    <ul class="dropdown">
+                                                        @foreach($category->childCategories as $childCategory)
+                                                        <li><a href="{{ asset('category-products/'.$childCategory->id) }}">{{ $childCategory->designation }}</a></li>
                                                     @endforeach
-                                                </ul>
-                                            </li>
+                                                    </ul>
+                                                </li>
+                                            @endforeach
                                             <li><a href="{{ asset('/tracking') }}"> Tracking </a></li>
                                             <li><a href="{{ asset('/about') }}"> Qui sommes-nous ? </a></li>
 
@@ -617,7 +608,22 @@
     });
 
 </script>
+<script>
+    function togglePassword(id, icon) {
+        const passwordInput = document.getElementById(id);
+        const iconClassList = icon.classList;
 
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            iconClassList.remove('fa-eye-slash');
+            iconClassList.add('fa-eye');
+        } else {
+            passwordInput.type = 'password';
+            iconClassList.remove('fa-eye');
+            iconClassList.add('fa-eye-slash');
+        }
+    }
+</script>
 @stack('select-icon-script')
 @stack('select-icon-indice')
 @stack('add-cart-scripts')

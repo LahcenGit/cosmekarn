@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use TheHocineSaad\LaravelChargilyEPay\Models\Epay_Invoice;
 use App\Http\Controllers\GetCartAndFavoriteDataController;
+use App\Models\Slider;
+
 class HomeController extends Controller
 {
     //
@@ -34,9 +36,9 @@ class HomeController extends Controller
         })->inRandomOrder()->take(4)->get();
 
         $promopacks = Promopack::orderBy('created_at','desc')->get();
-
+        $sliders = Slider::orderBy('flag','asc')->get();
         include(app_path() . '\Functions\header.php');
-        return view('welcome',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id','products','promopacks','random_popular_products','random_best_selling_products','random_products_on_sale'));
+        return view('welcome',compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id','products','promopacks','random_popular_products','random_best_selling_products','random_products_on_sale','sliders'));
 
     }
     public function about(){
@@ -46,11 +48,24 @@ class HomeController extends Controller
     }
 
     public function categoryProducts($id){
-        $category = Category::find($id);
-        $products = Productcategory::where('category_id',$id)->paginate(16);
-        $count_products = Productcategory::where('category_id',$id)->count();
+        $category = Category::with('childCategories')->find($id);
+        $products = $category->products()->paginate(16);
+        $count_products = $products->total();
         include(app_path() . '\Functions\header.php');
         return view('category-products', compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id','category','products','count_products'));
     }
 
+    public function allProductCategory($categorieId)
+    {
+        $category = Category::with('childCategories', 'products')->find($categorieId);
+
+        $categoryIds = $category->childCategories->pluck('id')->prepend($category->id);
+
+        $products = Product::whereHas('categories', function ($query) use ($categoryIds) {
+            $query->whereIn('category_id', $categoryIds);
+        })->paginate(16);
+        $count_products = $products->total();
+        include(app_path() . '\Functions\header.php');
+        return view('category-products', compact('favoritelines','nbr_favoritelines','categories','cartitems','nbr_cartitem','total','cart_id','category','products','count_products'));
+    }
 }

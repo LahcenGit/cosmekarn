@@ -13,7 +13,10 @@ class Productcategory extends Model
 
         return $this->belongsTo(Product::class,'product_id');
     }
-
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
     public function getPrice(){
         $price = Productline::where('product_id',$this->product_id)->min('price');
         return $price;

@@ -469,7 +469,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         });
-    $(".select-icon").click(function() {
+        $(".select-icon").click(function() {
         $('.color-categories li').removeAttr('class');
         var title = $(this).attr('title');
         $('.color-title b').html(title);
@@ -477,28 +477,29 @@
         $("#li-"+id).addClass("selected-icon");
         $('#related-img-'+id).trigger('click');
 
-        $.ajax(
-                {
-                    url: '/get-qte/'+id,
-                    type: "GET",
-                    success: function (res) {
-                        if(res.qte > 0){
-                            $("#availability-icon").removeClass("fa-times-circle").addClass("fa-check-circle");
-                            $("#qte").text(res.qte  + " dans le stock");
-                            $(".addToCartBtn").removeClass("disabled");
+        $.ajax({
+            url: '/get-qte/'+id,
+            type: "GET",
+            success: function (res) {
+                if (res.qte > 0) {
+                    $("#availability-icon").removeClass("fa-times-circle").addClass("fa-check-circle");
+                    $("#qte").text(res.qte  + " dans le stock");
+                    $(".addToCartBtn").removeClass("disabled");
 
-                        }
-                        else{
-                            $("#availability-icon").removeClass("fa-check-circle").addClass("fa-times-circle");
-                            $("#qte").text("Repture de stock");
-                            $(".addToCartBtn").addClass("disabled");
-                            $(".addToCartBtn").off("click");
+                    // Réactiver l'événement "click" du bouton
+                    $(".addToCartBtn").on("click", addToCartFunction);
+                } else {
+                    $("#availability-icon").removeClass("fa-check-circle").addClass("fa-times-circle");
+                    $("#qte").text("Rupture de stock");
+                    $(".addToCartBtn").addClass("disabled");
 
-                        }
-
-                    }
-                });
+                    // Désactiver l'événement "click" du bouton
+                    $(".addToCartBtn").off("click");
+                }
+            }
+        });
     });
+
 </script>
 @endpush
 
