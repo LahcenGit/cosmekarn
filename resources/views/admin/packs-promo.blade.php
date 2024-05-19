@@ -22,7 +22,7 @@
         <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Table des packs promo</h4>
+                        <h4 class="card-title">Les  packs promo</h4>
                         <a href="{{url('/admin/pack-promo/create')}}" type="button"  class="btn btn-primary mt-3">Ajouter</a>
                     </div>
                     <div class="card-body">

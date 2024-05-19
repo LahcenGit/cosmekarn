@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmationMail;
 use App\Models\Cart;
 use App\Models\Cartitem;
 use App\Models\Category;
@@ -15,6 +16,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use TheHocineSaad\LaravelChargilyEPay\Models\Epay_Invoice;
 use TheHocineSaad\LaravelChargilyEPay\Epay_Webhook;
 
@@ -95,11 +97,13 @@ class PaymentController extends Controller
     }
 
     if($request->paymentmethod == 'EDAHABIA' || $request->paymentmethod == 'CIB'){
+        Mail::to(Auth::user()->email)->send(new OrderConfirmationMail());
         return redirect($checkout_url);
     }
 
     else{
         include(app_path() . '\Functions\header.php');
+        Mail::to(Auth::user()->email)->send(new OrderConfirmationMail());
         return view('success-order',compact('cartitems','nbr_cartitem','total','categories','favoritelines','nbr_favoritelines'));
     }
 

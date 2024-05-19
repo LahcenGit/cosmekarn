@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use TheHocineSaad\LaravelAlgereography\Models\Wilaya;
@@ -38,5 +39,11 @@ class AdminCustomerController extends Controller
         $user->delete();
         return redirect('admin/customers');
 
+    }
+
+    public function customerProfil($id){
+        $user = User::find($id);
+        $orders = Order::where('user_id',$id)->get();
+        return view('admin.customer-profil',compact('user','orders'));
     }
 }

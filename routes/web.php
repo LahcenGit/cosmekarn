@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminCommentController;
+use App\Http\Controllers\AdminNewsLetter;
 use App\Http\Controllers\PromopackController;
 use App\Http\Controllers\PromocartController;
 use App\Http\Controllers\DeliverycostController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\MarkController;
 use App\Http\Controllers\CouponcodeController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
 use App\Models\Couponcode;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +44,9 @@ Route::get('/success-payment', function () {
     return view('success');
 });
 
+Route::get('/customer-profil', function () {
+    return view('admin.customer-profil');
+});
 
 Route::get('/success-order', function () {
     $cartitems = null;
@@ -66,6 +71,8 @@ Route::resource('/admin/payments',AdminPaymentController::class);
 Route::resource('/admin/marks',MarkController::class);
 Route::resource('/admin/coupons',CouponcodeController::class);
 Route::resource('/admin/sliders',SliderController::class);
+Route::resource('/admin/setting',SettingController::class);
+Route::resource('/admin/newsletter',AdminNewsLetter::class);
 Route::get('pack-details/{id}', [PromopackController::class, 'packDetail']);
 Route::get('cart-details/{id}', [PromocartController::class, 'cartDetail']);
 Route::get('order-details/{id}', [OrderController::class, 'orderDetails']);
@@ -82,6 +89,9 @@ Route::post('/update-status', [App\Http\Controllers\OrderController::class, 'upd
 Route::get('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'index']);
 Route::post('/admin/generate-report', [App\Http\Controllers\ReportController::class, 'generateReport']);
 Route::resource('/admin/comments',AdminCommentController::class)->middleware('can:admin');
+Route::get('/orders-filter', [App\Http\Controllers\OrderController::class, 'filter']);
+Route::get('/products-filter', [App\Http\Controllers\ProductController::class, 'filter']);
+Route::get('/admin/customer-profil/{id}', [App\Http\Controllers\AdminCustomerController::class, 'customerProfil']);
 Route::resource('/admin',AdminController::class);
 
 });

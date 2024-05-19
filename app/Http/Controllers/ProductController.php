@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Image;
 use App\Models\Mark;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Productcategory;
 use App\Models\Productline;
@@ -32,7 +33,8 @@ class ProductController extends Controller
     */
     public function index(){
      $products = Product::all();
-     return view('admin.products',compact('products'));
+     $orders = Order::all();
+     return view('admin.products',compact('products','orders'));
     }
 
     public function create(){
@@ -54,6 +56,7 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->point = $request->point;
+        $product->status = $request->status;
         $product->slug = str::slug($request->designation);
         if($request->brouillon == '1'){
             $product->is_brouillon = 1;
@@ -356,6 +359,20 @@ class ProductController extends Controller
     public function getQte($id){
      $productline = Productline::find($id);
      return $productline;
+    }
+
+
+    public function filter(Request $request)
+    {
+        $status = $request->status;
+        if($status == 4){
+            $products = Product::orderBy('created_at' ,'desc')->get();
+        }
+        else{
+            $products = Product::where('status', $status)->get();
+        }
+
+        return view('admin.products-partial', compact('products'));
     }
 
 }

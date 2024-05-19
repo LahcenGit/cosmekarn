@@ -39,6 +39,7 @@
                                                 {{csrf_field()}}
                                                 {{method_field('DELETE')}}
                                             <div class="d-flex">
+                                                <a href="{{url('admin/customer-profil/'.$customer->id)}}" class="btn btn-success shadow btn-xs sharp mr-1"><i class="fa fa-eye"></i></a>
                                                 <a href="{{url('admin/customers/'.$customer->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                                 <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
                                             </div>
@@ -55,7 +56,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 

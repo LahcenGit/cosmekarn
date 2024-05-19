@@ -22,11 +22,24 @@
         <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Table des commandes</h4>
+                        <h4 class="card-title">Les commandes</h4>
                         <a href="{{url('/admin/add-order-step-one')}}" type="button"  class="btn btn-primary mt-3">Ajouter</a>
+
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div style="margin-bottom: 20px;">
+
+                            <label> Statut :</label>
+                                <select id="statusFilter">
+                                    <option value="" disabled selected>Séléctionnez...</option>
+                                    <option value="4">Tous</option>
+                                    <option value="0">En attente</option>
+                                    <option value="1">Livraison...</option>
+                                    <option value="2">Livré</option>
+                                    <option value="3">Annulé</option>
+                                </select>
+                        </div>
+                       <div class="table-responsive">
                             <table id="example3" class="display" style="min-width: 845px">
                                 <thead>
                                     <tr>
@@ -37,6 +50,8 @@
                                         <th>Téléphone</th>
                                         <th>Méthode de paiement</th>
                                         <th>Code Tracking</th>
+                                        <th>Date</th>
+                                        <th>Remarque</th>
                                         <th>Statut</th>
                                         <th>Action</th>
                                     </tr>
@@ -51,6 +66,8 @@
                                             <td>{{ $order->phone }}</td>
                                             <td>{{ $order->payment_method }}</td>
                                             <td>{{ $order->tracking_code }}</td>
+                                            <td>{{ $order->created_at->format('Y-m-d H:m') }}</td>
+                                            <td>{{ $order->note }}</td>
                                             @if($order->status == 0)
                                             <td><span class="badge badge-warning">En attente</span></td>
                                             @elseif($order->status == 1)
@@ -71,7 +88,7 @@
                                                     @endif
                                                     <a href="#" data-id="{{ $order->id }}" class="btn btn-info shadow btn-xs sharp mr-1 edit-status"><i class="fab fa-digital-ocean"></i></a>
                                                     <a href="{{url('admin/orders/'.$order->id.'/edit')}}" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fas fa-pencil-alt"></i></a>
-                      
+
                                                     <form action="{{url('admin/orders/'.$order->id)}}" method="post">
                                                         {{csrf_field()}}
                                                         {{method_field('DELETE')}}
@@ -196,5 +213,25 @@ $("#modal-edit-status-order").on('click','.editStatus',function(e){
 
 
 });
+</script>
+@endpush
+@push('filter-status')
+<script>
+    $(document).ready(function() {
+        $('#statusFilter').change(function() {
+            var status = $(this).val(); // Récupérer la valeur du statut sélectionné
+
+            // Faire une requête Ajax pour récupérer les commandes filtrées
+            $.ajax({
+                url: '/orders-filter',
+                type: 'GET',
+                data: { status: status },
+                success: function(response) {
+                    // Mettre à jour le contenu du tableau avec les nouvelles données
+                    $('#example3 tbody').html(response);
+                }
+            });
+        });
+    });
 </script>
 @endpush

@@ -14,7 +14,7 @@
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/admin')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Ajouter produit</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit produit</a></li>
                 </ol>
             </div>
         </div>
@@ -36,7 +36,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Désignation*:</label>
-                                        <input type="text"  class="form-control input-default " 
+                                        <input type="text"  class="form-control input-default "
                                           value="{{ $product->designation }}" name="designation" id="designation" placeholder="designation" >
                                     </div>
                                     <div class="form-group col-md-6">
@@ -217,7 +217,7 @@
                         <input type="checkbox" class="form-check-input" id="checkVar" value="oui" name="check" >
                         <h4 class="card-title">Variants ?</h4>
                     </div>
-                    
+
                     <div class="card-body " id="variation" style="display: none;">
                         <div class="text-center">
                             <a style="cursor: pointer" class="btn btn-success add-attribute " style=" background-color: #006e40; border-color:#006e40;"> <span style="color:#fff!important;">Gérer les attributs</span> </a>
@@ -281,7 +281,7 @@
                                     </tbody>
                                 </table>
                              </div>
-                       
+
                         </div>
                     </div>
                 </div>
@@ -316,18 +316,18 @@
        $('input[value="'+value+'"]' ).prop( "checked", true );
     });
 
- 
+
 
 </script>
 
 <script>
 
-    var images =  JSON.parse($('#preloaded-images').val()); 
-    var image_p =  JSON.parse($('#preloaded-image-p').val()); 
+    var images =  JSON.parse($('#preloaded-images').val());
+    var image_p =  JSON.parse($('#preloaded-image-p').val());
 
     let preloaded_p = image_p;
     let preloaded = images;
-    
+
 
 
 	$('.input-photoPrincipale').imageUploader({
@@ -347,7 +347,7 @@
 		maxFiles: 10
 	});
 
-	
+
 
 </script>
 
@@ -360,7 +360,7 @@
                     required: true,
                     maxlength: 1
                  },
-                 
+
             },
             messages: {
                 designation: {
@@ -373,7 +373,7 @@
         });
     });
  </script>
- 
+
  <script>
 
     $( "#checkVar" ).prop( "checked", false );
@@ -385,7 +385,7 @@
     }
 
     $("#checkVar").on('change',function(){
- 
+
      if(this.checked) {
          $("#variation").css("display", "block");
          $("#select-content").prop('required',true);
@@ -396,7 +396,7 @@
          $('.tradded').remove();
          }
     });
- 
+
   </script>
 @endpush
 
@@ -410,7 +410,7 @@
     });
 
     $("#select-content-individuel").change(function() {
-       
+
         $('#select-value-individuel').prop('disabled', false);
         var id = $(this).val();
         var data ="";
@@ -431,7 +431,7 @@
         });
     });
     $("#select-content").change(function() {
-       
+
 
         var id = $(this).val();
         var data ="";
@@ -475,7 +475,7 @@
 		});
 
 	});
-	
+
 </script>
 @endpush
 

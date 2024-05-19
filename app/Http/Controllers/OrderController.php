@@ -278,4 +278,18 @@ class OrderController extends Controller
         return $order;
      }
 
+
+     public function filter(Request $request)
+        {
+            $status = $request->status;
+            if($status == 4){
+                $orders = Order::orderBy('created_at' ,'desc')->get();
+            }
+            else{
+                $orders = Order::where('status', $status)->get();
+            }
+
+            return view('admin.orders-partial', compact('orders'));
+        }
+
 }
